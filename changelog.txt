@@ -1,0 +1,6 @@
+30/01/2022
+- Initial Commit 
+
+07/02/2022
+- Responsive UI design Started
+- System Design of Back-end Started
