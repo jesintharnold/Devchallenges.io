@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Namebox from "./component/Namebox";
+import Modal from "./component/Createrchannel";
+import Chatmsg from "./component/Message";
 
 
 function App() {
@@ -10,21 +12,21 @@ function App() {
     channelId:"000000001",
     checked:false
   });
+  const [modal,setModal]=useState(false);
 
 
 
   return (
-    <div className="min-w-full min-h-screen h-0  relative lg:flex">
-
-
-    <div className={"fixed left-0 top-0 bottom-0  z-50 min-h-full w-[16rem] lg:relative bg-side text-white  lg:w-72   transition duration-200 ease-in-out lg:translate-x-0 "+(side?'':'-translate-x-full')}>
+    <div className="min-w-full min-h-screen h-0 relative lg:flex">
+    
+    <div className={"fixed left-0 top-0 bottom-0 z-50 min-h-full w-[16rem] lg:relative bg-side text-white lg:w-72 transition duration-200 ease-in-out lg:translate-x-0 "+(side?'':'-translate-x-full')}>
    
     {/* Front-Page-Channels-List */}
-    <div className="z-20  lg:flex flex-col h-[90%]">
+    <div className="z-20 lg:flex flex-col h-[90%]">
     
-     <div className="flex text-center items-center px-4 py-2 justify-between shadow-ol  relative">
+     <div className="flex text-center items-center px-4 py-2 justify-between shadow-ol relative">
      <span className="text-xl font-sans font-bold">Channels</span>  
-     <span className="material-icons-outlined bg-main p-1 rounded hover:bg-gray-500 cursor-pointer">add</span>  
+     <span className="material-icons-outlined bg-main p-1 rounded hover:bg-gray-500 cursor-pointer" onClick={()=>setModal(!modal)}>add</span>  
      {side?<span onClick={()=>{setSide(!side);setChannel({...channel,checked:false})}} className="material-icons-outlined absolute font-thin  -right-12 p-2 bg-side rounded lg:hidden" >close</span>:''}
      </div> 
  
@@ -33,7 +35,17 @@ function App() {
      <input type="text" placeholder="Search" className="flex-1 w-0 caret-caert overflow-hidden bg-transparent text-caert text-lg font-sans outline-none"/>
      </div>
 
-     <div className="overflow-y-scroll scroll-hide  px-4 py-2 h-[90%]">  
+     <div className="overflow-y-scroll scroll-hide px-4 py-2 h-[90%]">  
+       <Namebox channelName="Front-end developers" channelID="00000001" setChannel={setChannel}/> 
+       <Namebox channelName="Front-end developers" channelID="00000001" setChannel={setChannel}/> 
+       <Namebox channelName="Front-end developers" channelID="00000001" setChannel={setChannel}/> 
+       <Namebox channelName="Front-end developers" channelID="00000001" setChannel={setChannel}/> 
+       <Namebox channelName="Front-end developers" channelID="00000001" setChannel={setChannel}/>     
+       <Namebox channelName="Front-end developers" channelID="00000001" setChannel={setChannel}/> 
+       <Namebox channelName="Front-end developers" channelID="00000001" setChannel={setChannel}/> 
+       <Namebox channelName="Front-end developers" channelID="00000001" setChannel={setChannel}/> 
+       <Namebox channelName="Front-end developers" channelID="00000001" setChannel={setChannel}/> 
+       <Namebox channelName="Front-end developers" channelID="00000001" setChannel={setChannel}/> 
        <Namebox channelName="Front-end developers" channelID="00000001" setChannel={setChannel}/> 
        <Namebox channelName="Front-end developers" channelID="00000001" setChannel={setChannel}/> 
        <Namebox channelName="Front-end developers" channelID="00000001" setChannel={setChannel}/> 
@@ -105,20 +117,36 @@ function App() {
 
 
 
- <div className="min-h-full relative box-border bg-main text-white z-10 translate-x-0 lg:flex-1">
+ <div className="h-full relative bg-main text-white z-10  lg:flex-1">
    
      <div className="flex text-center px-4 py-2 justify-start shadow-ol">
      <span className="material-icons-outlined  p-1 rounded mr-3  cursor-pointer lg:hidden" onClick={()=>setSide(!side)}>menu</span>
      <span className="text-xl font-sans font-bold ml-5">Front-end developers</span>   
      </div> 
+     
      {/* Chats */}
-     <div>
+     <div className="overflow-y-scroll scroll-hide px-4 py-2 h-[85%] z-30">
+     <Chatmsg msg="Morbi eget turpis ut massa luctus cursus. Sed sit amet risus quis neque condimentum aliquet. Phasellus consequat et justo eu accumsan 🙌. Proin pretium id nunc eu molestie. Nam consectetur, ligula vel mattis facilisis, ex mauris venenatis nulla, eget tempor enim neque eget massa 🤣"/>
+     <Chatmsg msg="Class aptent taciti sociosqu ad litora torquent per conubia nostra 😀"/>
+     <Chatmsg msg="Class aptent taciti sociosqu ad litora torquent per conubia nostra 😀"/>
+     <Chatmsg msg="Class aptent taciti sociosqu ad litora torquent per conubia nostra 😀"/>
+     <Chatmsg msg="Class aptent taciti sociosqu ad litora torquent per conubia nostra 😀"/>
+     <Chatmsg msg="Class aptent taciti sociosqu ad litora torquent per conubia nostra 😀"/>
+     <Chatmsg msg="Class aptent taciti sociosqu ad litora torquent per conubia nostra 😀"/>
+     <Chatmsg msg="Class aptent taciti sociosqu ad litora torquent per conubia nostra 😀"/>
+     <Chatmsg msg="Class aptent taciti sociosqu ad litora torquent per conubia nostra 😀"/>
+     <Chatmsg msg="Class aptent taciti sociosqu ad litora torquent per conubia nostra 😀"/>
+     <Chatmsg msg="Class aptent taciti sociosqu ad litora torquent per conubia nostra 😀"/>
+     <Chatmsg msg="Class aptent taciti sociosqu ad litora torquent per conubia nostra 😀"/>
+     <Chatmsg msg="Class aptent taciti sociosqu ad litora torquent per conubia nostra 😀"/>
+     <Chatmsg msg="Class aptent taciti sociosqu ad litora torquent per conubia nostra 😀"/>
+     <Chatmsg msg="Class aptent taciti sociosqu ad litora torquent per conubia nostra 😀"/>
+     <Chatmsg msg="Class aptent taciti sociosqu ad litora torquent per conubia nostra 😀"/>
+    </div>
 
-     </div>
-
-    <div className="p-4 lg:p-6 min-w-full absolute  bottom-0">
+    <div className="p-4 lg:p-6 w-full lg:flex-1  absolute bg-main left-0 right-0 bottom-0 z-[999]">
     <div className="bg-search rounded-lg flex box-border  items-center ">
-     <input type="text" placeholder="Type a message here" className="p-0 flex-1 ml-4 caret-caert overflow-hidden bg-transparent text-caert text-sm font-sans outline-none"/>
+     <input type="text" placeholder="Type a message here" className="p-0 flex-1 ml-4 caret-caert overflow-hidden bg-transparent text-white placeholder:text-caert text-sm font-sans outline-none"/>
      <div className="m-1">
      <span class="material-icons-outlined text-xl bg-sky py-1 px-2 rounded-lg">send</span>
      </div>
@@ -128,7 +156,7 @@ function App() {
     
  </div>
 
-
+{modal?<Modal modal={setModal}/>:''}
 </div>
   );
 }

@@ -4,3 +4,8 @@
 07/02/2022
 - Responsive UI design Started
 - System Design of Back-end Started
+
+10/02/2022
+- Chat Skeleton added 
+- Absolute Chat msg container resolved
+- Member Status added

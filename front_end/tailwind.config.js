@@ -10,10 +10,12 @@ module.exports = {
         'search':'#3C393F',
         'sky':'#2F80ED',
         'bt':'#252329',
-        'txt':'#E0E0E0',
+        'txt':'#c7c7c7',
         'redlog':'#EB5757',
         'blk':'#0B090C',
-        'caert':'#828282'
+        'caert':'#828282',
+        'sideopacity':'rgba(18, 15, 19, 0.5)',
+        'txtOpac':' #E0E0E0',
       },
       fontFamily:{
         'san':['Noto Sans']
