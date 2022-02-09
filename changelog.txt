@@ -9,3 +9,4 @@
 - Chat Skeleton added 
 - Absolute Chat msg container resolved
 - Member Status added
+- Absolute values changed
