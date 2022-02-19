@@ -1,0 +1,25 @@
+{
+  "name": "chat_group_dev_challenges",
+  "version": "1.0.0",
+  "description": "Chat Application project created using nodejs/socketio/mongoDB/Redis for Dev challenges io",
+  "main": "App.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "set NODE_ENV=development&&node src/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "config": "^3.3.7",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "joi": "^17.6.0",
+    "mongodb": "^4.4.0",
+    "socket.io": "^4.4.1"
+  },
+  "devDependencies": {
+    "pino": "^7.8.0",
+    "pino-pretty": "^7.5.1"
+  }
+}
