@@ -5,17 +5,24 @@ import Chatmsg from "./Message"
 export function Chat({setSide,side,channelID,channelName,chats}){
 
    const send=useRef(null);
+   
+const options={year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:true}
+  
 
    function sendfunc(e){
-     
-     if(e.keyCode===13){
+    if(e.keyCode===13){
       e.preventDefault();
       //Emit the event
-       Client.sendMessage(e.target.value.trim());
+       Client.sendMessage({
+         channelID:channelID,
+         channelName:channelName,
+         Msg:e.target.value.trim(),
+         Dat:Date.now()
+       });
        e.target.value='';
      }
-
    }
+
 
     return (
      <>
@@ -25,7 +32,7 @@ export function Chat({setSide,side,channelID,channelName,chats}){
         </div> 
         
         <div className="overflow-y-scroll scroll-hide px-4 py-2 h-[85%] z-30">
-        <Chatmsg msg="Morbi eget turpis 🤣" name={"Jesinth Arnold"} date={"Yesterday 20:16"} profileURL="https://unsplash.com/photos/2LowviVHZ-E/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8NXx8cHJvZmlsZXxlbnwwfHx8fDE2NDQ0MTg1MzI&force=true&w=640" />
+        <Chatmsg msg="Morbi eget turpis 🤣" name={"Jesinth Arnold"} date={new Date(1645373375682).toLocaleString('en-GB',options)} profileURL="https://unsplash.com/photos/2LowviVHZ-E/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8NXx8cHJvZmlsZXxlbnwwfHx8fDE2NDQ0MTg1MzI&force=true&w=640" />
        </div>
 
       <div className="p-4 lg:p-6 w-full lg:flex-1  absolute bg-main left-0 right-0 bottom-0 z-[999]">

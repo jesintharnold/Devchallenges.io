@@ -36,9 +36,15 @@ function App() {
 
   useEffect(()=>{
     const sock=io("http://localhost:5000/");
+    sock.id="0000000001"
      Client.setSocket(sock);
      
+     console.log(sock);
 
+
+     sock.on("Message",(dat)=>{
+       console.log(sock.id,'---',dat);
+     })
 
 
 
@@ -70,6 +76,7 @@ function App() {
 
      <div className="overflow-y-scroll scroll-hide px-4 py-2 h-[90%]">  
        <Namebox channelName="Front-end developers" channelID="00000001" setChannel={setChannel}/>
+       <Namebox channelName="Back-end devel" channelID="00000002" setChannel={setChannel}/>
      </div>
      
 
@@ -129,7 +136,7 @@ function App() {
    
     
      {/* Chats */}
-    <Chat channelID={channel.channelID} channelName={channel.channelName} setSide={setSide} side={side}/>
+    <Chat channelID={channel.channelId} channelName={channel.channelName} setSide={setSide} side={side}/>
 
   
     

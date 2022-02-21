@@ -7,7 +7,6 @@ class Client{
     }
 
     static sendMessage(payload){
-        console.log(socketcon);
         socketcon.emit("sendMessage",payload);
     }
 
@@ -15,7 +14,8 @@ class Client{
     static joinRoom(payload){
         socketcon.emit("join",payload);
     }
-
-    
+      
 }
+
+
 export default Client;
