@@ -15,7 +15,12 @@ const channelSchema=Joi.object().keys({
    userName:Joi.string().trim().required()
 });
 
+const getmessageSchema=Joi.object().keys({
+    channelID:Joi.string().trim().max(24).required()
+});
+
 module.exports={
     Msgschema,
-    channelSchema
+    channelSchema,
+    getmessageSchema
 }

@@ -1,8 +1,13 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Client from "../socketclient";
 import Chatmsg from "./Message"
 
-export function Chat({setSide,side,channelID,channelName,chats}){
+export function Chat({setSide,side,channel,chats}){
+
+
+   useEffect(()=>{
+
+   },[]);
 
    const send=useRef(null);
    
@@ -14,8 +19,8 @@ const options={year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minut
       e.preventDefault();
       //Emit the event
        Client.sendMessage({
-         channelID:channelID,
-         channelName:channelName,
+         channelID:channel.channelID,
+         channelName:channel.channelName,
          Msg:e.target.value.trim(),
          Dat:Date.now()
        });
@@ -28,7 +33,7 @@ const options={year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minut
      <>
        <div className="flex text-center px-4 py-2 justify-start shadow-ol">
         <span className="material-icons-outlined  p-1 rounded mr-3  cursor-pointer lg:hidden" onClick={()=>setSide(!side)}>menu</span>
-        <span className="text-xl font-sans font-bold ml-5">Front-end developers</span>   
+        <span className="text-xl font-sans font-bold ml-5">{channel.channelName}</span>   
         </div> 
         
         <div className="overflow-y-scroll scroll-hide px-4 py-2 h-[85%] z-30">
@@ -40,6 +45,7 @@ const options={year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minut
      <input type="text" placeholder="Type a message here" className="p-0 flex-1 ml-4 caret-caert overflow-hidden bg-transparent text-white placeholder:text-caert text-sm font-sans outline-none" onKeyUp={(e)=>sendfunc(e)}/>
      <div className="m-1" onClick={(e)=>{
        e.preventDefault();
+
        //Emit the event here also
        Client.sendMessage(send.current.children[0].value.trim());
        send.current.children[0].value='';

@@ -1,5 +1,5 @@
-const { func } = require('joi');
 const {logger}=require('../utils/logger');
+const {ObjectId}=require('mongodb');
 
 let channel_collection;
 class channelDAO{
@@ -19,11 +19,9 @@ class channelDAO{
 
    static async createChannel(payload){
        try{      //change payload to array
-
-           
           let res=await channel_collection.insertOne({
-            channelName:payload.channelName,
-            channelDesc:payload.channelDesc,
+            channelName:payload.channelName.trim(),
+            channelDesc:payload.channelDesc.trim(),
             private:payload.private,
             messages:[],
             members:[{
@@ -52,7 +50,7 @@ class channelDAO{
 
    static async getAllChannelName(){
       try{
-       return await channel_collection.find({},{"name":1,"_id":1}).toArray();
+       return await channel_collection.find({},{projection:{"channelName":1,"_id":1,"channelDesc":1}}).toArray();
       }catch(e){
          logger.error(e);
          return 500;
@@ -62,7 +60,7 @@ class channelDAO{
 
    static async getopenchannels(){
       try{
-         return await channel_collection.find({private:false},{"_id":1}).toArray();
+         return await channel_collection.find({private:false},{projection:{"_id":1}}).toArray();
       }catch(e){
          logger.error(e);
          return 500;
@@ -114,6 +112,25 @@ class channelDAO{
       logger.error(e);
       return 500;
      }
+   }
+
+   static async getChannelmessages(payload){
+      //META message tags are not added
+      let pipeline=[
+            {$match:{"_id" : ObjectId(payload.toString())}},
+            {$project:{messages:1,_id:0}},
+            {$unwind : "$messages"},
+            {$lookup:{from:"user",localField:"messages.ID",foreignField:"_id",as:"USD"}},
+            {$project:{Msg:"$messages.Msg",ID:"$messages.ID",DAT:"$messages.DAT",IDNAME:{$first:"$USD.Name"}}}
+         ];
+
+      try{
+       let res=await channel_collection.aggregate(pipeline);
+       logger.warn(res);
+      }catch(e){
+         logger.error(e);
+         return 500;
+      }
    }
 
 }

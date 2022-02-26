@@ -11,6 +11,7 @@ const {Dbconnect,DBclose}=require('./DB/dbcon');
 const {joinAllchannels,createChannel} = require('./Controller/op-controller.js');
 const route=require('./Routes/route.js');
 const { Msgschema,channelSchema} = require('./Schema/schemaval.js');
+const { join } = require("path");
 
 Dbconnect().then(con=>{
     channelDAO.injectCol(con);
@@ -31,23 +32,20 @@ const io=require("socket.io")(http,{
 
 io.on('connection',(Socket)=>{
 
-// joinAllchannels(Socket);
-    
-Socket.on("join",(roomData)=>{
+    //It will allow us to join - Open Channels
+    Socket.on("JOINOPEN",()=>{
+        joinAllchannels(Socket);
+    })
+
+     
+    Socket.on('sendRoomMessage',(roomData)=>{
     logger.info(roomData);
-});
+    });
 
-Socket.on('sendRoomMessage',(roomData)=>{
-    logger.info(roomData);
-
-});
-
-Socket.on('sendMessage',(msgData)=>{
-logger.info(msgData);
-
-Socket.to("PEN").emit("Message",msgData);
-
-});
+   Socket.on('sendMessage',(msgData)=>{
+       Socket.to("PEN").emit("Message",msgData);
+       logger.info(msgData);
+    });
 
 
 });
