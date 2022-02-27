@@ -36,11 +36,15 @@ const joinAllchannels=async (socket)=>{
 }
 
 const getChatmessages=async (req,res,next)=>{
+  logger.info(`Get Messages - CHAT -`,req.body);
   let {error,value}=getmessageSchema.validate(req.body);
    if(error){
         res.status(500).json({Err:`Missing Input (or) Validation Error \n`,error});
     }else{
       let _res=await channelDAO.getChannelmessages(value.channelID);
+      if(_res===500){
+        return res.status(500).json({Err:`Internal Server Error`});
+      }
       res.status(200).send(_res);
     }
 }

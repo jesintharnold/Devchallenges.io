@@ -7,6 +7,7 @@ const { logger } = require("../utils/logger");
 
 route.post('/channel',chatcontroller.createChannel);
 route.get('/channel',chatcontroller.getAllChannels);
+route.post('/getmessage',chatcontroller.getChatmessages);
 
 
 

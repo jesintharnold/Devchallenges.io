@@ -121,18 +121,17 @@ class channelDAO{
             {$project:{messages:1,_id:0}},
             {$unwind : "$messages"},
             {$lookup:{from:"user",localField:"messages.ID",foreignField:"_id",as:"USD"}},
-            {$project:{Msg:"$messages.Msg",ID:"$messages.ID",DAT:"$messages.DAT",IDNAME:{$first:"$USD.Name"}}}
+            {$project:{Msg:"$messages.Msg",ID:"$messages.ID",DAT:"$messages.DAT",IDNAME:{$first:"$USD.Name"},PROFILEURL:{$first:"$USD.Profileurl"}}}
          ];
 
       try{
-       let res=await channel_collection.aggregate(pipeline);
-       logger.warn(res);
+       let res=await channel_collection.aggregate(pipeline).toArray();
+       return res;
       }catch(e){
          logger.error(e);
          return 500;
       }
    }
-
 }
 
 module.exports=channelDAO;

@@ -1,6 +1,10 @@
+import { useContext } from "react";
+import { Conprovider } from "../App";
 import Member from "./Member"
 
-function Channeloverview({setChannel,channel}){
+function Channeloverview(){
+
+   const {setChannel,channel}=useContext(Conprovider);
     return (
         
     <div className={"absolute left-0 top-0 flex h-full lg:h-[90%] w-[16rem] lg:w-72   flex-col z-30 -translate-x-full transition duration-200 ease-in-out bg-side "+(channel.checked?'-translate-x-0':'')}>

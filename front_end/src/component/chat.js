@@ -1,25 +1,47 @@
-import { useEffect, useRef, useState } from "react"
+import React from "react";
+import { Suspense, useContext, useEffect, useRef, useState } from "react"
 import Client from "../socketclient";
 import Chatmsg from "./Message"
+import axios from 'axios';
+import FetchData from "../FetchData";
+import { Conprovider } from "../App";
+import Chatmessage from "./chatMessage";
 
-export function Chat({setSide,side,channel,chats}){
+const CM=React.lazy(()=>{
+  return new Promise(resolve=>{
+    setTimeout(()=>{
+      resolve(import('./chatMessage'))
+    },1000);
+  })
+});
 
 
-   useEffect(()=>{
+export function Chat(){
 
-   },[]);
+  //{setSide,side,channel,set,get}
+ const {side,setSide,channel,chats,setChats}=useContext(Conprovider);
 
-   const send=useRef(null);
-   
-const options={year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:true}
-  
+  const [load,setload]=useState(true);
+  useEffect(()=>{
+    //Fetch channel Messages by using ID
+     console.log(channel.channelId);
+     FetchData.getAllChats(channel.channelId).then((dat)=>{
+       console.log(dat);
+       setChats({...chats,[channel.channelId.toString()]:dat});
+     }).then(()=>{
+      setload(false);
+     });
+  },[channel.channelId]);
 
-   function sendfunc(e){
+const send=useRef(null);
+
+
+  function sendfunc(e){
     if(e.keyCode===13){
       e.preventDefault();
       //Emit the event
        Client.sendMessage({
-         channelID:channel.channelID,
+         channelID:channel.channelId,
          channelName:channel.channelName,
          Msg:e.target.value.trim(),
          Dat:Date.now()
@@ -28,8 +50,7 @@ const options={year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minut
      }
    }
 
-
-    return (
+  return (
      <>
        <div className="flex text-center px-4 py-2 justify-start shadow-ol">
         <span className="material-icons-outlined  p-1 rounded mr-3  cursor-pointer lg:hidden" onClick={()=>setSide(!side)}>menu</span>
@@ -37,7 +58,10 @@ const options={year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minut
         </div> 
         
         <div className="overflow-y-scroll scroll-hide px-4 py-2 h-[85%] z-30">
-        <Chatmsg msg="Morbi eget turpis 🤣" name={"Jesinth Arnold"} date={new Date(1645373375682).toLocaleString('en-GB',options)} profileURL="https://unsplash.com/photos/2LowviVHZ-E/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8NXx8cHJvZmlsZXxlbnwwfHx8fDE2NDQ0MTg1MzI&force=true&w=640" />
+          <Suspense fallback={<h2>Loading...</h2>}>
+           <CM/>
+          </Suspense>
+        
        </div>
 
       <div className="p-4 lg:p-6 w-full lg:flex-1  absolute bg-main left-0 right-0 bottom-0 z-[999]">
