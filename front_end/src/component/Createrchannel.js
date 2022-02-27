@@ -2,8 +2,8 @@ import {useContext } from "react";
 import  ReactDOM  from "react-dom";
 import { Conprovider } from "../App";
 
-function Modal(){
-    const {setModal}=useContext(Conprovider);
+function Modal({setModal}){
+    //const {setModal}=useContext(Conprovider);
     return ReactDOM.createPortal(
         <div className="fixed z-[100] min-h-screen w-full justify-center flex items-center text-txt top-0 left-0 right-0 bottom-0 bg-sideopacity">
             <div className="flex flex-col bg-side h-auto rounded-2xl pt-4 px-2 w-[90%] md:w-1/2  xl:w-1/3">

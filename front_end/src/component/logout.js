@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { Conprovider } from "../App";
 
-function Logout(){
+function Logout({drop,setDrop}){
 
-    const {drop,setDrop}=useContext(Conprovider);
+    //const {drop,setDrop}=useContext(Conprovider);
 
     return (
         <>

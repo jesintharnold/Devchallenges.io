@@ -2,8 +2,7 @@ import { useContext } from "react"
 import { Conprovider } from "../App"
 import Chatmsg from "./Message";
 
-const Chatmessage=()=>{
-    const {channel,chats}=useContext(Conprovider);
+const Chatmessage=({channel,chats})=>{
     const options={year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:true}
     return (
         <>

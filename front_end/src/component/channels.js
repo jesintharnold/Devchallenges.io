@@ -4,8 +4,8 @@ import Namebox from '../component/Namebox';
 import { Conprovider } from "../App";
 
 
-function Channels(){
-  const {setChannel,getChannels,setgetChannels}=useContext(Conprovider);
+function Channels({setChannel,getChannels,setgetChannels}){
+  //const {setChannel,getChannels,setgetChannels}=useContext(Conprovider);
 
     const data=async()=>{
         await axios.get('http://localhost:5000/channel').then(({data})=>{

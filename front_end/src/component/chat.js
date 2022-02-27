@@ -7,30 +7,30 @@ import FetchData from "../FetchData";
 import { Conprovider } from "../App";
 import Chatmessage from "./chatMessage";
 
-const CM=React.lazy(()=>{
-  return new Promise(resolve=>{
-    setTimeout(()=>{
-      resolve(import('./chatMessage'))
-    },1000);
-  })
-});
+// const CM=React.lazy(()=>{
+//   return new Promise(resolve=>{
+//     setTimeout(()=>{
+//       resolve(import('./chatMessage'))
+//     },1000);
+//   })
+// });
 
 
-export function Chat(){
+export function Chat({side,setSide,channel,chats,setChats}){
 
   //{setSide,side,channel,set,get}
- const {side,setSide,channel,chats,setChats}=useContext(Conprovider);
+ //const {side,setSide,channel,chats,setChats}=useContext(Conprovider);
 
   const [load,setload]=useState(true);
   useEffect(()=>{
-    //Fetch channel Messages by using ID
-     console.log(channel.channelId);
-     FetchData.getAllChats(channel.channelId).then((dat)=>{
-       console.log(dat);
-       setChats({...chats,[channel.channelId.toString()]:dat});
-     }).then(()=>{
-      setload(false);
-     });
+    // //Fetch channel Messages by using ID
+    //  console.log(channel.channelId);
+    //  FetchData.getAllChats(channel.channelId).then((dat)=>{
+    //    console.log(dat);
+    //    setChats({...chats,[channel.channelId.toString()]:dat});
+    //  }).then(()=>{
+    //   setload(false);
+    //  });
   },[channel.channelId]);
 
 const send=useRef(null);
@@ -59,9 +59,8 @@ const send=useRef(null);
         
         <div className="overflow-y-scroll scroll-hide px-4 py-2 h-[85%] z-30">
           <Suspense fallback={<h2>Loading...</h2>}>
-           <CM/>
+           <Chatmessage channel={channel} chats={chats}/>
           </Suspense>
-        
        </div>
 
       <div className="p-4 lg:p-6 w-full lg:flex-1  absolute bg-main left-0 right-0 bottom-0 z-[999]">

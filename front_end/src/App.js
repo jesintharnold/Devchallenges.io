@@ -11,8 +11,6 @@ import Channeloverview from './component/channeloverview';
 import axios from "axios";
 
 
-export const Conprovider=createContext();
-
 export const  App=()=>{
   const [drop,setDrop]=useState(false);
   const [side,setSide]=useState(false);
@@ -73,7 +71,6 @@ export const  App=()=>{
 
   
   return (
-    <Conprovider.Provider value={{drop,setDrop,side,setSide,channel,setChannel,modal,setModal,getChannels,setgetChannels,chats,setChats}}>
     <div className="min-w-full min-h-screen h-0 relative lg:flex">
     <div className={"fixed left-0 top-0 bottom-0 z-50 min-h-full w-[16rem] lg:relative bg-side text-white lg:w-72 transition duration-200 ease-in-out lg:translate-x-0 "+(side?'':'-translate-x-full')}>
     <div className="z-20 lg:flex flex-col h-[90%]">
@@ -86,19 +83,18 @@ export const  App=()=>{
      <span class="material-icons-outlined ml-1 mr-4">search</span>
      <input type="text" placeholder="Search" className="flex-1 w-0 caret-caert overflow-hidden bg-transparent text-caert text-lg font-sans outline-none"/>
      </div>
-     <Channels/>
+     <Channels setChannel={setChannel} getChannels={getChannels} setgetChannels={setgetChannels}/>
     </div>
-    <Channeloverview/>
-   <Logout/> 
+    <Channeloverview setChannel={setChannel} channel={channel}/>
+   <Logout drop={drop} setDrop={setDrop}/> 
 </div>
 
  <div className="h-full relative bg-main text-white z-10  lg:flex-1">
-     <Chat/>
+ <Chat side={side} setSide={setSide} channel={channel} chats={chats} setChats={setChats}/>
  </div>
 
-{modal?<Modal/>:''}
+ {modal?<Modal props={setModal}/>:''}
 </div>
-</Conprovider.Provider>
   );
 }
 
