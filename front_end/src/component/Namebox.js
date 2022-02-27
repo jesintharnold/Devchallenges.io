@@ -1,3 +1,4 @@
+import FetchData from "../FetchData";
 
 
 function nameSpace(name){
@@ -17,7 +18,6 @@ function Namebox({channel,setChannel}){
             checked:true,
             channelDesc:channel.channelDesc
           });
-          //fetchfunc(channel._id);
         }}>
          <span className="text-base w-10 h-10 flex justify-center items-center rounded-md  font-bold bg-search text-center uppercase">{`${nameSpace(channel.channelName)}`}</span>
          <span className=" text-sm ml-4  font-semibold  text-txt uppercase">{channel.channelName}</span>

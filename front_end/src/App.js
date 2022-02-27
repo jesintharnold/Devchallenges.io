@@ -83,7 +83,7 @@ export const  App=()=>{
      <span class="material-icons-outlined ml-1 mr-4">search</span>
      <input type="text" placeholder="Search" className="flex-1 w-0 caret-caert overflow-hidden bg-transparent text-caert text-lg font-sans outline-none"/>
      </div>
-     <Channels setChannel={setChannel} getChannels={getChannels} setgetChannels={setgetChannels}/>
+     <Channels setChannel={setChannel} getChannels={getChannels} setgetChannels={setgetChannels} />
     </div>
     <Channeloverview setChannel={setChannel} channel={channel}/>
    <Logout drop={drop} setDrop={setDrop}/> 
