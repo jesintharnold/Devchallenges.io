@@ -78,7 +78,7 @@ const send=useRef(null);
        Client.sendMessage(send.current.children[0].value.trim());
        send.current.children[0].value='';
      }}>
-     <span class="material-icons-outlined text-xl bg-sky py-1 px-2 rounded-lg">send</span>
+     <span className="material-icons-outlined text-xl bg-sky py-1 px-2 rounded-lg">send</span>
      </div>
      </div>
     </div>
