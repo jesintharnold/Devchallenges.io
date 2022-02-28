@@ -59,8 +59,12 @@ const send=useRef(null);
           </Suspense> */}
 
         {load?(<></>):
-         chats[channel.channelId]?chats[channel.channelId].map((dat,index)=>
-         <Chatmsg msg={dat.Msg} name={dat.IDNAME} key={index} date={new Date(dat.DAT).toLocaleString('en-GB',options)} profileURL={`${dat.PROFILEURL}`}/>):<h1>No Message found</h1>
+         (chats[channel.channelId]&&chats[channel.channelId].length>0)?chats[channel.channelId].map((dat,index)=>
+         <Chatmsg msg={dat.Msg} name={dat.IDNAME} key={index} date={new Date(dat.DAT).toLocaleString('en-GB',options)} profileURL={`${dat.PROFILEURL}`}/>):<div className="w-full justify-center items-center flex mt-6 text-caert">
+           <hr className="w-1/3 border-search border-t-2"/>
+           <span className="mx-9">No Chats found</span>
+           <hr className="w-1/3 border-search border-t-2"/>
+         </div>
         } 
        </div>
 
