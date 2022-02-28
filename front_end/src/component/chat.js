@@ -60,10 +60,10 @@ const send=useRef(null);
 
         {load?(<></>):
          (chats[channel.channelId]&&chats[channel.channelId].length>0)?chats[channel.channelId].map((dat,index)=>
-         <Chatmsg msg={dat.Msg} name={dat.IDNAME} key={index} date={new Date(dat.DAT).toLocaleString('en-GB',options)} profileURL={`${dat.PROFILEURL}`}/>):<div className="w-full justify-center items-center flex mt-6 text-caert">
-           <hr className="w-1/3 border-search border-t-2"/>
-           <span className="mx-9">No Chats found</span>
-           <hr className="w-1/3 border-search border-t-2"/>
+         <Chatmsg msg={dat.Msg} name={dat.IDNAME} key={index} date={new Date(dat.DAT).toLocaleString('en-GB',options)} profileURL={`${dat.PROFILEURL}`}/>):<div className="w-full justify-center items-center flex mt-6 whitespace-nowrap text-caert">
+           <hr className="w-3/12 lg:w-1/3 border-search border-t-2"/>
+           <span className="mx-3 block">No Chats found</span>
+           <hr className="w-3/12 lg:w-1/3 border-search border-t-2"/>
          </div>
         } 
        </div>
