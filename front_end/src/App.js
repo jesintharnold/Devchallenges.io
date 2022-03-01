@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import Modal from "./component/Createrchannel";
+import {Modal} from "./component/Createrchannel";
 import Chatmsg from "./component/Message";
 import Member from "./component/Member";
 import { Chat } from "./component/chat";
