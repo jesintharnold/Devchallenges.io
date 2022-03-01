@@ -12,16 +12,18 @@ const createChannel=async (req,res,next)=>{
           res.status(201).send(_res);
       }
       if(_res===11000){
-        return res.status(404).json({Err:`Channel name already exists`})
+        return res.status(404).json({Err:`Channel name already exists`,Errcode:11000})
       }
       return res.status(500).json({Err:`Internal Server Error`});
     }
 };
 
+
 const getAllChannels=async(req,res,next)=>{
   let _res=await channelDAO.getAllChannelName();
   res.status(200).send(_res);
 }
+
 
 const joinAllchannels=async (socket)=>{
  let res=await channelDAO.getopenchannels();

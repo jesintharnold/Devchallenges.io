@@ -11,8 +11,7 @@ const channelSchema=Joi.object().keys({
    channelName:Joi.string().trim().required(),
    channelDesc:Joi.string().required(),
    private:Joi.boolean().required(),
-   userID:Joi.string().trim().max(24).required(),
-   userName:Joi.string().trim().required()
+   userID:Joi.string().trim().max(24).required()
 });
 
 const getmessageSchema=Joi.object().keys({

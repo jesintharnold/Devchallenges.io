@@ -26,6 +26,16 @@ class FetchData{
             console.log(e);
         }
     }
+
+
+    static async createChannel(){
+        try{
+           
+
+        }catch(e){
+
+        }
+    }
 }
 
 export default FetchData;

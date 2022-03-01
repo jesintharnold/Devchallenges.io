@@ -25,8 +25,7 @@ class channelDAO{
             private:payload.private,
             messages:[],
             members:[{
-              userID:payload.userID,
-              name:payload.userName
+              userID:payload.userID
             }]
           }).then(async (r)=>{
              let O=await channel_collection.find({_id:r.insertedId},{projection:{"channelName":1,"private":1}}).toArray();
