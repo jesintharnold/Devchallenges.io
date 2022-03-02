@@ -8,16 +8,26 @@ function Channels({setChannel,getChannels,setgetChannels}){
   //const {setChannel,getChannels,setgetChannels}=useContext(Conprovider);
     const [load,setload]=useState(true);
     const data=async()=>{
-        await axios.get('http://localhost:5000/channel').then(({data})=>{
-            if(data.length>0){
-              setgetChannels(data);
+        await axios.get('http://localhost:5000/channel').then((data)=>{
+            if(data.data.length>0){
+              setgetChannels(data.data);
+              console.log(data);
               setload(false);
             }
         })
     }
     useEffect(()=>{
         //Axios fetch        
-      data();
+        //Preventing data leaks by boolean method.
+      if(load){
+        data();
+      }
+      //It can happen here also
+      console.log(`Channel render`);
+
+      return ()=>{
+        setload(false);
+      }
     },[]);
 
     return (

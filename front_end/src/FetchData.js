@@ -27,14 +27,14 @@ class FetchData{
         }
     }
 
-
-    static async createChannel(){
-        try{
-           
-
-        }catch(e){
-
-        }
+    static async createChannel(payload,options){
+      try{
+        console.log(options);
+        let res=await axios.post(`${baseURL}/channel`,payload,{cancelToken:options});
+        return res;
+      }catch(err){
+        return err.response;
+      }
     }
 }
 

@@ -24,33 +24,8 @@ export const  App=()=>{
   //Fetch Data will present here 
   const [getChannels,setgetChannels]=useState([]);
   const [chats,setChats]=useState({
-    '6213eac541c3990a4479d153':[
-      {
-        "Msg": "Jesinth is a good boy",
-        "ID": "6219fd00f897b3d831ba714d",
-        "DAT": 1645871014722,
-        "IDNAME": "Jesinth Arnold",
-        "PROFILEURL": "https://unsplash.com/photos/2LowviVHZ-E/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8NXx8cHJvZmlsZXxlbnwwfHx8fDE2NDQ0MTg1MzI&force=true&w=640"
-    },
-    {
-        "Msg": "Jaswanth is a good boy ..",
-        "ID": "6219fd00f897b3d831ba714d",
-        "DAT": 1645871014722,
-        "IDNAME": "Jesinth Arnold",
-        "PROFILEURL": "https://unsplash.com/photos/2LowviVHZ-E/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8NXx8cHJvZmlsZXxlbnwwfHx8fDE2NDQ0MTg1MzI&force=true&w=640"
-    }
-    ]
   });
 
-
-  async function getMsg(channelID){
-    let data=await axios.post('http://localhost:5000/getmessage',{
-     channelID:channelID
-    }).then(dat=>{
-      console.log(dat);
-      setChats({...chats,[channelID.toString()]:dat.data})
-    })
- }
 
 
   useEffect(()=>{
@@ -93,7 +68,7 @@ export const  App=()=>{
  <Chat side={side} setSide={setSide} channel={channel} chats={chats} setChats={setChats}/>
  </div>
 
- {modal?<Modal setModal={setModal}/>:''}
+ {modal?<Modal setModal={setModal} getChannels={getChannels} setgetChannels={setgetChannels}/>:''}
 </div>
   );
 }

@@ -5,16 +5,20 @@ const channelDAO =require('../DB/channel');
 const createChannel=async (req,res,next)=>{
     let {error,value}=channelSchema.validate(req.body);
     if(error){
-        res.status(500).json({Err:`Missing Input (or) Validation Error \n`,error});
+        res.status(500).send({Err:`Missing Input (or) Validation Error \n`,error});
     }else{
       let _res=await channelDAO.createChannel(req.body);
       if(_res.insertedCount===1){
-          res.status(201).send(_res);
+          res.status(201).send({
+            channelDesc: _res.channelDesc,
+            channelName: _res.channelName,
+            private: _res.private
+          });
       }
       if(_res===11000){
-        return res.status(404).json({Err:`Channel name already exists`,Errcode:11000})
+        return res.status(400).send({Err:`Channel name already exists`,Errcode:11000})
       }
-      return res.status(500).json({Err:`Internal Server Error`});
+      return res.status(500).send({Err:`Internal Server Error`});
     }
 };
 

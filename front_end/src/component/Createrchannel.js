@@ -1,20 +1,31 @@
-import {useContext, useRef, useState } from "react";
+import {useContext, useEffect, useRef, useState } from "react";
 import  ReactDOM  from "react-dom";
 import {ClipLoader} from 'react-spinners';
+import FetchData from "../FetchData";
+import axios from "axios";
 
 
-
-export function Modal({setModal}){
+export function Modal({setModal,getChannels,setgetChannels}){
 
     const [err,setErr]=useState({
         Name:'',
         Description:''
     });
     const [load,setLoad]=useState(false);
-    // function onVal(e){
-    //     console.log(`This is called `);
-    //     setVal({...val,[e.target.name]:e.target.value});
-    // }
+    
+    let cancelToken=axios.CancelToken.source();
+    
+    useEffect(()=>{
+
+        return ()=>{
+            console.log(load);
+            setLoad(false);
+            console.log(`Unmounting happened`);
+            if(cancelToken){
+                cancelToken.cancel();
+            }
+        }
+    },[])
 
 
     function handleSubmit(e){
@@ -22,10 +33,6 @@ export function Modal({setModal}){
          e.preventDefault();
          const data=new FormData(e.target);
          let obj=Object.fromEntries(data.entries());
-        //  setVal({...val,...Object.fromEntries(data.entries())});
-
-
-         //Validate Objects
          
          if(!obj.Name){
              error.Name="Provide Channel Name";
@@ -40,9 +47,33 @@ export function Modal({setModal}){
          if(!error.Name&&!error.Description){
                 console.log(`API request - sent`);
                 setLoad(true);
-                  setTimeout(()=>{
-                      setLoad(false);
-                  },3000);
+                FetchData.createChannel({
+                        channelName:obj.Name.toString(),
+                        channelDesc:obj.Description.toString(),
+                        private: obj.bool=='on'?true:false,
+                        userID: "619a5bd0a01ef280b3b92bd5"
+                },cancelToken.token).then(data=>{
+                   if(data.status===400 && data.data.Errcode===11000){
+                       console.log(`Duplicate is called`);
+                       setErr({...error,Name:data.data.Err});
+                   }
+                   
+                   if(data.status===500){
+                      console.log(`Internal ServerError`);
+                   }
+
+                   if(data.status===201){
+                    setgetChannels([...getChannels,data.data]);  
+                    //I think Memory leak is happening here , after closing unMounting component only 
+                    // setLoad is called , in side a .then  , so axios cancel menthod is called ,which will clear everything while unMounting is going -on
+                    //can be also resolved by calling setLoad function before setModal inside 201 status function , but what is the fun in that ./ 
+                    setModal(false);
+                   }    
+                    setLoad(false); // Issue Memeory Leak
+                });
+
+                
+                
          }
 
     }
@@ -64,12 +95,18 @@ export function Modal({setModal}){
                     <div className="bg-search rounded-lg mb-5 p-2">
                     <input type="text" name="Name"  placeholder="Channel name" className="bg-transparent w-full outline-none m-0 p-0 text-txt block"/>
                     </div>
-                    {err.Name}
+                    <span className="text-sm text-red-700 ml-2 -mt-3 mb-2">{err.Name}</span>
                    <div className="bg-search rounded-lg mb-5 p-2">
                     <textarea name="Description" placeholder="Channel Description" className="bg-transparent  outline-none w-full m-0 resize-none p-0 text-txt block scroll-hide " maxLength="125" rows="3"/>
                    </div>
-                    {err.Description}
-                    <button disabled={load} className="w-20 h-8 self-end font-bold flex justify-center items-center text-base p-1 rounded-lg bg-sky" type="submit">{load?<ClipLoader color="#fffff" size={25}/>:`Save`}</button>
+                    <span className="text-sm text-red-700 ml-2 -mt-3 mb-2">{err.Description}</span>
+                   <div className="flex justify-between items-center">
+                  <div className="text-txt text-base ml-2 flex justify-center items-center self-start">
+                  <input type="checkbox" className="outline-none" name="bool"/>
+                  <span className="ml-2 text-base">Private</span>
+                  </div>
+                   <button disabled={load} className="w-20 h-8 self-end font-bold flex justify-center items-center text-base p-1 rounded-lg bg-sky" type="submit">{load?<ClipLoader color="#fffff" size={25}/>:`Save`}</button>
+                   </div> 
                 </form>
                 </div>
 

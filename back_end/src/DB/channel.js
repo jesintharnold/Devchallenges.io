@@ -28,7 +28,7 @@ class channelDAO{
               userID:payload.userID
             }]
           }).then(async (r)=>{
-             let O=await channel_collection.find({_id:r.insertedId},{projection:{"channelName":1,"private":1}}).toArray();
+             let O=await channel_collection.find({_id:r.insertedId},{projection:{"channelName":1,"private":1,"channelDesc":1}}).toArray();
              O=O[0];
              O.insertedCount=1
              return O;
