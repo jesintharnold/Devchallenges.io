@@ -5,11 +5,20 @@ class Client{
     static setSocket(socket){
         socketcon=socket;
     }
-    static sendMessage(payload){
-        socketcon.emit("SENDMESSAGE",payload);
+    static sendRoomsg(payload){
+        socketcon.emit("roommessage",payload);
     }
-    static joinRoom(payload){
-        socketcon.emit("JOINROOM",payload);
+
+    // static joinRoom(payload){
+    //     socketcon.emit("JOINROOM",payload);
+    // }
+
+    static sendchannel(payload){
+        socketcon.emit('channel',payload);
+    }
+
+    static socketinstance(){
+        return socketcon;
     }
       
 }

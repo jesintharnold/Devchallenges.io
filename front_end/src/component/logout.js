@@ -9,7 +9,7 @@ function Logout({drop,setDrop}){
         <>
         <div className="flex z-50 items-center pb-2 pt-3 px-4 justify-between absolute min-w-full bottom-0 bg-blk">
         <div className="flex items-center">
-        <img src="https://unsplash.com/photos/v26vu43kZkw/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8MTR8fHBvdHJhaXR8fDB8fHx8MTY0NDEyNjU1Mg&force=true&w=640" className="h-10 w-10  rounded object-cover" alt="not found" loading="lazy"/>
+        <img src="https://cdn.pixabay.com/photo/2016/03/26/22/13/man-1281562_960_720.jpg" className="h-10 w-10  rounded object-cover" alt="not found" loading="lazy"/>
         <span className="text-lg font-sans font-txt ml-6">Xanthe Neal</span>
         </div>
         <span className="material-icons-outlined cursor-pointer  rounded hover:bg-gray-500" onClick={()=>setDrop(!drop)}>{drop?`expand_less`:`expand_more`}</span>

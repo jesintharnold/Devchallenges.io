@@ -30,18 +30,51 @@ export function Chat({side,setSide,channel,chats,setChats}){
 const send=useRef(null);
 
 
-  function sendfunc(e){
-    if(e.keyCode===13){
-      e.preventDefault();
+  // function sendfunc(e){
+  //   if(e.keyCode===13){
+  //     e.preventDefault();
+  //     //Emit the event
+  //     let payload={
+  //       channelID:channel.channelId,
+  //       Msg:e.target.value.trim(),
+  //       DAT:Date.now(),
+  //       ID:"6219fd00f897b3d831ba714d",
+  //       PROFILEURL:"https://cdn.pixabay.com/photo/2016/11/22/21/42/woman-1850703_960_720.jpg",
+  //       IDNAME:"Jesinth Arnold"
+  //     };
+  //      Client.sendRoomsg(payload);
+       
+  //      setChats({...chats,[channel.channelId.toString()]:[...chats[channel.channelId.toString()],payload]});
+       
+  //      e.target.value='';
+  //    }
+  //  }
+
+
+
+   function sendfunc(e){
+
+     e.preventDefault();
+      //  Client.sendRoomsg(send.current.children[0].value.trim());
+      //  send.current.children[0].value='';
+
       //Emit the event
-       Client.sendMessage({
-         channelID:channel.channelId,
-         channelName:channel.channelName,
-         Msg:e.target.value.trim(),
-         Dat:Date.now()
-       });
-       e.target.value='';
-     }
+    if(send.current.children[0].value.trim()!==''){
+      let payload={
+        channelID:channel.channelId,
+        Msg:send.current.children[0].value.trim(),
+        DAT:Date.now(),
+        ID:"6219fd00f897b3d831ba714d",
+        PROFILEURL:"https://cdn.pixabay.com/photo/2016/11/22/21/42/woman-1850703_960_720.jpg",
+        IDNAME:"Jesinth Arnold"
+      };
+       Client.sendRoomsg(payload);
+       
+       setChats({...chats,[channel.channelId.toString()]:[...chats[channel.channelId.toString()],payload]});
+       
+       send.current.children[0].value='';
+    }
+    
    }
 
   return (
@@ -54,10 +87,6 @@ const send=useRef(null);
         </div> 
         
         <div className="overflow-y-scroll scroll-hide px-4 py-2 h-[85%] z-30">
-          {/* <Suspense fallback={<h2>Loading...</h2>}>
-           <Chatmessage channel={channel} chats={chats}/>
-          </Suspense> */}
-
         {load?(<></>):
          (chats[channel.channelId]&&chats[channel.channelId].length>0)?chats[channel.channelId].map((dat,index)=>
          <Chatmsg msg={dat.Msg} name={dat.IDNAME} key={index} date={new Date(dat.DAT).toLocaleString('en-GB',options)} profileURL={`${dat.PROFILEURL}`}/>):<div className="w-full justify-center items-center flex mt-6 whitespace-nowrap text-caert">
@@ -70,15 +99,16 @@ const send=useRef(null);
 
       <div className="p-4 lg:p-6 w-full lg:flex-1  absolute bg-main left-0 right-0 bottom-0 z-[999]">
      <div className="bg-search rounded-lg flex box-border  items-center" ref={send}>
-     <input type="text" placeholder="Type a message here" className="p-0 flex-1 ml-4 caret-caert overflow-hidden bg-transparent text-white placeholder:text-caert text-sm font-sans outline-none" onKeyUp={(e)=>sendfunc(e)}/>
-     <div className="m-1" onClick={(e)=>{
+     <input type="text" placeholder="Type a message here" className="p-0 flex-1 ml-4 caret-caert overflow-hidden bg-transparent text-white placeholder:text-caert text-sm font-sans outline-none" onKeyUp={(e)=>{
+      if(e.key === 'Enter'){
+        sendfunc(e);
+      }
+     }}/>
+     <div className="m-1 cursor-pointer" onClick={(e)=>{
        e.preventDefault();
-
-       //Emit the event here also
-       Client.sendMessage(send.current.children[0].value.trim());
-       send.current.children[0].value='';
+       sendfunc(e);
      }}>
-     <span className="material-icons-outlined text-xl bg-sky py-1 px-2 rounded-lg">send</span>
+     <span className="material-icons-outlined text-xl bg-sky py-1 px-2 rounded-lg hover:scale-95">send</span>
      </div>
      </div>
     </div>

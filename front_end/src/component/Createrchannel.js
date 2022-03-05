@@ -3,6 +3,7 @@ import  ReactDOM  from "react-dom";
 import {ClipLoader} from 'react-spinners';
 import FetchData from "../FetchData";
 import axios from "axios";
+import Client from "../socketclient";
 
 
 export function Modal({setModal,getChannels,setgetChannels}){
@@ -56,6 +57,8 @@ export function Modal({setModal,getChannels,setgetChannels}){
                    if(data.status===400 && data.data.Errcode===11000){
                        console.log(`Duplicate is called`);
                        setErr({...error,Name:data.data.Err});
+                       //Join the channel through Socket IO
+                       
                    }
                    
                    if(data.status===500){
@@ -63,7 +66,10 @@ export function Modal({setModal,getChannels,setgetChannels}){
                    }
 
                    if(data.status===201){
-                    setgetChannels([...getChannels,data.data]);  
+
+                   Client.sendchannel(data.data);
+                     
+                   setgetChannels([...getChannels,data.data]);  
                     //I think Memory leak is happening here , after closing unMounting component only 
                     // setLoad is called , in side a .then  , so axios cancel menthod is called ,which will clear everything while unMounting is going -on
                     //can be also resolved by calling setLoad function before setModal inside 201 status function , but what is the fun in that ./ 

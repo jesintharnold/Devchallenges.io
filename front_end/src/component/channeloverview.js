@@ -21,8 +21,8 @@ function Channeloverview({setChannel,channel}){
     </div>
     <span className="my-2 uppercase font-bold text-base block text-txt font-sans">Members</span>
     <div className="my-1">
-    <Member src="https://unsplash.com/photos/2LowviVHZ-E/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8NXx8cHJvZmlsZXxlbnwwfHx8fDE2NDQ0MTg1MzI&force=true&w=640" name="Xanthe Neal" status="Online"/>
-    <Member src="https://unsplash.com/photos/2LowviVHZ-E/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8NXx8cHJvZmlsZXxlbnwwfHx8fDE2NDQ0MTg1MzI&force=true&w=640" name="Annaliese Huynh" status="Off"/>
+    <Member src="https://cdn.pixabay.com/photo/2016/03/26/22/13/man-1281562_960_720.jpg" name="Xanthe Neal" status="Online"/>
+    <Member src="https://cdn.pixabay.com/photo/2016/03/26/22/13/man-1281562_960_720.jpg" name="Annaliese Huynh" status="Off"/>
     </div>
     </div>
     </div>

@@ -8,7 +8,7 @@ const Chatmessage=({channel,chats})=>{
         <>
         {
          chats[channel.channelId]?chats[channel.channelId].map((dat,index)=>
-         <Chatmsg msg={dat.Msg} name={dat.IDNAME} key={index} date={new Date(dat.DAT).toLocaleString('en-GB',options)} profileURL={`${dat.PROFILEURL}`}/>):<h1>No Message found</h1>
+         <Chatmsg msg={dat.Msg} name={dat.IDNAME} key={index} date={new Date(parseInt(dat.DAT)).toLocaleString('en-GB',options)} profileURL={`${dat.PROFILEURL}`}/>):<h1>No Message found</h1>
         } 
         </>
     )

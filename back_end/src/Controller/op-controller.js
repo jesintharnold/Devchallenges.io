@@ -2,6 +2,7 @@ const {logger}=require('../utils/logger');
 const {channelSchema,getmessageSchema}=require('../Schema/schemaval');
 const channelDAO =require('../DB/channel');
 
+
 const createChannel=async (req,res,next)=>{
     let {error,value}=channelSchema.validate(req.body);
     if(error){
@@ -9,16 +10,23 @@ const createChannel=async (req,res,next)=>{
     }else{
       let _res=await channelDAO.createChannel(req.body);
       if(_res.insertedCount===1){
-          res.status(201).send({
+
+        res.status(201).send({
             channelDesc: _res.channelDesc,
             channelName: _res.channelName,
-            private: _res.private
+            private: _res.private,
+            _id:_res._id
           });
+        
+
+
       }
       if(_res===11000){
         return res.status(400).send({Err:`Channel name already exists`,Errcode:11000})
       }
-      return res.status(500).send({Err:`Internal Server Error`});
+      if(_res===500){
+        return res.status(500).send({Err:`Internal Server Error`});
+      }
     }
 };
 

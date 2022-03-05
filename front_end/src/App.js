@@ -1,17 +1,14 @@
-import { createContext, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import {Modal} from "./component/Createrchannel";
-import Chatmsg from "./component/Message";
-import Member from "./component/Member";
 import { Chat } from "./component/chat";
-import {io} from 'socket.io-client';
 import Client from './socketclient';
 import Channels from "./component/channels";
 import Logout from "./component/logout";
 import Channeloverview from './component/channeloverview';
-import axios from "axios";
+import {io, Socket} from 'socket.io-client';
 
 
-export const  App=()=>{
+export const  App=({props})=>{
   const [drop,setDrop]=useState(false);
   const [side,setSide]=useState(false);
   const [channel,setChannel]=useState({
@@ -21,34 +18,40 @@ export const  App=()=>{
     checked:false
   });
   const [modal,setModal]=useState(false);
-  //Fetch Data will present here 
   const [getChannels,setgetChannels]=useState([]);
-  const [chats,setChats]=useState({
-  });
+  const [chats,setChats]=useState({});
 
+  
 
+  {console.log(`Rendering -- APP JS`);}
 
   useEffect(()=>{
     const socket=io("http://localhost:5000/");
-    socket.id="0000000001"
     Client.setSocket(socket);
-    //Event to join - Open channels
-    socket.emit("JOINOPEN");
+    // const props=Client.socketinstance();
+
     
-   //Initiating a chat Array
 
+    // Event to join - Open channels
+    socket.emit("joinopenchannel");
 
-
-
-    //Listen to Events Here
+    socket.on('channel',(payload)=>{ 
+      setgetChannels(prevstate=>[...prevstate,payload]); 
+      socket.emit('joinchannel',{channelID:payload._id});
+      console.log(payload);
+    });
+    
+    // Listen to Events Here
     return ()=>socket.close();
-  },[])
+
+  },[]);
 
   
   return (
     <div className="min-w-full min-h-screen h-0 relative lg:flex">
     <div className={"fixed left-0 top-0 bottom-0 z-50 min-h-full w-[16rem] lg:relative bg-side text-white lg:w-72 transition duration-200 ease-in-out lg:translate-x-0 "+(side?'':'-translate-x-full')}>
     <div className="z-20 lg:flex flex-col h-[90%]">
+    {console.log(`Rendering -- APP JS`)}
      <div className="flex text-center items-center px-4 py-2 justify-between shadow-ol relative">
      <span className="text-xl font-sans font-bold">Channels</span>  
      <span className="material-icons-outlined bg-main p-1 rounded hover:bg-gray-500 cursor-pointer" onClick={()=>setModal(!modal)}>add</span>  

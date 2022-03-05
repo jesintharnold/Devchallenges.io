@@ -78,17 +78,21 @@ class channelDAO{
    static async insertRoomMsg(payload){
       try{
          //Check channel ID and Push a new msg to messages array
-         let res=await channel_collection.update({
-            _id:payload.channelID
+         let res=await channel_collection.updateOne({
+            _id:ObjectId(payload.channelID)
          },{
-            $push:{Members:{
-               Msg:payload.msg,
-               Dat:payload.Dat
+            $push:{"messages":{
+               Msg:payload.Msg,
+               DAT:payload.DAT,
+               ID:ObjectId(payload.ID)
             }}
          });
 
+
+         logger.info(res);
+
          //return if insertedCount is not 1
-         if(res.insertedCount!==1){
+         if(res.modifiedCount!==1){
             return 500;
          }
          return res;

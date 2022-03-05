@@ -11,7 +11,9 @@ const {Dbconnect,DBclose}=require('./DB/dbcon');
 const {joinAllchannels,createChannel} = require('./Controller/op-controller.js');
 const route=require('./Routes/route.js');
 const { Msgschema,channelSchema} = require('./Schema/schemaval.js');
-const { join } = require("path");
+const { insertRoomMsg } = require("./DB/channel");
+const { LoggerLevel } = require("mongodb");
+
 
 Dbconnect().then(con=>{
     channelDAO.injectCol(con);
@@ -33,22 +35,50 @@ const io=require("socket.io")(http,{
 io.on('connection',(Socket)=>{
 
     //It will allow us to join - Open Channels
-    Socket.on("JOINOPEN",()=>{
-        joinAllchannels(Socket);
+    Socket.on("joinopenchannel",(payload)=>{
+        
+            logger.info(`------------------------`);
+            joinAllchannels(Socket);
+      
     })
 
+    Socket.on('joinchannel',(payload)=>{
+              Socket.join(payload.channelID);
+              logger.warn(`${Socket.id}-Joined-${payload.channelID}`);
+    })
+
+    //channel section
+    Socket.on('channel',payload=>{
+        Socket.broadcast.emit('channel',payload);
+    });
      
-    Socket.on('sendRoomMessage',(roomData)=>{
+    Socket.on('roommessage',(roomData)=>{
+
     logger.info(roomData);
-    });
+    const {error,value}=Msgschema.validate(roomData);
+    if(value.channelID && value.Msg && value.ID){
+        let res=insertRoomMsg(roomData);
+        if(res==500){
+          logger.error(res);
+        }else{
+             logger.warn(res); 
+        }
 
-   Socket.on('sendMessage',(msgData)=>{
-       Socket.to("PEN").emit("Message",msgData);
-       logger.info(msgData);
-    });
+        Socket.broadcast.emit(roomData);
 
+    }
+    else{
+        logger.error(error);
+    }
+
+    });
+    
 
 });
+
+
+
+
 
 
 

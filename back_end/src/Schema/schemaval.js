@@ -2,9 +2,8 @@ const Joi = require('joi');
 
 const Msgschema=Joi.object().keys({
     channelID:Joi.string().trim().max(24).required(),
-    channelName:Joi.string().trim().required(),
     Msg:Joi.string().trim().required(),
-    Dat:Joi.string().trim().required()
+    DAT:Joi.number().required()
 });
 
 const channelSchema=Joi.object().keys({
