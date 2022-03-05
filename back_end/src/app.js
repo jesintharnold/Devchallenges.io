@@ -64,7 +64,7 @@ io.on('connection',(Socket)=>{
              logger.warn(res); 
         }
 
-        Socket.broadcast.emit(roomData);
+        Socket.broadcast.emit('roommessage',roomData);
 
     }
     else{

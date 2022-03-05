@@ -21,9 +21,6 @@ export const  App=({props})=>{
   const [getChannels,setgetChannels]=useState([]);
   const [chats,setChats]=useState({});
 
-  
-
-  {console.log(`Rendering -- APP JS`);}
 
   useEffect(()=>{
     const socket=io("http://localhost:5000/");
@@ -39,6 +36,24 @@ export const  App=({props})=>{
       setgetChannels(prevstate=>[...prevstate,payload]); 
       socket.emit('joinchannel',{channelID:payload._id});
       console.log(payload);
+    });
+
+    socket.on('roommessage',(payload)=>{
+      
+      setChats(prevstate=>(
+        // {...prevstate,[payload.channelID.toString()]:[...prevstate[payload.channelID.toString()],payload]}
+       
+        (
+        prevstate[payload.channelID.toString()]?{...prevstate,[payload.channelID.toString()]:[...prevstate[payload.channelID.toString()],payload]}:
+        {...prevstate,[payload.channelID.toString()]:[payload]}
+
+        )
+
+
+
+      ));
+
+
     });
     
     // Listen to Events Here
