@@ -15,7 +15,8 @@ module.exports = {
         'blk':'#0B090C',
         'caert':'#828282',
         'sideopacity':'rgba(18, 15, 19, 0.5)',
-        'txtOpac':' #E0E0E0',
+        'txtOpac':'#E0E0E0',
+        'authborder':'#BDBDBD'
       },
       fontFamily:{
         'san':['Noto Sans']
@@ -27,10 +28,15 @@ module.exports = {
         popup:{
           'from':{transform:'translateY(20px)',opacity:'0.5'},
           'to':{transform:'translateY(0px)',opacity:'1'}
+        },
+        topup:{
+          'from':{transform:'translateY(-10px)',opacity:'0.5'},
+          'to':{transform:'translateY(0px)',opacity:'1'}
         }
       },
       animation: {
         popup: 'popup 0.6s ease-in-out',
+        topup:'topup 0.6s ease-in-out'
       }
     },
     
