@@ -8,18 +8,16 @@ import reportWebVitals from './reportWebVitals';
 
 
 
-
-// <Auth/>
-
-
-
-
 ReactDOM.render(
   <React.StrictMode>
-    <Profile/>
+    <Auth/>
   </React.StrictMode>,
   document.getElementById('root')
 );
 
 
 reportWebVitals();
+
+
+
+

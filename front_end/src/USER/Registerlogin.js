@@ -6,24 +6,30 @@ import facebook from '../Assets/Facebook.svg';
 import {ClipLoader} from 'react-spinners';
 import { useRef, useState } from 'react';
 import validator from 'validator';
+import { googleOauth,githubOauth,twitterOauth,facebookOauth } from '../Authlibrary/OauthService';
+
 
 const icon_list=[
     {
      "Path":google,
-     "Name":"GO"   
+     "Name":"GO",
+     "Func":googleOauth()    
     },
     {
        "Path":facebook,
-       "Name":"FA"   
+       "Name":"FA",
+       "Func":facebookOauth()    
    }
    ,
    {
      "Path":twitter,
-     "Name":"TI"   
+     "Name":"TI",
+     "Func":twitterOauth()    
    },
    {
       "Path":github,
-      "Name":"GI"   
+      "Name":"GI",
+      "Func":githubOauth()   
    }
 ] 
 
@@ -37,15 +43,7 @@ export const Auth=()=>{
         Email:'',
         Password:''
     });
-
-
-
-
-    function Oauthlogin(){
-        
-    }
     
-
     function Authsubmit(e){
         e.preventDefault();
         
@@ -108,10 +106,22 @@ export const Auth=()=>{
                <p className='text-center text-base text-authborder'>or continue with these social profile</p>
                <div className='flex justify-center gap-6 my-8'>
                    {icon_list.map((data,index)=>(
-                       <button className="box-border"  key={index} onClick={(e)=>{
+                       <a className="box-border"  key={index} href={data.Func} onClick={(e)=>{
                            console.log(data.Name);
-                       }}><img src={data.Path} className="w-full h-full" alt={`${data.Name}`}/></button>
+                       }}><img src={data.Path} className="w-full h-full" alt={`${data.Name}`}/></a>
                    ))}
+
+
+
+                   
+                {/* <a className="box-border"  href={`${githubOauth()}`} rel="noreferrer"><img src={facebook} className="w-full h-full" alt={`Facebook`}/></a>
+                <a className="box-border"  href={`${githubOauth()}`} rel="noreferrer"><img src={twitter} className="w-full h-full" alt={`twitter`}/></a>
+                <a className="box-border"  href={`${githubOauth()}`} rel="noreferrer"><img src={google} className="w-full h-full" alt={`google`}/></a>
+                <a className="box-border"  href={`${githubOauth()}`} rel="noreferrer">Hello</a> */}
+
+
+
+
                </div>
                <p className='text-center text-base text-authborder'>{login?("Don't have an account yet ? "):"Already a member ? "}<span className='text-sky' onClick={(e)=>setLogin(!login)}>{login?"Register":"Login"}</span></p>
                </div>  
