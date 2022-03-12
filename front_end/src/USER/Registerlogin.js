@@ -22,16 +22,19 @@ const icon_list=[
    }
    ,
    {
-     "Path":twitter,
-     "Name":"TI",
-     "Func":twitterOauth()    
-   },
-   {
       "Path":github,
       "Name":"GI",
       "Func":githubOauth()   
    }
 ] 
+
+
+// ,
+//    {
+//      "Path":twitter,
+//      "Name":"TI",
+//      "Func":twitterOauth()    
+//    }
 
 
 export const Auth=()=>{
@@ -72,7 +75,7 @@ export const Auth=()=>{
             },3000);
         }
 
-    }
+    }//
 
     return (
         <div className="w-full min-h-screen bg-transparent flex justify-center sm:items-center box-border ">

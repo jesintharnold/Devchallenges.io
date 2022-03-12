@@ -1,3 +1,4 @@
+import axios from 'axios';
 
 export function googleOauth(){
     const url="https://accounts.google.com/o/oauth2/v2/auth";
@@ -32,19 +33,51 @@ export function githubOauth(){
 };
 
 
-export function twitterOauth(){
-  const url="https://twitter.com/i/oauth2/authorize";
-  const options={
-    client_id:process.env.REACT_APP_TWITTER_ID,
-    redirect_uri:process.env.REACT_APP_TWITTER_CB,
-    response_type:"code",
-    scope:["users.read","offline.access"].join(" ")
-  };
+// export function twitterOauth(){
+//   const url="https://twitter.com/i/oauth2/authorize";
+//   const options={
+//     response_type:"code",
+//     client_id:process.env.REACT_APP_TWITTER_ID,
+//     scope:["users.read","offline.access","tweet.read"].join(" "),
+//     state:"state",
+//     code_challenge:"challenge",
+//     code_challenge_method:"plain"
+//   };
 
-  const qs=new URLSearchParams(options);
-  console.log(`${url}?${qs.toString()}`);
-  return `${url}?${qs.toString()}`;
-}
+
+//   const qs=new URLSearchParams(options);
+//   console.log(`${url}?redirect_uri=${process.env.REACT_APP_TWITTER_CB}&${qs.toString()}`);
+//   return `${url}?redirect_uri=${process.env.REACT_APP_TWITTER_CB}&${qs.toString()}`;
+// }
+
+// export async function twitterOauth(){
+
+//   const timestamp = Date.now() / 1000;
+//   const nonce = uuid.v4().replace(/-/g, '');
+
+//   const params = {
+//     oauth_consumer_key: process.env.REACT_APP_TWITTER_KEY,
+//     oauth_nonce: nonce,
+//     oauth_signature_method: 'HMAC-SHA1',
+//     oauth_timestamp: timestamp,
+//     oauth_version: '1.0'
+//   };
+
+//   let oauth_signature=oauth.hmacsign('POST', "https://api.twitter.com/oauth/request_token", params, process.env.REACT_APP_TWITTER_VALUE);
+//   console.log(oauth_signature);
+
+//   let res_oauth=await axios.post(`https://api.twitter.com/oauth/request_token?oauth_callback=${process.env.REACT_APP_TWITTER_CB}`,{
+//     headers:{
+//       Authorization: `OAuth  OAuth oauth_consumer_key=${process.env.REACT_APP_TWITTER_KEY}, oauth_nonce=${nonce.toString()}, oauth_signature=${oauth_signature}, oauth_signature_method="HMAC-SHA1", oauth_timestamp=${timestamp}, oauth_version="1.0"`
+//     }
+//   });
+// }
+
+//   const qs=new URLSearchParams(options);
+//   console.log(`${url}?redirect_uri=${process.env.REACT_APP_TWITTER_CB}&${qs.toString()}`);
+//   return `${url}?redirect_uri=${process.env.REACT_APP_TWITTER_CB}&${qs.toString()}`;
+// }
+
 
 
 export function facebookOauth(){
@@ -53,7 +86,7 @@ export function facebookOauth(){
     client_id:process.env.REACT_APP_FACEBOOK_ID,
     redirect_uri:process.env.REACT_APP_FACEBOOK_CB,
     response_type:"code",
-    scope:["email","public_profile"].join(" ")
+    scope:"email,public_profile"
   }
   const qs=new URLSearchParams(options);
   console.log(`${url}?${qs.toString()}`);
