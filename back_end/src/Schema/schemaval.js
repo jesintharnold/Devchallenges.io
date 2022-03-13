@@ -17,8 +17,16 @@ const getmessageSchema=Joi.object().keys({
     channelID:Joi.string().trim().max(24).required()
 });
 
+
+const emailfromauth=Joi.object().keys({
+    Name:Joi.string().trim().required(),
+    Profileurl:Joi.string().uri().required(),
+    email:Joi.string().email().required()
+});
+
 module.exports={
     Msgschema,
     channelSchema,
-    getmessageSchema
+    getmessageSchema,
+    emailfromauth
 }

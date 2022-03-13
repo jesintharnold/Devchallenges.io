@@ -3,7 +3,7 @@ const route=require("express").Router();
 const chatcontroller=require('../Controller/op-controller');
 const channelDAO = require("../DB/channel");
 const { logger } = require("../utils/logger");
-const {googleOauth,githubOauth,twitterOauth,facebookOauth,PretwitterOauth}=require("../Controller/Auth/Authcontroller");
+const {googleOauth,githubOauth,twitterOauth,facebookOauth}=require("../Controller/Auth/Authcontroller");
 
 route.post('/channel',chatcontroller.createChannel);
 route.get('/channel',chatcontroller.getAllChannels);

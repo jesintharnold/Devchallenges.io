@@ -3,20 +3,20 @@ import { HmacSHA1, enc } from "crypto-js";
 import { v4 as uuidv4 } from 'uuid';
 
 export function googleOauth(){
-    const url="https://accounts.google.com/o/oauth2/v2/auth";
-    const options = {
-      redirect_uri: process.env.REACT_APP_GOOGLE_REDIRECT_URL,
-      client_id: process.env.REACT_APP_GOOGLE_CLIENTID,
-      access_type: "offline",
-      response_type: "code",
-      prompt: "consent",
-      scope: [
-        "https://www.googleapis.com/auth/userinfo.profile",
-        "https://www.googleapis.com/auth/userinfo.email",
-      ].join(" "),
-    };
-    const qs = new URLSearchParams(options);
-    return `${url}?${qs.toString()}`;
+  const _url="https://accounts.google.com/o/oauth2/v2/auth";
+  const options = {
+    redirect_uri: process.env.REACT_APP_REDIRECT_URL,
+    client_id: process.env.REACT_APP_CLIENTID,
+    access_type: "offline",
+    response_type: "code",
+    prompt: "consent",
+    scope: [
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/userinfo.email",
+    ].join(" "),
+  };
+  const qs = new URLSearchParams(options);
+  return `${_url}?${qs.toString()}`;
   };
 
 export function githubOauth(){

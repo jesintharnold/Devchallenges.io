@@ -13,10 +13,11 @@ const route=require('./Routes/route.js');
 const { Msgschema,channelSchema} = require('./Schema/schemaval.js');
 const { insertRoomMsg } = require("./DB/channel");
 const { LoggerLevel } = require("mongodb");
-
+const userDAO=require("./DB/users");
 
 Dbconnect().then(con=>{
     channelDAO.injectCol(con);
+    userDAO.injectCol(con)
 })
 
 express.use(cors());

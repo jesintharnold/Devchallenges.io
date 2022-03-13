@@ -4,10 +4,11 @@ const { URLSearchParams } = require("url");
 const {logger}=require("../../utils/logger");
 const { HmacSHA1, enc }=require("crypto-js");
 const {v4} = require('uuid');
-
+const Emailcontroller=require('./Emailcontroller');
 
 const googleOauth=async (req,res,next)=>{
     let google_code=req.query.code;
+    logger.error(google_code);
     const values={
         code:google_code,
         client_id:config.get('Google.client_id'),
@@ -16,37 +17,42 @@ const googleOauth=async (req,res,next)=>{
         grant_type:"authorization_code",
     };
     
+    logger.info(values);
+
     try{
         const oauth_res=await axios.post("https://oauth2.googleapis.com/token",new URLSearchParams(values),{
         headers:{
                 "Content-Type": "application/x-www-form-urlencoded"
         }
         }).then(async (x)=>{
-
+           logger.info(x);
            let res_access_token=await axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${x.data.access_token}`,{
                headers:{
                 Authorization: `Bearer ${x.data.id_token}`
                }
            });
+          logger.info(res_access_token);
+           if(res_access_token.data.verified_email===false){
+            res.status(403).send({Error:"Google account is not verified"});
+           }
 
-           let payload={
-            Name:res_access_token.data.given_name,
-            Profileurl:res_access_token.data.picture,
-            email:res_access_token.data.email
-           };
-
-           logger.info(payload);
-
-
+           if(res_access_token.data.verified_email){
+            let payload={
+                Name:res_access_token.data.given_name,
+                Profileurl:res_access_token.data.picture,
+                email:res_access_token.data.email
+               };
+               Emailcontroller(payload,res);
+            } 
         });
     }catch(e){
-           logger.error(`Google Oauth - error `,e);
+           logger.error(`Google Oauth - error`,e);
     } 
 };
 
 const facebookOauth=async (req,res,next)=>{
     let facebook_code=req.query.code;
-    
+
     let values={
         code:facebook_code,
         client_id:config.get('Facebook.client_id'),
@@ -73,8 +79,7 @@ const facebookOauth=async (req,res,next)=>{
             Profileurl:user_data.data.picture.data.url,
             email:user_data.data.email
            }
-
-           logger.info(payload);
+          Emailcontroller(payload,res);
  
       });
     }
@@ -134,9 +139,7 @@ const githubOauth=async (req,res,next)=>{
                Profileurl:avatar_url.split('"').join(''),
                email:res_access_email.data[0].email.split('"').join('')
            };
-
-           logger.info(payload);
-
+           Emailcontroller(payload,res);
             });
         
     }catch(e){
@@ -184,6 +187,10 @@ const githubOauth=async (req,res,next)=>{
   
   
 //   }
+
+
+
+
 
 
 

@@ -47,6 +47,9 @@ export const Auth=()=>{
         Password:''
     });
     
+  
+    
+
     function Authsubmit(e){
         e.preventDefault();
         
@@ -83,6 +86,7 @@ export const Auth=()=>{
                <div className="flex items-center justify-between">
                <img src={logoLight} alt="Not found" className="w-[160px] h-8 block" loading="lazy"/>
                </div>
+               {/* {console.log(useJwt(jwt))} */}
                <div className='mt-12 md:mt-8'>               
                {login?
                (<>
