@@ -14,10 +14,12 @@
     "body-parser": "^1.19.2",
     "config": "^3.3.7",
     "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
     "express": "^4.17.3",
     "joi": "^17.6.0",
     "mongodb": "^4.4.0",
-    "socket.io": "^4.4.1"
+    "socket.io": "^4.4.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "pino": "^7.8.0",

@@ -2,6 +2,8 @@ const config=require("config");
 const axios=require("axios");
 const { URLSearchParams } = require("url");
 const {logger}=require("../../utils/logger");
+const { HmacSHA1, enc }=require("crypto-js");
+const {v4} = require('uuid');
 
 
 const googleOauth=async (req,res,next)=>{
@@ -143,6 +145,45 @@ const githubOauth=async (req,res,next)=>{
 
 
 };
+
+
+
+// async function PretwitterOauth(){
+//     logger.error("Pre-twitter Auth called");
+//     const timestamp = Date.now() / 1000;
+//     const nonce=v4();
+  
+//     try{
+//         const url='https://api.twitter.com/oauth/request_token';
+//         const params = {
+//           oauth_consumer_key:`${config.get("Twitter.REACT_APP_TWITTER_KEY")}`,
+//           oauth_nonce: nonce,
+//           oauth_signature_method: 'HMAC-SHA1',
+//           oauth_timestamp: timestamp,
+//           oauth_version: '1.0'
+//         };
+//         logger.warn(params);
+//         let oauth_signature=encodeURIComponent(enc.Base64.stringify(HmacSHA1(`${"POST"}&${encodeURIComponent(url)}&${encodeURIComponent(new URLSearchParams(params).toString())}`,`${encodeURIComponent(`${process.env.REACT_APP_TWITTER_VALUE}`)}&`)));
+//         logger.warn(oauth_signature);
+//         logger.warn(`Authorization: OAuth oauth_consumer_key=${config.get("Twitter.REACT_APP_TWITTER_KEY")},oauth_signature_method='HMAC-SHA1',oauth_timestamp=${timestamp},oauth_nonce=${nonce},oauth_version='1.0',oauth_signature=${oauth_signature}`);
+//         let res_oauth=await axios.post(`https://api.twitter.com/oauth/request_token`,{
+//           headers:{
+//             Authorization:`OAuth oauth_consumer_key=${config.get("Twitter.REACT_APP_TWITTER_KEY")},oauth_signature_method='HMAC-SHA1',oauth_timestamp=${timestamp},oauth_nonce=${nonce},oauth_version='1.0',oauth_signature=${oauth_signature}`
+//           }
+//         }).then(x=>{
+//            logger.warn(x);
+//         });
+
+
+//         logger.error()
+
+//     }catch(e){
+//            logger.error(Object.keys(e));
+//            logger.info(e);
+//     }
+  
+  
+//   }
 
 
 
