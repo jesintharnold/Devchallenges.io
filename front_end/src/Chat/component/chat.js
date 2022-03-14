@@ -15,13 +15,13 @@ export function Chat({side,setSide,channel,chats,setChats}){
   useEffect(()=>{
      FetchData.getAllChats(channel.channelId).then((dat)=>{
        console.log(dat);
-       setChats({...chats,[channel.channelId.toString()]:dat});
-     }).then(()=>{
+      setChats({...chats,[channel.channelId.toString()]:dat});
+      }).then(()=>{
       setload(false);
      });
   },[channel.channelId]);
 
-const send=useRef(null);
+   const send=useRef(null);
 
    function sendfunc(e){
 
