@@ -1,24 +1,18 @@
 import React from "react";
-import { Suspense, useContext, useEffect, useRef, useState } from "react"
+import {useEffect, useRef, useState } from "react"
 import Client from "../socketclient";
 import Chatmsg from "./Message"
-import axios from 'axios';
 import FetchData from "../FetchData";
-import { Conprovider } from "../App";
-import Chatmessage from "./chatMessage";
-import {MoonLoader,ClipLoader} from 'react-spinners';
+import {ClipLoader} from 'react-spinners';
 
 
 export function Chat({side,setSide,channel,chats,setChats}){
   const options={year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:true}
 
-  //{setSide,side,channel,set,get}
- //const {side,setSide,channel,chats,setChats}=useContext(Conprovider);
+
 
   const [load,setload]=useState(true);
   useEffect(()=>{
-    // //Fetch channel Messages by using ID
-    //  console.log(channel.channelId);
      FetchData.getAllChats(channel.channelId).then((dat)=>{
        console.log(dat);
        setChats({...chats,[channel.channelId.toString()]:dat});
@@ -29,36 +23,9 @@ export function Chat({side,setSide,channel,chats,setChats}){
 
 const send=useRef(null);
 
-
-  // function sendfunc(e){
-  //   if(e.keyCode===13){
-  //     e.preventDefault();
-  //     //Emit the event
-  //     let payload={
-  //       channelID:channel.channelId,
-  //       Msg:e.target.value.trim(),
-  //       DAT:Date.now(),
-  //       ID:"6219fd00f897b3d831ba714d",
-  //       PROFILEURL:"https://cdn.pixabay.com/photo/2016/11/22/21/42/woman-1850703_960_720.jpg",
-  //       IDNAME:"Jesinth Arnold"
-  //     };
-  //      Client.sendRoomsg(payload);
-       
-  //      setChats({...chats,[channel.channelId.toString()]:[...chats[channel.channelId.toString()],payload]});
-       
-  //      e.target.value='';
-  //    }
-  //  }
-
-
-
    function sendfunc(e){
 
      e.preventDefault();
-      //  Client.sendRoomsg(send.current.children[0].value.trim());
-      //  send.current.children[0].value='';
-
-      //Emit the event
     if(send.current.children[0].value.trim()!==''){
       let payload={
         channelID:channel.channelId,

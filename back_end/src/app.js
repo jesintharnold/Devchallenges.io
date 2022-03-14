@@ -5,19 +5,23 @@ const {logger}=require('./utils/logger');
 const bodyParser = require('body-parser');
 const { Socket } = require("socket.io");
 const { appendFile } = require("fs");
-const channelDAO=require('./DB/channel');
+const channelDAO=require('./DB/CHAT/channel');
 const http=require('http').createServer(express);
 const {Dbconnect,DBclose}=require('./DB/dbcon');
-const {joinAllchannels,createChannel} = require('./Controller/op-controller.js');
+const {joinAllchannels,createChannel} = require('./Controller/CHAT/op-controller.js');
 const route=require('./Routes/route.js');
-const { Msgschema,channelSchema} = require('./Schema/schemaval.js');
-const { insertRoomMsg } = require("./DB/channel");
+const { Msgschema,channelSchema} = require('./Schema/CHAT/schemaval.js');
+const { insertRoomMsg } = require("./DB/CHAT/channel");
 const { LoggerLevel } = require("mongodb");
 const userDAO=require("./DB/users");
 
 Dbconnect().then(con=>{
+
+    //CHAT SECTION
     channelDAO.injectCol(con);
-    userDAO.injectCol(con)
+    userDAO.injectCol(con);
+
+
 })
 
 express.use(cors());
@@ -31,8 +35,13 @@ const io=require("socket.io")(http,{
     }
 });
 
-//Initalize Socket.io with http server / express
 
+
+
+
+
+
+//Initalize for chat application
 io.on('connection',(Socket)=>{
 
     //It will allow us to join - Open Channels
@@ -76,9 +85,6 @@ io.on('connection',(Socket)=>{
     
 
 });
-
-
-
 
 
 

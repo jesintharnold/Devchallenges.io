@@ -3,9 +3,8 @@ import axios from 'axios';
 let baseURL="http://localhost:5000";
 class FetchData{
     static async getAllChats(payload){
-    
         try{
-            let res=await axios.post(`${baseURL}/getmessage`,{
+            let res=await axios.post(`${baseURL}/chat/getmessage`,{
                 channelID:payload
             });
             console.log(res);
@@ -17,8 +16,8 @@ class FetchData{
 
     static async getAllChannels(){
         try{
-            await axios.get(`${baseURL}/channel`).then((data)=>{
-                if(data.length>0){
+           return await axios.get(`${baseURL}/chat/channel`).then((data)=>{
+                if(data.data.length>0){
                   return data.data;
                 }
             })
@@ -30,8 +29,7 @@ class FetchData{
     static async createChannel(payload,options){
       try{
         console.log(options);
-        let res=await axios.post(`${baseURL}/channel`,payload,{cancelToken:options});
-        return res;
+        return await axios.post(`${baseURL}/chat/channel`,payload,{cancelToken:options});
       }catch(err){
         return err.response;
       }
