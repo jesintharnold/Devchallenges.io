@@ -189,7 +189,17 @@ const githubOauth=async (req,res,next)=>{
 //   }
 
 
+const normalauthregister=()=>{
+    //Get login forms 
+    logger.info(req.body);
 
+};
+
+const normalauthlogin=()=>{
+    //Get login forms 
+    logger.info(req.body);
+
+};
 
 
 
@@ -198,5 +208,7 @@ module.exports={
     googleOauth,
     githubOauth,
     twitterOauth,
-    facebookOauth
+    facebookOauth,
+    normalauthlogin,
+    normalauthregister
 }

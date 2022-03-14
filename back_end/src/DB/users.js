@@ -16,17 +16,14 @@ class UserDAO{
        }
     }
 
-    static async finduser({email,ID,user_payload}){
+
+          
+    static async finduser({email,user_payload}){
 
         try{
-            if(ID){
-                return await user_collection.findOne({"_id":ObjectId(ID)}).toArray();
-            }
-            else{
-                let r= await user_collection.findOneAndUpdate({"email":email},{$set:user_payload},{upsert:true});
-                logger.info(r);
-                return r;
-            }
+            let r= await user_collection.findOneAndUpdate({"email":email},{$set:user_payload},{upsert:true});
+            logger.info(r);
+            return r;
         }
         catch(e){
             logger.error(`Unable to find the User - ${e}`);
@@ -36,13 +33,15 @@ class UserDAO{
 
     static async findprotectuser(email){
         try{
-            return await user_collection.findOne({"email":email}).toArray();
+            return await user_collection.findOne({"email":email});
         }
         catch(e){
             logger.error(`Unable to find the User - ${e}`);
             return 500;
         }
     }
+
+
 }
 
 

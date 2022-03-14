@@ -24,9 +24,14 @@ const emailfromauth=Joi.object().keys({
     email:Joi.string().email().required()
 });
 
+const normalAuth=Joi.object().keys({
+    email:Joi.string().email().required()
+});
+
 module.exports={
     Msgschema,
     channelSchema,
     getmessageSchema,
-    emailfromauth
+    emailfromauth,
+    normalAuth
 }

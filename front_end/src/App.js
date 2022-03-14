@@ -41,32 +41,22 @@ export const  App=({props})=>{
     socket.on('roommessage',(payload)=>{
       
       setChats(prevstate=>(
-        // {...prevstate,[payload.channelID.toString()]:[...prevstate[payload.channelID.toString()],payload]}
-       
+        // {...prevstate,[payload.channelID.toString()]:[...prevstate[payload.channelID.toString()],payload]}      
         (
         prevstate[payload.channelID.toString()]?{...prevstate,[payload.channelID.toString()]:[...prevstate[payload.channelID.toString()],payload]}:
         {...prevstate,[payload.channelID.toString()]:[payload]}
-
         )
-
-
-
       ));
-
-
     });
     
     // Listen to Events Here
     return ()=>socket.close();
-
   },[]);
-
   
   return (
     <div className="min-w-full min-h-screen h-0 relative lg:flex">
     <div className={"fixed left-0 top-0 bottom-0 z-50 min-h-full w-[16rem] lg:relative bg-side text-white lg:w-72 transition duration-200 ease-in-out lg:translate-x-0 "+(side?'':'-translate-x-full')}>
-    <div className="z-20 lg:flex flex-col h-[90%]">
-    
+    <div className="z-20 lg:flex flex-col h-[90%]"> 
      <div className="flex text-center items-center px-4 py-2 justify-between shadow-ol relative">
      <span className="text-xl font-sans font-bold">Channels</span>  
      <span className="material-icons-outlined bg-main p-1 rounded hover:bg-gray-500 cursor-pointer" onClick={()=>setModal(!modal)}>add</span>  
@@ -81,12 +71,11 @@ export const  App=({props})=>{
     <Channeloverview setChannel={setChannel} channel={channel}/>
    <Logout drop={drop} setDrop={setDrop}/> 
 </div>
+<div className="h-full relative bg-main text-white z-10  lg:flex-1">
+<Chat side={side} setSide={setSide} channel={channel} chats={chats} setChats={setChats}/>
+</div>
 
- <div className="h-full relative bg-main text-white z-10  lg:flex-1">
- <Chat side={side} setSide={setSide} channel={channel} chats={chats} setChats={setChats}/>
- </div>
-
- {modal?<Modal setModal={setModal} getChannels={getChannels} setgetChannels={setgetChannels}/>:''}
+{modal?<Modal setModal={setModal} getChannels={getChannels} setgetChannels={setgetChannels}/>:''}
 </div>
   );
 }
