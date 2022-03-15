@@ -2,9 +2,8 @@ const config=require("config");
 const axios=require("axios");
 const { URLSearchParams } = require("url");
 const {logger}=require("../../utils/logger");
-const { HmacSHA1, enc }=require("crypto-js");
-const {v4} = require('uuid');
-const Emailcontroller=require('./Emailcontroller');
+const {EmailController}=require('./Emailcontroller');
+const bcrypt=require("bcrypt");
 
 const googleOauth=async (req,res,next)=>{
     let google_code=req.query.code;
@@ -42,11 +41,11 @@ const googleOauth=async (req,res,next)=>{
                 Profileurl:res_access_token.data.picture,
                 email:res_access_token.data.email
                };
-               Emailcontroller(payload,res);
+               EmailController(payload,res);
             } 
         });
-    }catch(e){
-           logger.error(`Google Oauth - error`,e);
+    }catch(err){
+           logger.error(err);
     } 
 };
 
@@ -79,7 +78,7 @@ const facebookOauth=async (req,res,next)=>{
             Profileurl:user_data.data.picture.data.url,
             email:user_data.data.email
            }
-          Emailcontroller(payload,res);
+           EmailController(payload,res);
  
       });
     }
@@ -139,37 +138,19 @@ const githubOauth=async (req,res,next)=>{
                Profileurl:avatar_url.split('"').join(''),
                email:res_access_email.data[0].email.split('"').join('')
            };
-           Emailcontroller(payload,res);
+           EmailController(payload,res);
             });
         
     }catch(e){
         logger.error(e);
     }
 
-
 };
-
-
-const normalauthregister=()=>{
-    //Get login forms 
-    logger.info(req.body);
-
-};
-
-const normalauthlogin=()=>{
-    //Get login forms 
-    logger.info(req.body);
-
-};
-
-
 
 
 module.exports={
     googleOauth,
     githubOauth,
     twitterOauth,
-    facebookOauth,
-    normalauthlogin,
-    normalauthregister
+    facebookOauth
 }

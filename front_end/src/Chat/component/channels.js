@@ -1,5 +1,5 @@
 import {useEffect, useState } from "react";
-import Namebox from '../component/Namebox';
+import Namebox from './Namebox';
 import {ClipLoader} from 'react-spinners';
 import FetchData from "../FetchData";
 

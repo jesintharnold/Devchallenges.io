@@ -3,7 +3,8 @@ const route=require("express").Router();
 const chatcontroller=require('../Controller/CHAT/op-controller');
 const channelDAO = require("../DB/CHAT/channel");
 const { logger } = require("../utils/logger");
-const {googleOauth,githubOauth,twitterOauth,facebookOauth,normalauthregister,normalauthlogin}=require("../Controller/Auth/Authcontroller");
+const {googleOauth,githubOauth,twitterOauth,facebookOauth}=require("../Controller/Auth/Authcontroller");
+const {NormalControllerlogin,NormalControllerregister}=require("../Controller/Auth/Emailcontroller");
 
 //CHAT SECTION
 route.post('/chat/channel',chatcontroller.createChannel);
@@ -15,10 +16,9 @@ route.post('/chat/getmessage',chatcontroller.getChatmessages);
 route.get("/api/oauth/facebook",facebookOauth);
 route.get("/api/oauth/google",googleOauth);
 route.get("/api/oauth/github",githubOauth);
-route.get("/api/auth/register",normalauthregister);
-route.get("/api/auth/register",normalauthlogin);
 route.get("/api/oauth/twitter",twitterOauth);
-
+route.post("/api/auth/register",NormalControllerregister);
+route.post("/api/auth/login",NormalControllerlogin);
 
 
 

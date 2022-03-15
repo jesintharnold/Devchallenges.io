@@ -1,4 +1,4 @@
-import FetchData from "../FetchData";
+
 
 
 function nameSpace(name){

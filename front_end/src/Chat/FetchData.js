@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-let baseURL="http://localhost:5000";
+const baseURL="http://localhost:5000";
+
 class FetchData{
     static async getAllChats(payload){
         try{
@@ -34,6 +35,9 @@ class FetchData{
         return err.response;
       }
     }
+
+    // Authentication Requests
+    
 }
 
 export default FetchData;

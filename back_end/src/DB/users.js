@@ -25,9 +25,28 @@ class UserDAO{
             logger.info(r);
             return r;
         }
-        catch(e){
-            logger.error(`Unable to find the User - ${e}`);
+        catch(err){
+            logger.error(`Unable to find the User - ${err}`);
+            if(err.code===11000){
+                return err.code;
+             };
             return 500;
+        }
+    }
+
+    static async insertuser(user_payload){
+
+        try{
+            let r= await user_collection.insertOne(user_payload);
+            logger.info(r);
+            return r;
+        }
+        catch(err){
+            logger.error(`Unable to perform Insert operation - ${err}`);
+            if(err.code===11000){
+                return err.code;
+             };
+             return 500;
         }
     }
 
