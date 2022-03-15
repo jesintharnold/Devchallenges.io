@@ -1,10 +1,5 @@
-import { useContext } from "react";
-import { Conprovider } from "../App";
 
 function Logout({drop,setDrop}){
-
-    //const {drop,setDrop}=useContext(Conprovider);
-
     return (
         <>
         <div className="flex z-50 items-center pb-2 pt-3 px-4 justify-between absolute min-w-full bottom-0 bg-blk">

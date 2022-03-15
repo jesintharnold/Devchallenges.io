@@ -10,3 +10,8 @@
 - Absolute Chat msg container resolved
 - Member Status added
 - Absolute values changed
+
+14/03/2022
+- Centralized error handling for node js
+- User logic updated
+- Logger files

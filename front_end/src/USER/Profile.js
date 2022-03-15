@@ -2,10 +2,6 @@ import logoLight from '../Assets/devchallenges-light.svg';
 import { useState } from 'react';
 import {ClipLoader} from 'react-spinners';
 import validator from 'validator';
-import Logout from '../component/logout';
-
-
-
 
 export const Profilelogout=()=>{
   

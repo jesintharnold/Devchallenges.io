@@ -1,30 +1,24 @@
-import { useContext, useEffect, useState } from "react";
-import axios from 'axios';
-import Namebox from '../component/Namebox';
-import { Conprovider } from "../App";
-import {MoonLoader,ClipLoader} from 'react-spinners';
+import {useEffect, useState } from "react";
+import Namebox from './Namebox';
+import {ClipLoader} from 'react-spinners';
+import FetchData from "../FetchData";
 
 function Channels({setChannel,getChannels,setgetChannels}){
-  //const {setChannel,getChannels,setgetChannels}=useContext(Conprovider);
+
     const [load,setload]=useState(true);
     const data=async()=>{
-        await axios.get('http://localhost:5000/channel').then((data)=>{
-            if(data.data.length>0){
-              setgetChannels(data.data);
-              console.log(data);
+      let res=await FetchData.getAllChannels();
+            if(res.length>0){
+              setgetChannels(res);
+              console.log(res);
               setload(false);
             }
-        })
+      
     }
     useEffect(()=>{
-        //Axios fetch        
-        //Preventing data leaks by boolean method.
       if(load){
         data();
       }
-      //It can happen here also
-      console.log(`Channel render`);
-
       return ()=>{
         setload(false);
       }

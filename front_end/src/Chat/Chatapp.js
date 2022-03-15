@@ -5,10 +5,10 @@ import Client from './socketclient';
 import Channels from "./component/channels";
 import Logout from "./component/logout";
 import Channeloverview from './component/channeloverview';
-import {io, Socket} from 'socket.io-client';
+import {io} from 'socket.io-client';
 
 
-export const  App=({props})=>{
+export const  Chatapp=({props})=>{
   const [drop,setDrop]=useState(false);
   const [side,setSide]=useState(false);
   const [channel,setChannel]=useState({
@@ -23,12 +23,10 @@ export const  App=({props})=>{
 
 
   useEffect(()=>{
-    const socket=io("http://localhost:5000/");
+    const socket=io("http://localhost:5000");
     Client.setSocket(socket);
-    // const props=Client.socketinstance();
-
+  
     
-
     // Event to join - Open channels
     socket.emit("joinopenchannel");
 
@@ -79,5 +77,4 @@ export const  App=({props})=>{
 </div>
   );
 }
-
 
