@@ -16,7 +16,8 @@ module.exports = {
         'caert':'#828282',
         'sideopacity':'rgba(18, 15, 19, 0.5)',
         'txtOpac':'#E0E0E0',
-        'authborder':'#BDBDBD'
+        'authborder':'#BDBDBD',
+        'disable-txt':'#6e6d6d'
       },
       fontFamily:{
         'san':['Noto Sans']

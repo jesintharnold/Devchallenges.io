@@ -3,21 +3,16 @@ const config=require("config");
 const cors =require("cors");
 const {logger}=require('./utils/logger');
 const bodyParser = require('body-parser');
-const { Socket } = require("socket.io");
-const { appendFile } = require("fs");
 const channelDAO=require('./DB/CHAT/channel');
 const http=require('http').createServer(express);
 const {Dbconnect,DBclose}=require('./DB/dbcon');
 const {joinAllchannels,createChannel} = require('./Controller/CHAT/op-controller.js');
 const route=require('./Routes/route.js');
-const { Msgschema,channelSchema} = require('./Schema/CHAT/schemaval.js');
+const { Msgschema,channelSchema} = require('./Schema/chatschemaval');
 const { insertRoomMsg } = require("./DB/CHAT/channel");
-const { LoggerLevel } = require("mongodb");
 const userDAO=require("./DB/users");
 
 Dbconnect().then(con=>{
-
-    //CHAT SECTION
     channelDAO.injectCol(con);
     userDAO.injectCol(con);
 

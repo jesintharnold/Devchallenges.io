@@ -5,7 +5,7 @@ const channelDAO = require("../DB/CHAT/channel");
 const { logger } = require("../utils/logger");
 const {googleOauth,githubOauth,twitterOauth,facebookOauth}=require("../Controller/Auth/Authcontroller");
 const {NormalControllerlogin,NormalControllerregister}=require("../Controller/Auth/Emailcontroller");
-
+const {getuserProfile,getuserProfileupdate}=require('../Controller/User/Usercontroller');
 //CHAT SECTION
 route.post('/chat/channel',chatcontroller.createChannel);
 route.get('/chat/channel',chatcontroller.getAllChannels);
@@ -20,6 +20,10 @@ route.get("/api/oauth/twitter",twitterOauth);
 route.post("/api/auth/register",NormalControllerregister);
 route.post("/api/auth/login",NormalControllerlogin);
 
+
+//user - response 
+route.post("/api/user/profile",getuserProfile);
+route.patch("/api/user/profile/update",getuserProfileupdate);
 
 
 module.exports=route;

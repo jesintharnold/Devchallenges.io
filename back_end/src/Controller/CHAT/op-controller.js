@@ -1,5 +1,5 @@
 const {logger}=require('../../utils/logger');
-const {channelSchema,getmessageSchema}=require('../../Schema/CHAT/schemaval');
+const {channelSchema,getmessageSchema}=require('../../Schema/chatschemaval');
 const channelDAO =require('../../DB/CHAT/channel');
 
 

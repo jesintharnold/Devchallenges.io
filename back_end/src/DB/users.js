@@ -18,10 +18,11 @@ class UserDAO{
 
 
           
-    static async finduser({email,user_payload}){
-
+    static async finduser(email,user_payload){
+    logger.info(user_payload);
+    
         try{
-            let r= await user_collection.findOneAndUpdate({"email":email},{$set:user_payload},{upsert:true});
+            let r= await user_collection.findOneAndUpdate({"email":email},{$set:user_payload},{upsert:false});
             logger.info(r);
             return r;
         }
@@ -59,7 +60,8 @@ class UserDAO{
             return 500;
         }
     }
-
+    
+    
 
 }
 

@@ -81,6 +81,8 @@ export const Auth=()=>{
                 
                 let {status,data}=data_;
                 let {access_token,_id,error}=data;
+
+                
            
                 if(access_token==null&&error.status===true&&status==200){
                     console.log(`This is 200 - some Error`);
