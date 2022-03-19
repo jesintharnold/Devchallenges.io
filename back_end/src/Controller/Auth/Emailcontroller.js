@@ -1,7 +1,7 @@
 const config=require("config");
 const {readFileSync}=require("fs");
 const {emailfromauth,normalAuth}=require('../../Schema/authschemaval');
-const UserDAO=require("../../DB/users");
+const UserDAO=require("../../DB/user/users");
 const jwt=require("jsonwebtoken");
 const bcrypt=require("bcrypt");
 const {resolve}=require("path");

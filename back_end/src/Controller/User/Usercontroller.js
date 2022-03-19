@@ -1,5 +1,5 @@
 const { func, exist } = require('joi');
-const UserDAO =require('../../DB/users');
+const UserDAO =require('../../DB/user/users');
 const {getprofile,updateProfile}=require('../../Schema/userschemaval');
 const { logger } = require('../../utils/logger');
 const bcrypt=require("bcrypt");

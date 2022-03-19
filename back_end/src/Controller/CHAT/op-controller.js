@@ -1,6 +1,6 @@
 const {logger}=require('../../utils/logger');
 const {channelSchema,getmessageSchema}=require('../../Schema/chatschemaval');
-const channelDAO =require('../../DB/CHAT/channel');
+const channelDAO =require('../../DB/chat/channel');
 
 
 const createChannel=async (req,res,next)=>{

@@ -6,11 +6,11 @@ const bodyParser = require('body-parser');
 const channelDAO=require('./DB/CHAT/channel');
 const http=require('http').createServer(express);
 const {Dbconnect}=require('./DB/dbcon');
-const {joinAllchannels,createChannel} = require('./Controller/CHAT/op-controller.js');
+const {joinAllchannels} = require('./Controller/CHAT/op-controller.js');
 const route=require('./Routes/route.js');
 const { Msgschema,channelSchema} = require('./Schema/chatschemaval');
-const { insertRoomMsg } = require("./DB/CHAT/channel");
-const userDAO=require("./DB/users");
+const { insertRoomMsg } = require("./DB/chat/channel");
+const userDAO=require("./DB/user/users");
 
 express.use(cors());
 express.use(bodyParser.urlencoded({extended:true}));
