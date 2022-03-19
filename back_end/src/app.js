@@ -5,30 +5,44 @@ const {logger}=require('./utils/logger');
 const bodyParser = require('body-parser');
 const channelDAO=require('./DB/CHAT/channel');
 const http=require('http').createServer(express);
-const {Dbconnect,DBclose}=require('./DB/dbcon');
+const {Dbconnect}=require('./DB/dbcon');
 const {joinAllchannels,createChannel} = require('./Controller/CHAT/op-controller.js');
 const route=require('./Routes/route.js');
 const { Msgschema,channelSchema} = require('./Schema/chatschemaval');
 const { insertRoomMsg } = require("./DB/CHAT/channel");
 const userDAO=require("./DB/users");
 
-Dbconnect().then(con=>{
-    channelDAO.injectCol(con);
-    userDAO.injectCol(con);
-
-
-})
-
 express.use(cors());
 express.use(bodyParser.urlencoded({extended:true}));
 express.use(bodyParser.json());
 express.use(route);
+
+
+Dbconnect().then(con=>{
+    channelDAO.injectCol(con);
+    userDAO.injectCol(con);
+});
 
 const io=require("socket.io")(http,{
     cors:{
         origin:config.get("clientOrgin")
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -82,9 +96,6 @@ io.on('connection',(Socket)=>{
 });
 
 
-
-
-logger.info(process.env.NODE_ENV);
 http.listen(config.get('App.PORT'),()=>logger.info(`Server running on ${config.get('App.PORT')}`));
 
 

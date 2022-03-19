@@ -6,10 +6,9 @@ const bcrypt=require("bcrypt");
 const config=require("config");
 
 const getuserProfile=async (req,res,next)=>{
-    let email=req.body.Email;
+    let email=req.params['email'];
     let {value,error}=getprofile.validate({email:email});
-
-
+    
     try{
         if(error){
          res.status(200).json({
@@ -41,11 +40,14 @@ const getuserProfile=async (req,res,next)=>{
 
 // Profile update function
 const getuserProfileupdate=async (req,res,next)=>{
+    
+
+    logger.info(`User Update -- needed`);
 
     let payload={
     email:req.body.Email,
     bio:req.body.Bio||null,
-    phone:req.body.Phone||null,
+    phone:req.body.Phone==null?null:req.body.Phone.toString(),
     name:req.body.Name,
     password:req.body.Password==null?null:req.body.Password.toString()
     };
@@ -54,6 +56,7 @@ const getuserProfileupdate=async (req,res,next)=>{
 
     try{ 
     let {value,error}=updateProfile.validate(payload);
+    logger.info(error);
     if(error){
         res.status(200).json({
             redirect:true,
