@@ -28,7 +28,8 @@ const getuserProfile=async (req,res,next)=>{
                 Name:user_val.name,
                 Email:user_val.email,
                 Bio:user_val.hasOwnProperty('bio')?user_val.bio:null,
-                Password:user_val.hasOwnProperty('password')
+                Password:user_val.hasOwnProperty('password'),
+                Phone:user_val.hasOwnProperty('phone')?user_val.phone:null
             }
         });
     }}catch(err){
@@ -48,7 +49,7 @@ const getuserProfileupdate=async (req,res,next)=>{
         if(err){
                 res.status(200).json({
                     redirect:true,
-                    error:{value:`Error ehile uploading Avatar`,status:true}
+                    error:{value:`Error while uploading Avatar`,status:true}
           });
         };
     
@@ -78,7 +79,7 @@ const getuserProfileupdate=async (req,res,next)=>{
             redirect:true,
             error:{
                 status:true,
-                value:`validation error`,
+                value:`Validation error`,
             }
         });
     }else{

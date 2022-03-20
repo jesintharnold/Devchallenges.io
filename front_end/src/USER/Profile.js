@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import {ClipLoader} from 'react-spinners';
 import validator from 'validator';
 import axios from 'axios';
-import {toast} from 'react-hot-toast';
+import { profileToast } from '../Toast/Alltoast';
+
 
 export const Profilelogout=()=>{
   
@@ -96,11 +97,14 @@ export const Profileeditview=({data})=>{
 
 
    async function sentData(formData){
-        await axios.patch("http://localhost:5000/user/profile/update",formData,{
+        let res_promise= axios.patch("http://localhost:5000/user/profile/update",formData,{
             headers:{
                 'Content-Type': `multipart/form-data`
             }
-        }).then(data=>console.log(data));
+        });
+        //Create a toast based on promise
+        profileToast(res_promise);
+
    }; 
 
 
@@ -114,7 +118,6 @@ export const Profileeditview=({data})=>{
         const data_=new FormData(e.target);
         let obj=Object.fromEntries(data_.entries());
         data_.append("Email",data.Email);
-        console.log(obj.Password);
         let passwordVal={
             minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1
         };
@@ -219,6 +222,7 @@ export const Profile=()=>{
     async function data_(){
 
         let userval_= await axios.get(`http://localhost:5000/user/profile`,{params:{email:email}});
+        console.log(userval_);
         if(!userval_.data.redirect){
          setData(userval_.data.value);
         }else{
