@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import {ClipLoader} from 'react-spinners';
 import validator from 'validator';
 import axios from 'axios';
+import {toast} from 'react-hot-toast';
 
 export const Profilelogout=()=>{
   
@@ -38,7 +39,6 @@ return(
 }
 
 export const Profileview=({setEdit,data})=>{
-
     return (
         <>
 <div className=' m-6 flex justify-between items-center gap-8'>
@@ -95,6 +95,15 @@ export const Profileeditview=({data})=>{
     });
 
 
+   async function sentData(formData){
+        await axios.patch("http://localhost:5000/user/profile/update",formData,{
+            headers:{
+                'Content-Type': `multipart/form-data`
+            }
+        }).then(data=>console.log(data));
+   }; 
+
+
     function profielform(e){
         let err={};
         e.preventDefault();
@@ -104,7 +113,8 @@ export const Profileeditview=({data})=>{
         },3000);
         const data_=new FormData(e.target);
         let obj=Object.fromEntries(data_.entries());
-        console.log(validator.isEmail(obj.Email));
+        data_.append("Email",data.Email);
+        console.log(obj.Password);
         let passwordVal={
             minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1
         };
@@ -117,16 +127,19 @@ export const Profileeditview=({data})=>{
         if(validator.isMobilePhone(obj.Phone)===false){
             err.Phone="provide a valid phone number";
         };
-        if(validator.isEmail(obj.Email)===false){
+        if(validator.isEmail(data.Email)===false){
             err.Email="provide a valid email";
         };
-        if(validator.isStrongPassword(obj.Password,passwordVal)===false){
+        if(!data.Password&&validator.isStrongPassword(obj.Password,passwordVal)){
             err.Password="provide a strong passprase";
         };
+
         setError({...err});
         
         if(!err.Name && !err.Bio && !err.Email && !err.Password && !err.Phone){
             console.log(`API request Sent ...`);
+            console.log(obj); 
+            sentData(data_);
         }
 
     }
@@ -135,18 +148,17 @@ export const Profileeditview=({data})=>{
     return (
         
          <div className='m-6'>
-
          <div>
          <span className='text-xl font-semibold'>Change Info</span>
          <p className='text-sm leading-4 tracking-tighter my-2'>Changes willl be reflected to every services</p>
          </div>
          
-         <form onSubmit={profielform}>
+         <form onSubmit={profielform} encType="multipart/form-data">
 
         <div className='my-6 flex items-center gap-6'>
              <div className='w-16 h-16  overflow-hidden relative'>
              <img src={data.ProfileURL||"https://cdn.pixabay.com/photo/2016/03/26/22/13/man-1281562_960_720.jpg"} className="w-full h-full rounded object-cover" alt="not found" loading="lazy"/>
-             <span class=" justify-center items-center top-0 hidden material-icons absolute w-full h-full">photo_camera</span>
+             <span className=" justify-center items-center top-0 hidden material-icons absolute w-full h-full">photo_camera</span>
              </div>
              <label className='text-sm outline-none border-2 px-3 rounded-xl py-2 bg-transparent block'>
              <span className='block'>{load?<ClipLoader size={20} color="#E0E0E0"/>:"CHANGE PHOTO"}</span>    
@@ -155,17 +167,17 @@ export const Profileeditview=({data})=>{
          </div>
              <div className='my-6 lg:my-4 relative'>
              <label htmlFor='Name' className='block my-4'>Name</label>
-             <input type="text" name='Name' placeholder='Enter your name...' defaultValue={data.Name||''} className='w-full lg:w-3/5 outline-none border-2 border-txtOpac bg-transparent h-12 p-2 rounded-lg'/>
+             <input type="text" name='Name' placeholder='Enter your name...' defaultValue={data.Name} className='w-full lg:w-3/5 outline-none border-2 border-txtOpac bg-transparent h-12 p-2 rounded-lg'/>
              </div>
              {error.Name?<span className='text-sm block -mt-5 lg:-mt-3  pl-4 text-red-700'>{error.Name}</span>:<></>}
              <div className='my-6 lg:my-4'>
              <label htmlFor='Bio' className='block my-4'>Bio</label>
-             <textarea type="text" placeholder='Enter your bio...' name='Bio' defaultValue={data.Bio||''} className='w-full lg:w-3/5 outline-none border-2 border-txtOpac bg-transparent pt-4 resize-none  p-2 rounded-lg' maxLength={150} rows="5"/>
+             <textarea type="text" placeholder='Enter your bio...' name='Bio' defaultValue={data.Bio} className='w-full lg:w-3/5 outline-none border-2 border-txtOpac bg-transparent pt-4 resize-none  p-2 rounded-lg' maxLength={150} rows="5"/>
              </div>
              {error.Bio?<span className='text-sm block -mt-5 lg:-mt-3 pl-4 text-red-700'>{error.Bio}</span>:<></>}
              <div className='my-6 lg:my-4'>
              <label htmlFor='Phone' className='block my-4'>Phone</label>
-             <input type="text" name='Phone' defaultValue={data.Phone||''} placeholder='Enter your phone...' className='w-full lg:w-3/5 outline-none border-2 border-txtOpac bg-transparent  p-2 h-12 pl-4 rounded-lg'/>
+             <input type="text" name='Phone' defaultValue={data.Phone} placeholder='Enter your phone...' className='w-full lg:w-3/5 outline-none border-2 border-txtOpac bg-transparent  p-2 h-12 pl-4 rounded-lg'/>
              </div>
              {error.Phone?<span className='text-sm block -mt-5 lg:-mt-3 pl-4 text-red-700'>{error.Phone}</span>:<></>}
              <div className='my-6 lg:my-4'>
@@ -175,7 +187,7 @@ export const Profileeditview=({data})=>{
              {error.Email?<span className='text-sm block -mt-5 lg:-mt-3 pl-4 text-red-700'>{error.Email}</span>:<></>}
              <div className='my-6 lg:my-4'>
              <label htmlFor='Password' className='block my-4'>Password</label>
-             <input type="password" disabled={data.Password} placeholder='Enter your new password...' name='Password' className={`w-full lg:w-3/5 outline-none border-2  p-2 bg-transparent h-12 pl-4 rounded-lg ${data.Password?'border-disable-txt':'border-txtOpac'}`}/>
+             <input type="password" disabled={data.Password} defaultValue={data.Password?null:""} placeholder='Enter your new password...' name='Password' className={`w-full lg:w-3/5 outline-none border-2  p-2 bg-transparent h-12 pl-4 rounded-lg ${data.Password?'border-disable-txt':'border-txtOpac'}`}/>
              </div>
              {error.Password?<span className='text-sm block -mt-5 lg:-mt-3 pl-4 text-red-700'>{error.Password}</span>:<></>}
              <button disabled={load} type='submit' className='mt-8 cursor-pointer rounded-lg bg-sky flex justify-center items-center text-center font-semibold text-base py-2 ml-2 px-5 flex-shrink-0'>{load?<ClipLoader color='#FFFFF' size={25}/>:"Save"}</button>
@@ -206,9 +218,7 @@ export const Profile=()=>{
     let {email}=JSON.parse(localStorage.getItem('user-access'));
     async function data_(){
 
-        let userval_= await axios.post(`http://localhost:5000/api/user/profile`,{Email:email});
-        console.log(userval_.data);
-
+        let userval_= await axios.get(`http://localhost:5000/user/profile`,{params:{email:email}});
         if(!userval_.data.redirect){
          setData(userval_.data.value);
         }else{
@@ -251,8 +261,6 @@ export const Profile=()=>{
          <p className='text-sm'>Basic info, like your name and photo</p>
          </div>
      )}
-
-     {/* BORDER INFO */}
      <div className=' All_Component_section mt-8 sm:border border-txtOpac rounded-3xl overflow-hidden'>
      {edit?<Profileeditview data={data}/>:<Profileview setEdit={setEdit} data={data}/>}
      </div>

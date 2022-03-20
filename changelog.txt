@@ -14,3 +14,6 @@
 14/03/2022
 - Started Authentication Design and Implementation
 - Started Profile Design and Implementation
+
+19/03/2022
+- Backend Router clean structure added

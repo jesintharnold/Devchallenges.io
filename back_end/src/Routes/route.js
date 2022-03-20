@@ -1,5 +1,5 @@
 const route=require("express").Router();
-const chatRoute=require('./chatroute');
+const chatroute=require('./chatroute');
 const authroute=require('./authroute');
 const userroute=require('./userroute');
 
@@ -7,7 +7,7 @@ const userroute=require('./userroute');
 route.use('/user/profile',userroute);
 
 // chat - section routes
-route.use('/chat',chatRoute);
+route.use('/chat',chatroute);
 
 // auth - section routes
 route.use('/api/auth',authroute);

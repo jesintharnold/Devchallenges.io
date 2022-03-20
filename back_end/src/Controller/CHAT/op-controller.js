@@ -17,7 +17,6 @@ const createChannel=async (req,res,next)=>{
             private: _res.private,
             _id:_res._id
           });
-        
 
 
       }

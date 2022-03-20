@@ -5,7 +5,7 @@ const baseURL="http://localhost:5000";
 class FetchData{
     static async getAllChats(payload){
         try{
-            let res=await axios.post(`${baseURL}/chat/getmessage`,{
+            let res=await axios.post(`${baseURL}/chat/getChatmessages`,{
                 channelID:payload
             });
             console.log(res);

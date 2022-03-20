@@ -4,9 +4,12 @@ const {getprofile,updateProfile}=require('../../Schema/userschemaval');
 const { logger } = require('../../utils/logger');
 const bcrypt=require("bcrypt");
 const config=require("config");
+const { upload_ } = require('../../Middlewares/bucket');
 
 const getuserProfile=async (req,res,next)=>{
-    let email=req.params['email'];
+    logger.info(`It reached this ....`);
+    let email=req.query.email;
+    logger.info(req.query);
     let {value,error}=getprofile.validate({email:email});
     
     try{
@@ -40,9 +43,23 @@ const getuserProfile=async (req,res,next)=>{
 
 // Profile update function
 const getuserProfileupdate=async (req,res,next)=>{
-    
 
-    logger.info(`User Update -- needed`);
+    upload_(req,res,async function(err){
+        if(err){
+                res.status(200).json({
+                    redirect:true,
+                    error:{value:`Error ehile uploading Avatar`,status:true}
+          });
+        };
+    
+        logger.info(req.body);
+        if(!req.file){
+          req.body['Image']=null;
+        }else{
+          req.body['Image']=req.file.location;
+        }
+      
+    
 
     let payload={
     email:req.body.Email,
@@ -51,7 +68,6 @@ const getuserProfileupdate=async (req,res,next)=>{
     name:req.body.Name,
     password:req.body.Password==null?null:req.body.Password.toString()
     };
-
     
 
     try{ 
@@ -69,10 +85,15 @@ const getuserProfileupdate=async (req,res,next)=>{
         let user_val=await UserDAO.findprotectuser(payload.email);
 
         if((user_val.hasOwnProperty('password'))||(payload.password==null)){
-            let val_=await UserDAO.finduser(payload.email,{
+            let val_=await UserDAO.finduser(payload.email,req.body.Image===null?{
                 bio:payload.bio,
                 phone:payload.phone,
                 name:payload.name
+            }:{
+                bio:payload.bio,
+                phone:payload.phone,
+                name:payload.name,
+                profile_url:req.body.Image
             });
             res.status(200).json({
                 redirect:true,
@@ -83,11 +104,17 @@ const getuserProfileupdate=async (req,res,next)=>{
     
         if(!user_val.hasOwnProperty('password')&&(payload.password!==null)&&(payload.password!=='')){
             let hash_=await bcrypt.hash(payload.password,parseInt(`${config.get('Bcrypt.salt')}`));
-            let val_=await UserDAO.finduser(payload.email,{
+            let val_=await UserDAO.finduser(payload.email,req.body.Image===null?{
                 bio:payload.bio,
                 phone:payload.phone,
                 name:payload.name,
                 password:hash_,
+            }:{
+                bio:payload.bio,
+                phone:payload.phone,
+                name:payload.name,
+                password:hash_,
+                profile_url:req.body.Image
             });
             res.status(200).json({
                 redirect:true,
@@ -101,6 +128,7 @@ const getuserProfileupdate=async (req,res,next)=>{
             error:{value:`Internal server error`,status:true}
         });
     }
+});
 };
 
 module.exports={

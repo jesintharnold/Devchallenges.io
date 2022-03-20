@@ -9,7 +9,7 @@ class channelDAO{
       }
 
       try{
-         channel_collection=await db.collection("channel");
+         channel_collection=await db.collection("channel"); 
          logger.info('Channel collection is connected');
       }catch(e){
          logger.error('Channel collection error , \n ',e)
@@ -47,7 +47,7 @@ class channelDAO{
    }
 
 
-   static async getAllChannelName(){
+   static async getAllChannelName(){      
       try{
        return await channel_collection.find({},{projection:{"channelName":1,"_id":1,"channelDesc":1}}).toArray();
       }catch(e){

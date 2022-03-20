@@ -1,9 +1,9 @@
 const express=require("express")();
 const config=require("config");
 const cors =require("cors");
-const {logger}=require('./utils/logger');
+const {logger}=require('./utils/logger'); 
 const bodyParser = require('body-parser');
-const channelDAO=require('./DB/CHAT/channel');
+const channelDAO=require('./DB/chat/channel');
 const http=require('http').createServer(express);
 const {Dbconnect}=require('./DB/dbcon');
 const {joinAllchannels} = require('./Controller/CHAT/op-controller.js');
@@ -15,13 +15,14 @@ const userDAO=require("./DB/user/users");
 express.use(cors());
 express.use(bodyParser.urlencoded({extended:true}));
 express.use(bodyParser.json());
-express.use(route);
 
+express.use(route);
 
 Dbconnect().then(con=>{
     channelDAO.injectCol(con);
     userDAO.injectCol(con);
 });
+
 
 const io=require("socket.io")(http,{
     cors:{

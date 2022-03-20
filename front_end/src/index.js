@@ -7,10 +7,12 @@ import {Profile} from './User/Profile';
 import { BrowserRouter,Switch,Route} from "react-router-dom";
 import {Notfound,AuthRedirect,Logout,PrivateRoute,LoginProtect} from './Authlibrary/AuthRedirect';
 import reportWebVitals from './reportWebVitals';
+import {Toaster} from 'react-hot-toast';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
+    <Toaster position="top-right" reverseOrder={false}/>
     <Switch>
     <LoginProtect exact path="/login" Comp={Auth}/>  
     <Route exact path="/login/auth/:id_token/:id" component={AuthRedirect} />
