@@ -237,7 +237,7 @@ export const Profile=()=>{
 
 
     return (
-<div className="w-full min-h-screen bg-transparent box-border mx-auto text-txtOpac container ">
+    <div className="w-full min-h-screen bg-transparent box-border mx-auto text-txtOpac container ">
     <div className="flex items-center justify-between p-2">
     <img src={logoLight} alt="Not found"/>
      <Profilelogout/>

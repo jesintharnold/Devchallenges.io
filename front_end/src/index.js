@@ -8,16 +8,18 @@ import { BrowserRouter,Switch,Route} from "react-router-dom";
 import {Notfound,AuthRedirect,Logout,PrivateRoute,LoginProtect} from './Authlibrary/AuthRedirect';
 import reportWebVitals from './reportWebVitals';
 import {Toaster} from 'react-hot-toast';
+import { Imageupload } from './Imageuploader/Imageupload';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
     <Toaster position="top-right" reverseOrder={false}/>
     <Switch>
-    <LoginProtect exact path="/login" Comp={Auth}/>  
+    <LoginProtect exact path="/login" Comp={Auth}/> 
     <Route exact path="/login/auth/:id_token/:id" component={AuthRedirect} />
     <PrivateRoute exact path="/profile" Comp={Profile}/>
-    <PrivateRoute exact path="/" Comp={Chatapp}/>
+    <PrivateRoute exact path="/chat" Comp={Chatapp}/>
+    <PrivateRoute exact path="/" Comp={Imageupload}/>
     <Route component={Notfound}/>
     </Switch>
     </BrowserRouter>
