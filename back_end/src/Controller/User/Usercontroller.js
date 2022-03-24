@@ -53,7 +53,7 @@ const getuserProfileupdate=async (req,res,next)=>{
           });
         };
     
-        logger.info(req.body);
+        
         if(!req.file){
           req.body['Image']=null;
         }else{
@@ -75,7 +75,7 @@ const getuserProfileupdate=async (req,res,next)=>{
     let {value,error}=updateProfile.validate(payload);
     logger.info(error);
     if(error){
-        res.status(200).json({
+        res.status(400).json({
             redirect:true,
             error:{
                 status:true,

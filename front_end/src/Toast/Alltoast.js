@@ -14,7 +14,12 @@ return toast.promise(promise,{
      }
     },
     error:(err)=>{
-        return <b>{err.message}</b>
+        if(err.response.status===400){
+            return <b>{err.response.data.error.value}</b>
+        }else{
+            return <b>{err.message}</b>
+        }
+        
     }
 });
 }

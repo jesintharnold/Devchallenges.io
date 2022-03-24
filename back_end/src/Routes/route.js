@@ -2,6 +2,7 @@ const route=require("express").Router();
 const chatroute=require('./chatroute');
 const authroute=require('./authroute');
 const userroute=require('./userroute');
+const imageuploadroute=require('./imageuploader');
 
 // user - section routes
 route.use('/user/profile',userroute);
@@ -11,5 +12,8 @@ route.use('/chat',chatroute);
 
 // auth - section routes
 route.use('/api/auth',authroute);
+
+// Image upload route
+route.use('/image',imageuploadroute);
 
 module.exports=route;

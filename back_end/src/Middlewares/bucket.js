@@ -12,8 +12,6 @@ aws.config.update({
    region: config.get(`AWS.Region`)
 });
 
-logger.info(uuid.v4());
-
 const s3_=new aws.S3();
 let storage_=multer_s3({
     s3:s3_,
@@ -47,4 +45,29 @@ let upload=multer({
 
 const upload_=upload.single('Image');
 
-module.exports={upload_};
+//--------------------------------------------------------------------------
+
+
+let Image_upload=multer_s3({
+  s3:s3_,
+  bucket:`${config.get(`AWS.bucketName`)}/imageuploader`,
+  metadata:function(req,file,cb){
+      cb(null,{fieldName: file.fieldname});
+  },
+  key:function(req,file,cb){
+      logger.info(`${uuid.v4()}.${file.mimetype.split('/')[1]}`);
+      cb(null,`${uuid.v4()}.${file.mimetype.split('/')[1]}`);
+  }
+});
+
+let Image_upload_storage=multer({
+  storage:Image_upload,
+  fileFilter:filefilter_,
+  limits:{
+    fileSize:1024*1024*2 // allow limit to 2mb
+  }
+});
+
+const upload_Image=Image_upload_storage.single('Image');
+
+module.exports={upload_,upload_Image};

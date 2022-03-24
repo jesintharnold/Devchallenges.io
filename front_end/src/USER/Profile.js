@@ -102,6 +102,10 @@ export const Profileeditview=({data})=>{
                 'Content-Type': `multipart/form-data`
             }
         });
+
+
+        console.log(res_promise);
+
         //Create a toast based on promise
         profileToast(res_promise);
 
