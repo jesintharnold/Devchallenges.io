@@ -10,6 +10,9 @@ export const Imageredirect=()=>{
     await axios.get(`${config.URL}/image/${id}`).then(data=>{
          if(data.status===200){
              setdata(data.data.url); 
+             setTimeout(()=>{
+               window.location.replace(data.data.url);
+       },3000);
          };
   }).catch(err=>{
      let {data}=err.response;
@@ -19,12 +22,6 @@ export const Imageredirect=()=>{
      },3000);
      });
 };
-
-   function redirect_url(){
-       setTimeout(()=>{
-               window.location.replace(data);
-       },3000);
-   };
 
     useEffect(()=>{
          get_redirect();
@@ -37,7 +34,6 @@ export const Imageredirect=()=>{
           <div>Redirecting to {data?" ":"homepage"}</div>
           {data?<a href={data}   className="text-xs text-blue-800">{data}</a>:""}
      </div>
-     {data?redirect_url():" "}
     </div>
     </>);
 }
