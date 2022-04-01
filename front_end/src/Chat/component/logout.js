@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 
 function Logout({drop,setDrop}){
     return (
@@ -9,22 +10,20 @@ function Logout({drop,setDrop}){
         </div>
         <span className="material-icons-outlined cursor-pointer  rounded hover:bg-gray-500" onClick={()=>setDrop(!drop)}>{drop?`expand_less`:`expand_more`}</span>
         </div>
-    
-    
         {drop?
            <div className="bottom-11 z-[55] absolute right-8  rounded-2xl bg-main p-4 animate-popup">
-           <div className="flex hover:bg-search px-3 py-2 rounded cursor-pointer">
+           <Link to="/profile" className="flex hover:bg-search px-3 py-2 rounded cursor-pointer">
            <span className="material-icons-outlined">account_circle</span>
            <span className="ml-4 font-sans font-medium">My Profile</span>
-           </div>
+           </Link>
            <div className="flex hover:bg-search px-3 py-2 rounded cursor-pointer">
            <span className="material-icons-outlined">terrain</span>
            <span className="ml-4 font-sans font-medium">Tweeter</span>
            </div>
-           <div className="flex hover:bg-search px-3 py-2 rounded text-redlog cursor-pointer">
+           <Link to="/profile" className="flex hover:bg-search px-3 py-2 rounded text-redlog cursor-pointer">
            <span className="material-icons-outlined">logout</span>
            <span className="ml-4 font-sans font-medium">Logout</span>
-           </div>
+           </Link>
          </div>
         :''}
 </>

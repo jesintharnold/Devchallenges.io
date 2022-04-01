@@ -1,7 +1,7 @@
 const config=require("config");
 const {readFileSync}=require("fs");
-const {emailfromauth,normalAuth}=require('../../Schema/CHAT/schemaval');
-const UserDAO=require("../../DB/users");
+const {emailfromauth,normalAuth}=require('../../Schema/authschemaval');
+const UserDAO=require("../../DB/user/users");
 const jwt=require("jsonwebtoken");
 const bcrypt=require("bcrypt");
 const {resolve}=require("path");
@@ -102,7 +102,7 @@ const NormalControllerregister=async (req,res,next)=>{
         }
    }catch(e){
        //If error  - send validation Error
-       res.status(302);
+       res.status(302).json({});
    }
 };
 
@@ -112,10 +112,31 @@ const NormalControllerlogin=async (req,res,next)=>{
    let payload={email:req.body.Email,password:req.body.Password};
    const {value,error}=normalAuth.validate(payload);
    if(error){
-       return res.status(400).send({Error:`Validation Error`});
+       logger.info(error);
+       res.status(200).json({
+        access_token:null,
+        _id:null,
+        error:{
+            status:true,
+            password:`Password didn't match`,
+            email:`Provide a valid e-mail`
+        }
+       });
    }
    try{
        let user_update=await UserDAO.findprotectuser(payload.email);
+       logger.info(user_update);
+       if(!user_update.hasOwnProperty("password")&&user_update!==null){
+        res.status(200).json({
+            access_token:null,
+            _id:null,
+            error:{
+                status:true,
+                password:`Password didn't match`,
+                email:null
+            }
+           });
+       }
        if(user_update==null){
         res.status(200).json({
             access_token:null,
@@ -127,8 +148,8 @@ const NormalControllerlogin=async (req,res,next)=>{
             }
            });
        }else{
-          //Compare passwords
           let access_token=Token.access({name:user_update.name,email:user_update.email,profile_url:user_update.profile_url});
+          logger.warn(access_token);
           let compare_bool=await bcrypt.compare(payload.password,user_update.password);
           logger.info(compare_bool);
           if(compare_bool){
@@ -154,7 +175,8 @@ const NormalControllerlogin=async (req,res,next)=>{
           }
         }   
    }catch(e){
-    res.status(302);
+       logger.info(e,'Error - here')
+       res.status(302).json({});
    }
 };
 

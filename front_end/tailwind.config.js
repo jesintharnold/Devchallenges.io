@@ -16,7 +16,11 @@ module.exports = {
         'caert':'#828282',
         'sideopacity':'rgba(18, 15, 19, 0.5)',
         'txtOpac':'#E0E0E0',
-        'authborder':'#BDBDBD'
+        'authborder':'#BDBDBD',
+        'disable-txt':'#6e6d6d',
+        'image':'#F6F8FB',
+        'load':'#373738',
+        'greentick':'#219653'
       },
       fontFamily:{
         'san':['Noto Sans']
@@ -32,11 +36,19 @@ module.exports = {
         topup:{
           'from':{transform:'translateY(-10px)',opacity:'0.5'},
           'to':{transform:'translateY(0px)',opacity:'1'}
-        }
+        },
+        accord:{
+          '0%':{
+            'max-height':'250px',
+            '-webkit-filter': 'blur(10px)'
+               },
+          '100%':{'max-height':'256px'}
+        },
       },
       animation: {
         popup: 'popup 0.6s ease-in-out',
-        topup:'topup 0.6s ease-in-out'
+        topup:'topup 0.6s ease-in-out',
+        accord:'accord 0.8s linear'
       }
     },
     

@@ -12,6 +12,8 @@
 - Absolute values changed
 
 14/03/2022
-- Centralized error handling for node js
-- User logic updated
-- Logger files
+- Started Authentication Design and Implementation
+- Started Profile Design and Implementation
+
+19/03/2022
+- Backend Router clean structure added

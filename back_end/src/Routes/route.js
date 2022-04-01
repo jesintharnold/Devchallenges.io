@@ -1,25 +1,19 @@
-const config=require("config");
 const route=require("express").Router();
-const chatcontroller=require('../Controller/CHAT/op-controller');
-const channelDAO = require("../DB/CHAT/channel");
-const { logger } = require("../utils/logger");
-const {googleOauth,githubOauth,twitterOauth,facebookOauth}=require("../Controller/Auth/Authcontroller");
-const {NormalControllerlogin,NormalControllerregister}=require("../Controller/Auth/Emailcontroller");
+const chatroute=require('./chatroute');
+const authroute=require('./authroute');
+const userroute=require('./userroute');
+const imageuploadroute=require('./imageuploader');
 
-//CHAT SECTION
-route.post('/chat/channel',chatcontroller.createChannel);
-route.get('/chat/channel',chatcontroller.getAllChannels);
-route.post('/chat/getmessage',chatcontroller.getChatmessages);
+// user - section routes
+route.use('/user/profile',userroute);
 
+// chat - section routes
+route.use('/chat',chatroute);
 
-//AUTH SECTION
-route.get("/api/oauth/facebook",facebookOauth);
-route.get("/api/oauth/google",googleOauth);
-route.get("/api/oauth/github",githubOauth);
-route.get("/api/oauth/twitter",twitterOauth);
-route.post("/api/auth/register",NormalControllerregister);
-route.post("/api/auth/login",NormalControllerlogin);
+// auth - section routes
+route.use('/api/auth',authroute);
 
-
+// Image upload route
+route.use('/image',imageuploadroute);
 
 module.exports=route;

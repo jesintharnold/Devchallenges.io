@@ -1,6 +1,6 @@
 const {logger}=require('../../utils/logger');
-const {channelSchema,getmessageSchema}=require('../../Schema/CHAT/schemaval');
-const channelDAO =require('../../DB/CHAT/channel');
+const {channelSchema,getmessageSchema}=require('../../Schema/chatschemaval');
+const channelDAO =require('../../DB/chat/channel');
 
 
 const createChannel=async (req,res,next)=>{
@@ -17,7 +17,6 @@ const createChannel=async (req,res,next)=>{
             private: _res.private,
             _id:_res._id
           });
-        
 
 
       }

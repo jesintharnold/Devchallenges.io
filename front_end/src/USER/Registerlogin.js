@@ -74,13 +74,15 @@ export const Auth=()=>{
         if(validator.isEmpty(err.Password) && validator.isEmpty(err.Email)){
             setload(true);
             console.log(`API request Sent to user`);
-            let url=`http://localhost:5000/api/auth/${login?'login':'register'}`;
+            let url=`http://localhost:5000/auth/${login?'login':'register'}`;
             console.log(url);
 
             await axios.post(`${url}`,obj).then((data_)=>{
                 
                 let {status,data}=data_;
                 let {access_token,_id,error}=data;
+
+                
            
                 if(access_token==null&&error.status===true&&status==200){
                     console.log(`This is 200 - some Error`);
