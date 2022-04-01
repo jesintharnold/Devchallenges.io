@@ -5,38 +5,39 @@ import { useParams } from "react-router-dom";
 import config from '../Config/dev.json';
 export const Imageredirect=()=>{
    let {id}=useParams();
-   const [redirect,setRedirect]=useState(false);
    const [data,setdata]=useState(null);
    async function get_redirect(){
     await axios.get(`${config.URL}/image/${id}`).then(data=>{
          if(data.status===200){
              setdata(data.data.url); 
-             setRedirect(true);
          };
-
-    }).catch(err=>{toast.error(err.message);});redirect_url();
-   }
+  }).catch(err=>{
+     let {data}=err.response;
+     toast.error(data.message);
+     setTimeout(()=>{
+          window.location.href="/"
+     },3000);
+     });
+};
 
    function redirect_url(){
-        console.log("Calling here ..");
-       if(redirect){
-          window.location.replace(data);
-       }else{
-          window.location.href=`/`;
-       }
+       setTimeout(()=>{
+               window.location.replace(data);
+       },3000);
    };
 
     useEffect(()=>{
          get_redirect();
-    });
+    },[]);
     return (
     <>
-    <div className="w-full h-screen flex items-center flex-col text-white">
+     <div className="w-full h-screen flex items-center flex-col text-white">
      <span className="material-icons block mt-40 text-5xl leading-none">whatshot</span>
-     <div className="mt-4 text-lg text-center">
-          <div>Redirecting to {redirect?" ":"homepage"}</div>
-          {redirect?<a href={data}  className="text-xs text-blue-800">{data}</a>:""}
+     <div  className="mt-4 text-lg text-center">
+          <div>Redirecting to {data?" ":"homepage"}</div>
+          {data?<a href={data}   className="text-xs text-blue-800">{data}</a>:""}
      </div>
+     {data?redirect_url():" "}
     </div>
     </>);
 }
