@@ -9,7 +9,7 @@ import {Notfound,AuthRedirect,Logout,PrivateRoute,LoginProtect} from './Authlibr
 import reportWebVitals from './reportWebVitals';
 import {Toaster} from 'react-hot-toast';
 import { Imageupload } from './Imageuploader/Imageupload';
-
+import {Imageredirect} from "./Imageuploader/Imageredirect";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -20,6 +20,8 @@ ReactDOM.render(
     <PrivateRoute exact path="/profile" Comp={Profile}/>
     <PrivateRoute exact path="/chat" Comp={Chatapp}/>
     <PrivateRoute exact path="/" Comp={Imageupload}/>
+    <PrivateRoute exact path="/imageuploader" Comp={Imageupload}/>
+    <Route exact path="/imageuploader/:id" component={Imageredirect} />
     <Route component={Notfound}/>
     </Switch>
     </BrowserRouter>

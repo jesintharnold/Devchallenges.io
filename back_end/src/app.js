@@ -11,16 +11,20 @@ const route=require('./Routes/route.js');
 const { Msgschema,channelSchema} = require('./Schema/chatschemaval');
 const { insertRoomMsg } = require("./DB/chat/channel");
 const userDAO=require("./DB/user/users");
+const imageuploadDAO=require("./DB/imageupload/imageupload");
+const { appendFile } = require("fs");
+const { globalHandle } = require("./utils/ErrorObject");
 
 express.use(cors());
 express.use(bodyParser.urlencoded({extended:true}));
 express.use(bodyParser.json());
-
 express.use(route);
+express.use(globalHandle);
 
 Dbconnect().then(con=>{
     channelDAO.injectCol(con);
     userDAO.injectCol(con);
+    imageuploadDAO.injectCol(con);
 });
 
 

@@ -10,7 +10,10 @@ export const Imageupload=()=>{
         uploaded:false
     });
     
-    const [data,setData]=useState();
+    const [data,setData]=useState({
+        id:null,
+        url:null
+    });
 
     return (
         <div className="w-full min-h-screen bg-transparent flex justify-center sm:items-center box-border">     

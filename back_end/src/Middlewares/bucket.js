@@ -5,6 +5,8 @@ const multer_s3=require('multer-s3');
 const config=require("config");
 const uuid=require('uuid');
 const { logger } = require('../utils/logger');
+const APIError = require('../utils/APIError');
+const { MulterError } = require('multer');
 
 aws.config.update({
    secretAccessKey:config.get(`AWS.SecretKey`),
@@ -68,6 +70,20 @@ let Image_upload_storage=multer({
   }
 });
 
-const upload_Image=Image_upload_storage.single('Image');
+
+// Made Mutler Image as seperate middleware because need to throw errors in actual function
+const upload_Image=(req,res,next)=>{
+  let upload_Image_=Image_upload_storage.single('Imageupload');
+  upload_Image_(req,res,function(err){
+      // Throw error only if instance is Mutler Error
+      if(err instanceof MulterError){
+        next(err);
+      }
+      next();
+  });
+
+};
+
+
 
 module.exports={upload_,upload_Image};

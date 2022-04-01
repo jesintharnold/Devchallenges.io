@@ -1,8 +1,39 @@
 import {toast} from 'react-hot-toast';
 import Image from '../../Assets/Imageupload.svg';
-
+import axios from 'axios';
+import config from '../../Config/dev.json';
 
 export const Uploadsection=({setUpload,setData})=>{
+
+    async function getData(file){
+        let {type,size}=file;
+        console.log(file);
+        const supported_types=["image/jpeg","image/jpg","image/png"];
+        if(supported_types.includes(type.toString())){
+           if(parseInt(size)<1024*1024*4){
+            setUpload(prevState=>({...prevState,uploading:true}));
+            let file_=new FormData();
+            file_.append('Imageupload',file);
+            file_.append('userID',JSON.parse(localStorage.getItem('user-access')).Id)
+            axios.post(`${config.URL}/image/upload`,file_).then((data)=>{
+            if(data.status===201){
+                  setData({
+                 id:data.data.id,
+                 url:data.data.url
+                 });
+                 setUpload({uploaded:true,uploading:false});
+            }else{
+                 setUpload({uploaded:false,uploading:false});
+                 toast.error(data.message);
+            }
+        });
+        }else{
+             toast.error("size limit exceeded !");
+        }
+        }else{
+                toast.error("unsupported media type");
+        }
+    }
 
     const dragPrevent=(e)=>{
         e.preventDefault();
@@ -10,32 +41,21 @@ export const Uploadsection=({setUpload,setData})=>{
     };
     
 
-const dragDrop=(e)=>{
+    const dragDrop=(e)=>{
         e.preventDefault();
         e.stopPropagation();
-        let files=e.dataTransfer.files[0];
-        let {type,size}=files;
-        console.log(files);
-        const supported_types=["image/jpeg","image/jpg","image/png"];
-        if(supported_types.includes(type.toString())){
-           if(parseInt(size)<1024*1024*4){
-                setUpload(prevState=>({...prevState,uploading:true}));
+        getData(e.dataTransfer.files[0]);
+    };
 
-                 setTimeout(()=>{
-                    setUpload({uploaded:true,uploading:false});
-                 },3000);
-
-           }else{
-                 toast.error("size limit exceeded !");
-           }
-        }else{
-                toast.error("unsupported media type");
-        }
+    const inputDrop=(e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        getData(e.target.files[0]);
     }
 
 
     return (
-<div className="flex flex-col text-center justify-between">
+           <div className="flex flex-col text-center justify-between">
                 <div className="text-2xl mt-6 mb-3">Upload your image</div>
                 <span className="block text-sm mb-4">File should be Jpeg, Png,...</span>
                 <label onDrop={dragDrop} onDragOver={dragPrevent} onDragEnter={dragPrevent} onDragLeave={dragPrevent}   className="flex justify-center flex-col items-center w-full my-4 h-64 p-2 border-dashed border-2 rounded-2xl  border-sky">   
@@ -45,10 +65,10 @@ const dragDrop=(e)=>{
                 <span className='my-2 text-lg block'>or</span>
                 <label className='cursor-pointer block bg-sky self-center py-2 px-4 rounded-lg w-32'>
                     <span className='block'>Choose a file</span>
-                    <input type="file" accept='image/jpeg,image/png' className='hidden' name="Image"/>
+                    <input type="file" accept='image/jpeg,image/png' className='hidden' name="Image" onChange={inputDrop}/>
                 </label>
                 </div> 
-    );
+            );
 }
 
 

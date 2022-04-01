@@ -1,7 +1,6 @@
-const asyncWrapper=(fn)=>{
-    (req,res,next)=>Promise.resolve(fn(req,res,next)).catch(next);
-};
+const { logger }=require("./logger");
 
-const dbWrapper=(fn)=>{
-    fn.catch()
-}
+const asyncWrapper=(fn)=>
+    (req,res,next)=>Promise.resolve(fn(req,res,next)).catch(next);
+
+module.exports=asyncWrapper;
