@@ -7,7 +7,6 @@ export const Uploadsection=({setUpload,setData})=>{
 
     async function getData(file){
         let {type,size}=file;
-        console.log(file);
         const supported_types=["image/jpeg","image/jpg","image/png"];
         if(supported_types.includes(type.toString())){
            if(parseInt(size)<1024*1024*4){
