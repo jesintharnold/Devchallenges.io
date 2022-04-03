@@ -10,6 +10,9 @@ import reportWebVitals from './reportWebVitals';
 import {Toaster} from 'react-hot-toast';
 import { Imageupload } from './Imageuploader/Imageupload';
 import {Imageredirect} from "./Imageuploader/Imageredirect";
+import { Catwiki } from './Catwiki/Catwiki';
+
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -20,8 +23,14 @@ ReactDOM.render(
     <PrivateRoute exact path="/profile" Comp={Profile}/>
     <PrivateRoute exact path="/chat" Comp={Chatapp}/>
     <PrivateRoute exact path="/" Comp={Imageupload}/>
-    <PrivateRoute exact path="/imageuploader" Comp={Imageupload}/>
-    <Route exact path="/imageuploader/:id" component={Imageredirect} />
+
+    <PrivateRoute path="/imageuploader" Comp={Imageupload}/>
+    <Route path="/imageuploader/:id" component={Imageredirect} />
+    
+    {/* <PrivateRoute exact path="/catwiki" Comp={Catwiki}/> */}
+    <Route path="/catwiki" component={Catwiki} />
+  
+
     <Route component={Notfound}/>
     </Switch>
     </BrowserRouter>

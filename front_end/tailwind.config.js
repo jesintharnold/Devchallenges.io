@@ -20,7 +20,10 @@ module.exports = {
         'disable-txt':'#6e6d6d',
         'image':'#F6F8FB',
         'load':'#373738',
-        'greentick':'#219653'
+        'greentick':'#219653',
+        'cement-cat':'#E3E1DC',
+        'cat-brown':'#291507',
+        'cat-back':"#DEC68B"
       },
       fontFamily:{
         'san':['Noto Sans']
@@ -49,6 +52,11 @@ module.exports = {
         popup: 'popup 0.6s ease-in-out',
         topup:'topup 0.6s ease-in-out',
         accord:'accord 0.8s linear'
+      },
+      backgroundImage: {
+        'catwikilg':"url('/src/Catwiki/Asset/HeroImagelg.png')",
+        'catwikimd':"url('/src/Catwiki/Asset/HeroImagemd.png')",
+        'catwikism':"url('/src/Catwiki/Asset/HeroImagesm.png')"
       }
     },
     
