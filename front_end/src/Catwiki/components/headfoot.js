@@ -15,7 +15,7 @@ return(
 
 export const Footer=()=>{
     return(
-    <div className="py-3 mt-8  bg-black w-full flex items-center justify-between text-white overflow-hidden rounded-t-3xl">
+    <div className="py-3 bg-black w-full flex items-center justify-between text-white overflow-hidden rounded-t-3xl">
     <img className='w-24 h-8 ml-5' src={catwikilight} alt="Cat-Wiki"/>
     <div className='flex items-center mr-5 gap-2'>&#169;<span className='text-xs'>created by jesinth</span></div>
     </div>

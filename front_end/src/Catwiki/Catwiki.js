@@ -16,7 +16,7 @@ return (
     <Switch>
         <PrivateRoute exact path={path} Comp={Main}/>
         <PrivateRoute exact path={`${path}/topcats`} Comp={Topcats}/>
-        <PrivateRoute exact path={`${path}/overview`} Comp={Catoverview}/>
+        <PrivateRoute exact path={`${path}/overview/:id`} Comp={Catoverview}/>
     </Switch>
     <Footer/>
     </div>
