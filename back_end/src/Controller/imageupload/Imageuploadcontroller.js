@@ -1,6 +1,5 @@
 const {logger}=require('../../utils/logger');
 const ImageDAO=require('../../DB/imageupload/imageupload');
-const { upload_Image } = require('../../Middlewares/bucket');
 const {nanoid}=require("nanoid");
 const asyncWrapper=require("../../utils/asyncWrapper");
 const APIError = require('../../utils/APIError');
@@ -32,7 +31,6 @@ const Imageupload=asyncWrapper(async(req,res,next)=>{
 const ImageGet=asyncWrapper(async(req,res)=>{
 const ID=req.params.id;
 
-// -->  fWf-Ir5uajJ14RBzvUmmp
 logger.warn(ID);
 let response=await ImageDAO.findId(ID);
 if(!response){
