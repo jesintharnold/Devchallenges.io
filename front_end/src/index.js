@@ -11,6 +11,7 @@ import {Toaster} from 'react-hot-toast';
 import { Imageupload } from './Imageuploader/Imageupload';
 import {Imageredirect} from "./Imageuploader/Imageredirect";
 import { Catwiki } from './Catwiki/Catwiki';
+import { Shoppingify } from './Shoppingify/shoppingify';
 
 
 ReactDOM.render(
@@ -29,6 +30,7 @@ ReactDOM.render(
     
     {/* <PrivateRoute exact path="/catwiki" Comp={Catwiki}/> */}
     <Route path="/catwiki" component={Catwiki} />
+    <Route path="/shop" component={Shoppingify} />
   
 
     <Route component={Notfound}/>
