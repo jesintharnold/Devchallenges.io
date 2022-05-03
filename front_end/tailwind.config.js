@@ -23,7 +23,12 @@ module.exports = {
         'greentick':'#219653',
         'cement-cat':'#E3E1DC',
         'cat-brown':'#291507',
-        'cat-back':"#DEC68B"
+        'cat-back':"#DEC68B",
+        'shop-orange':"#F9A109",
+        'shop-tooltip':"#454545",
+        'shop-red':"#EB5757",
+        'shop-blue':"#56CCF2",
+        'shop-back':"#FAFAFE"
       },
       fontFamily:{
         'san':['Noto Sans']
