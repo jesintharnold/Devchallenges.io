@@ -5,7 +5,7 @@ import { Shopnav } from './components/shopnav';
 
 export const Shoppingify=()=>{
     return (
-        <div className="w-full min-h-screen p-0 m-0 bg-shop-back  overflow-y-auto flex flex-row">
+        <div className="w-screen min-h-screen p-0 m-0 box-border bg-shop-back flex flex-row">
            <Shopnav/>
            <Main/>  
         </div>

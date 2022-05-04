@@ -34,10 +34,13 @@ module.exports = {
         'shop-red':"#EB5757",
         'shop-blue':"#56CCF2",
         'shop-back':"#FAFAFE",
-        'shop-right-back':"#FFF0DE"
+        'shop-right-back':"#FFF0DE",
+        'shop-icon-bg':"#C1C1C4",
+        'shop-bottle-bg':"#80485B"
       },
       fontFamily:{
-        'san':['Noto Sans']
+        'san':['Noto Sans'],
+        'quick':['Quicksand', 'sans-serif']
       },
       boxShadow: {
         'ol': '0px 4px 4px 0px rgba(0, 0, 0, 0.30)'

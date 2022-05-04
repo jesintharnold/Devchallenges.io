@@ -4,7 +4,7 @@
 
 @layer base{
     body{
-        @apply min-w-full bg-main min-h-screen;
+        @apply min-w-full bg-main min-h-screen box-border;
     }
 }
 
