@@ -4,6 +4,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      flex:{
+        '2':'2 1 0%',
+        '3':'3 1 0%',
+        '4':'4 1 0%'
+      },
       colors:{
         'side':'#120f13',
         'main':'#252329',
@@ -28,7 +33,8 @@ module.exports = {
         'shop-tooltip':"#454545",
         'shop-red':"#EB5757",
         'shop-blue':"#56CCF2",
-        'shop-back':"#FAFAFE"
+        'shop-back':"#FAFAFE",
+        'shop-right-back':"#FFF0DE"
       },
       fontFamily:{
         'san':['Noto Sans']
