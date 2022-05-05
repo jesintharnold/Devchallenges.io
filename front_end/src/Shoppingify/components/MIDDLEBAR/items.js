@@ -36,12 +36,14 @@ export const Items=()=>{
            {/* LIST ITEMS IN CATEGORY */}
            <div className="flex w-full flex-wrap gap-2 md:gap-5 my-6">
      
-           {values.map((data,index)=>(
+           {
+           values.map((data,index)=>(
              <div className="shadow-lg flex items-center gap-4 px-2 md:px-4 py-1 md:py-3 rounded-xl md:rounded-2xl bg-white cursor-pointer" key={`L-${index}`}>
              <span className="block  text-base md:text-xl font-light float-left">{data}</span>
              <span className="material-icons text-xl md:text-3xl block text-shop-tooltip opacity-70">add</span>
            </div>
-           ))}
+           ))
+           }
      
            </div>
      
