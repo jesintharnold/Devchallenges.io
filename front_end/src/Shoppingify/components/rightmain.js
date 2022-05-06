@@ -1,5 +1,4 @@
-import { List } from "./RIGHTBAR/shoplist";
-
+import { List } from "./rightbar/shoplist";
 
 export const Rightmain=()=>{
 return (

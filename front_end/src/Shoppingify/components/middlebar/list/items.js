@@ -41,7 +41,7 @@ export const Items=()=>{
              <div className="shadow-lg flex items-center gap-4 px-2 md:px-4 py-1 md:py-3 rounded-xl md:rounded-2xl bg-white cursor-pointer" key={`L-${index}`}>
              <span className="block  text-base md:text-xl font-light float-left">{data}</span>
              <span className="material-icons text-xl md:text-3xl block text-shop-tooltip opacity-70">add</span>
-           </div>
+             </div>
            ))
            }
      

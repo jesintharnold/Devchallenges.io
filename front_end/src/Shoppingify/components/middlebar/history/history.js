@@ -1,7 +1,7 @@
 export const History=({data})=>{
 return (
-  <>
-  <span className="font-bold mb-8 tracking-wider md:text-4xl text-base block text-left">Shopping history</span>
+<>
+<span className="font-bold mb-8 tracking-wider md:text-4xl text-base block text-left">Shopping history</span>
   {data.map(({monthtitle,data},index)=>(
    <div key={`HT-${index}`}>
    <span className="font-semibold text-xl block">{new Date(monthtitle).toLocaleString('en-US',{month:'long',year:'numeric'})}</span>
@@ -18,7 +18,6 @@ return (
    ))}
     </div>
   ))}
-
-  </>
+</>
 );
 };
