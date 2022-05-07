@@ -1,4 +1,4 @@
-import bottle from '../../../Assets/bottle.svg'
+import bottle from '../../../../Assets/bottle.svg'
 
 const seeding_data=[
   {
@@ -32,7 +32,7 @@ const seeding_data=[
 
 export const List=()=>{
 return (
-  <div className="w-full h-full">
+  <>
   {/* ADD ITEM  */}
   <div className="bg-shop-bottle-bg w-full h-40 rounded-3xl items-center justify-evenly flex flex-row">
   <img src={bottle} alt="Bottle" className='block h-[105%] -translate-y-5 flex-shrink-0'/>
@@ -73,6 +73,6 @@ return (
 </div >
 
 
-  </div>
+  </>
 );
 };

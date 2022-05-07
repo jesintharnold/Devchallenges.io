@@ -53,22 +53,17 @@ return(
 
 <div className="w-full">
 <span className="block text-3xl md:text-3xl font-semibold mb-5">Monthly Summary</span>
-<div className="w-10/12 overflow-hidden" >
-<ResponsiveContainer aspect={3} width="100%">
-          <LineChart data={data} margin={{
-            top: 30,
-            right: 30,
-            left: 0,
-            bottom:30,
-          }}>
-            <CartesianGrid strokeDasharray="5" stroke="#aaa" />
-            <XAxis dataKey="month" strokeDasharray="3" stroke="#707070" style={{fontSize:'1.2rem'}}/>
-            <YAxis strokeDasharray="3" dataKey="value" stroke="#707070" style={{fontSize:'1rem'}}  />
-            <Tooltip />
-            <Legend/>
-            <Line type="monotone" strokeWidth={1} dataKey="value" stroke="rgba(249, 161, 9, 1)"  dot={{ stroke: 'rgba(249, 161, 9, 1)', strokeWidth: 3,r:4 }}  />
-          </LineChart>
-        </ResponsiveContainer>
+<div className="md:w-10/12 md:aspect-[3/1] sm:aspect-[2/1] aspect-square  w-full overflow-hidden border-2">
+  <ResponsiveContainer height="100%" width="100%">
+    <LineChart data={data} margin={{top:10,left:-10,right:30,bottom:20}}>
+      <CartesianGrid strokeDasharray="3" stroke="#aaa" />
+      <XAxis dataKey="month" strokeDasharray="3" stroke="#707070" style={{fontSize:'1rem'}}/>
+      <YAxis strokeDasharray="3" dataKey="value" stroke="#707070" style={{fontSize:'1rem'}}  />
+      <Tooltip />
+      <Legend/>
+      <Line type="monotone" strokeWidth={2} dataKey="value" stroke="rgba(249, 161, 9, 1)"  dot={{ stroke: 'rgba(249, 161, 9, 1)', strokeWidth: 3,r:4 }}  />
+    </LineChart>
+  </ResponsiveContainer>
 </div>
 </div>
 
