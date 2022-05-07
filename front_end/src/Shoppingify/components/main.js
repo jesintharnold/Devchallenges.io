@@ -1,8 +1,9 @@
 import { Switch,useRouteMatch,Route} from "react-router-dom";
-import { Items } from "./MIDDLEBAR/list/items";
+import { Items } from "./middlebar/list/items";
 import {Historyoverview} from "./middlebar/history/historyoverview";
 import {History} from "./middlebar/history/history";
 import {Rightmain} from './rightmain';
+import { Analytics } from "./analytics/analytics";
 
 const seeder_history=[
   { monthtitle:'12/03/2020',
@@ -26,6 +27,7 @@ return (
   <Route exact path={path} component={Items}/>
   <Route exact path={`${path}/history`} component={()=><History data={seeder_history}/>}/>
   <Route exact path={`${path}/history/:id`} component={Historyoverview}/>
+  <Route exact path={`${path}/analytics`} component={Analytics}/>
   {/* <Route exact path={`${path}/analytics`} component={}/> */}
 </Switch>
 </div>
