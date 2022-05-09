@@ -26,11 +26,41 @@ export const Itemoverview=()=>{
     One-third of a medium avocado (50 g) has 80 calories and contributes nearly 20 
     vitamins and minerals,
     making it a great nutrient-dense food choice.
+    Nutrient-dense foods are those that provide substantial 
+    amounts of vitamins, minerals and other nutrients with relatively few calories. 
+    One-third of a medium avocado (50 g) has 80 calories and contributes nearly 20 
+    vitamins and minerals,
+    making it a great nutrient-dense food choice.
+    Nutrient-dense foods are those that provide substantial 
+    amounts of vitamins, minerals and other nutrients with relatively few calories. 
+    One-third of a medium avocado (50 g) has 80 calories and contributes nearly 20 
+    vitamins and minerals,
+    making it a great nutrient-dense food choice.
+    Nutrient-dense foods are those that provide substantial 
+    amounts of vitamins, minerals and other nutrients with relatively few calories. 
+    One-third of a medium avocado (50 g) has 80 calories and contributes nearly 20 
+    vitamins and minerals,
+    making it a great nutrient-dense food choice.
+    Nutrient-dense foods are those that provide substantial 
+    amounts of vitamins, minerals and other nutrients with relatively few calories. 
+    One-third of a medium avocado (50 g) has 80 calories and contributes nearly 20 
+    vitamins and minerals,
+    making it a great nutrient-dense food choice.
+    Nutrient-dense foods are those that provide substantial 
+    amounts of vitamins, minerals and other nutrients with relatively few calories. 
+    One-third of a medium avocado (50 g) has 80 calories and contributes nearly 20 
+    vitamins and minerals,
+    making it a great nutrient-dense food choice.
+    Nutrient-dense foods are those that provide substantial 
+    amounts of vitamins, minerals and other nutrients with relatively few calories. 
+    One-third of a medium avocado (50 g) has 80 calories and contributes nearly 20 
+    vitamins and minerals,
+    making it a great nutrient-dense food choice.
     </p>
     </span>
     </div>
 
-    <div className="px-2 py-4 bg-transparent w-[90%] absolute bottom-4">
+    <div className="px-2 py-4 bg-transparent w-full sticky bottom-0 bg-shop-right-back">
         <div className="flex items-center justify-evenly font-bold text-lg">
             <button className="px-4 py-3 rounded-xl tracking-wide capitalize">delete</button>
             <button type='submit' className="px-4 py-3 rounded-xl capitalize bg-shop-orange text-white">Add to list</button>

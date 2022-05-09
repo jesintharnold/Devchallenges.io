@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import validator from 'validator';
 
 
-export const Additem=()=>{
+export const Additem=({setAdditem})=>{
   
   const [load,setLoad]=useState(false);
 
@@ -76,9 +76,9 @@ export const Additem=()=>{
     </div>
     </div>
 
-    <div className="px-2 py-4 bg-transparent w-[90%] absolute bottom-8">
+    <div className="px-2 py-4 bg-transparent w-[90%] absolute bottom-8 bg-shop-right-back">
         <div className="flex items-center justify-evenly text-xl font-bold">
-            <button className="px-6 py-3 rounded-xl tracking-wide capitalize">cancel</button>
+            <button className="px-6 py-3 rounded-xl tracking-wide capitalize" onClick={()=>setAdditem(prev=>!prev)}>cancel</button>
             <button type='submit' className="px-6 py-3 rounded-xl tracking-wide capitalize bg-shop-orange text-white">save</button>
         </div>
     </div>

@@ -28,7 +28,6 @@ return (
   <Route exact path={`${path}/history`} component={()=><History data={seeder_history}/>}/>
   <Route exact path={`${path}/history/:id`} component={Historyoverview}/>
   <Route exact path={`${path}/analytics`} component={Analytics}/>
-
 </Switch>
 </div>
 <Rightmain/>

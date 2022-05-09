@@ -1,7 +1,6 @@
 import axios from "axios";
 import {useState,useEffect} from "react";
 
-
 const useAxios=(axios_)=>{
 
   const [response,setResponse]=useState(null);
@@ -18,7 +17,7 @@ const useAxios=(axios_)=>{
      setLoading(false);
    }
   };
-
+  
   useEffect(()=>{
      getData();
   },[]);
@@ -29,3 +28,6 @@ const useAxios=(axios_)=>{
 export default useAxios;
 
 //const {response,isLoading}=useAxios(axios.get("path"));
+
+
+

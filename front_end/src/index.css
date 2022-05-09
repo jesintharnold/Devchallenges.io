@@ -16,5 +16,39 @@
   .scroll-hide::-webkit-scrollbar{
       display:none;
       width:0;
-      }
+    }
+
+  input[type="checkbox"]{
+    appearance:none;
+    -webkit-appearance:none;
+    height:1.5rem;
+    width:1.5rem;
+    background-color:transparent;
+    border:3px solid #F9A109;
+    border-radius:5px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  input[type="checkbox"]:after{
+    content:'\f00c';
+    color:white;
+    font-weight: 900;
+    font-family: "Font Awesome 5 Free";
+    display:none;
+  }
+  input[type="checkbox"]:checked{
+    background-color:#F9A109;
+  }
+  input[type="checkbox"]:checked::after{
+      display:block;
+  }
+  
+  input[type="checkbox"]:checked ~ span > .strike {
+    text-decoration: line-through;
+  }
+
+
+
 }
+
