@@ -5,8 +5,8 @@ export const Itemoverview=()=>{
   return (
     <>
     <Link to="/shop/history" className="flex items-center text-shop-orange font-medium mb-5">
-    <span className="material-icons tracking-wider text-3xl mr-3">keyboard_backspace</span>
-    <span className="text-2xl">back</span>
+    <span className="material-icons tracking-wider text-xl mr-3">keyboard_backspace</span>
+    <span className="text-xl">back</span>
     </Link>
     <div className="rounded-3xl overflow-hidden">
      <img src={"https://www.w3schools.com/css/lights600x400.jpg"} className="w-full h-full" alt='none'/>
@@ -28,6 +28,13 @@ export const Itemoverview=()=>{
     making it a great nutrient-dense food choice.
     </p>
     </span>
+    </div>
+
+    <div className="px-2 py-4 bg-transparent w-[90%] absolute bottom-4">
+        <div className="flex items-center justify-evenly font-bold text-lg">
+            <button className="px-4 py-3 rounded-xl tracking-wide capitalize">delete</button>
+            <button type='submit' className="px-4 py-3 rounded-xl capitalize bg-shop-orange text-white">Add to list</button>
+        </div>
     </div>
     </>
   );
