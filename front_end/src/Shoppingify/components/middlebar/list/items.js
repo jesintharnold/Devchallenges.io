@@ -21,10 +21,6 @@ export const Items=()=>{
         <>       
       <div className="w-full flex">
        <span className="font-quick font-bold tracking-wider md:text-4xl text-base text-left"><span className="text-shop-orange text-4xl">Shoppingify</span><br className="block md:hidden"></br> allows you take your<br className="hidden md:block"></br> shopping list wherever you go</span>
-       {/* <div className="">
-         <input type="text" className="bg-red-400"/>
-         <></>
-       </div> */}
        </div>
 
        {example.map(({Title,values},index)=>(

@@ -16,9 +16,6 @@ export const Historyoverview=()=>{
     <span className="material-icons tracking-wider text-3xl mr-3">keyboard_backspace</span>
     <span className="text-2xl">back</span>
     </Link>
-    
-    
-    {   <>
         <div className="text-4xl font-semibold">{data.name}</div>
         <div className="flex flex-row text-caert text-xl items-center gap-4 my-8">
           <span className="material-icons-outlined block">calendar_month</span>
@@ -44,8 +41,5 @@ export const Historyoverview=()=>{
           ))
         }
        </>
-    
-    }
-    </>
   );
 };
