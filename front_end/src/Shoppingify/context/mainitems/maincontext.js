@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import {GET_ITEMS,MainitemReducer} from './mainreducer';
+import { GET_ITEMS_LIST } from "../shoppingactions";
+import {MainitemReducer} from './mainreducer';
+
 const Mainitemcontext=createContext(null);
 const useMainitem=()=>useContext(Mainitemcontext);
 const Mainitemprovider=({children})=>{
@@ -15,7 +17,7 @@ useEffect(()=>{
 //use axios to get payload then do the promise
 
 dispatch({
-  type:GET_ITEMS,
+  type:GET_ITEMS_LIST,
   payload:[]  //Get content details here
 });
 
@@ -24,7 +26,7 @@ dispatch({
 
 
 return (
-  <Mainitemcontext.Provider>
+  <Mainitemcontext.Provider value={{state,dispatch}}>
     {children}
   </Mainitemcontext.Provider>
 )
