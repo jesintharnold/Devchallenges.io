@@ -1,4 +1,4 @@
-import { GET_ITEMS_LIST } from "../shoppingactions";
+import { GET_ITEMS_LIST } from "../dispatchactions";
 
 export const MainitemReducer=(state,action)=>{
 switch(action.type){
