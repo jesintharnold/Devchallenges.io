@@ -4,6 +4,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      flex:{
+        '2':'2 1 0%',
+        '3':'3 1 0%',
+        '4':'4 1 0%'
+      },
       colors:{
         'side':'#120f13',
         'main':'#252329',
@@ -20,10 +25,22 @@ module.exports = {
         'disable-txt':'#6e6d6d',
         'image':'#F6F8FB',
         'load':'#373738',
-        'greentick':'#219653'
+        'greentick':'#219653',
+        'cement-cat':'#E3E1DC',
+        'cat-brown':'#291507',
+        'cat-back':"#DEC68B",
+        'shop-orange':"#F9A109",
+        'shop-tooltip':"#454545",
+        'shop-red':"#EB5757",
+        'shop-blue':"#56CCF2",
+        'shop-back':"#FAFAFE",
+        'shop-right-back':"#FFF0DE",
+        'shop-icon-bg':"#C1C1C4",
+        'shop-bottle-bg':"#80485B"
       },
       fontFamily:{
-        'san':['Noto Sans']
+        'san':['Noto Sans'],
+        'quick':['Quicksand', 'sans-serif']
       },
       boxShadow: {
         'ol': '0px 4px 4px 0px rgba(0, 0, 0, 0.30)'
@@ -49,6 +66,11 @@ module.exports = {
         popup: 'popup 0.6s ease-in-out',
         topup:'topup 0.6s ease-in-out',
         accord:'accord 0.8s linear'
+      },
+      backgroundImage: {
+        'catwikilg':"url('/src/Catwiki/Asset/HeroImagelg.png')",
+        'catwikimd':"url('/src/Catwiki/Asset/HeroImagemd.png')",
+        'catwikism':"url('/src/Catwiki/Asset/HeroImagesm.png')"
       }
     },
     

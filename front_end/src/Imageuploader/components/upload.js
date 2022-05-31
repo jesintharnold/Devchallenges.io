@@ -39,7 +39,6 @@ export const Uploadsection=({setUpload,setData})=>{
         e.stopPropagation();
     };
     
-
     const dragDrop=(e)=>{
         e.preventDefault();
         e.stopPropagation();
