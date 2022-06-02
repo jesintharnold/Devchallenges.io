@@ -9,9 +9,10 @@ export const useShoppinglist=()=>useContext(Shoppinglistcontext);
 export const Shoppinglistprovider=({children})=>{
 
 const inital={
-  item:[],
-  status:'active',
-  listname:null
+  items:[],
+  listStatus:'active',
+  listName:null,
+  loading:false
 }
 
 const [state,dispatch]=useReducer(shoppinglistreducer,inital);
@@ -21,7 +22,6 @@ useEffect(()=>{
 // check and delete in local Storage 
 // Get the data
 // Set Again
-
 
 
 },[]);

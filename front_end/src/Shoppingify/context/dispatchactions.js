@@ -9,3 +9,7 @@ export const LIST_STATUS_LIST="LIST_STATUS_LIST";
 // Main Items 
 
 export const GET_ITEMS_MAIN="GET_ITEMS_MAIN";
+
+
+//BOTH LOADING AND UNLOADING
+export const LOADING="LOADING";

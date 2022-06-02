@@ -3,7 +3,7 @@ import {GET_ITEMS_LIST,
   DELETE_ITEM_LIST,
   CHECK_ITEM_LIST,
   SET_NAME_LIST,
-  LIST_STATUS_LIST} from '../dispatchactions';
+  LIST_STATUS_LIST,LOADING} from '../dispatchactions';
 
 //Schema - design
 
@@ -20,7 +20,8 @@ import {GET_ITEMS_LIST,
 //       }
 //   ],
 //   listStatus:00001000,
-//   listName:null
+//   listName:null,
+//   loading:true
 // }
 
 
@@ -86,7 +87,9 @@ switch(action.type){
     return {...state,listName:action.payload.name};
   case LIST_STATUS_LIST:
     // Set status as active|true(completed)|false(cancelled)  
-    return {...state,listStatus:action.payload.status};        
+    return {...state,listStatus:action.payload.status};  
+  case LOADING:
+    return {...state,loading:action.payload.loading};        
   default:
     return state; 
 }

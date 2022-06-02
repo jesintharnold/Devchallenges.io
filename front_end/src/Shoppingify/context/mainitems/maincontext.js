@@ -7,18 +7,35 @@ const useMainitem=()=>useContext(Mainitemcontext);
 const Mainitemprovider=({children})=>{
 
 const inital={
-  items:[]
+  items:[],
+  loading:true
 };  
 
 const [state,dispatch]=useReducer(MainitemReducer,inital);
 
 useEffect(()=>{
 
-//use axios to get payload then do the promise
-
 dispatch({
   type:GET_ITEMS_LIST,
-  payload:[]  //Get content details here
+  payload:{
+    loading:false,
+    items:[
+        {category:"Fruit and vegetables",categoryID:"1000",items:[
+        {name:"Avocodo",itemID:100},
+        {name:"Banana",itemID:200},
+        {name:"Bunch of carrots",itemID:300},
+        {name:"Chicken",itemID:400},
+        {name:"Pre-cooked corn",itemID:500}
+      ]},
+      {category:"Fruit and vegetables",categoryID:"1000",items:[
+        {name:"Avocodo",itemID:100},
+        {name:"Banana",itemID:200},
+        {name:"Bunch of carrots",itemID:300},
+        {name:"Chicken",itemID:400},
+        {name:"Pre-cooked corn",itemID:500}
+      ]}
+    ]
+  } 
 });
 
 },[]);
