@@ -3,19 +3,19 @@ import { shoppinglistreducer } from "./shoppinglistReducer";
 
 
 const Shoppinglistcontext=createContext(null);
-export const useShoppinglist=()=>useContext(Shoppinglistcontext);
+const useShoppinglist=()=>useContext(Shoppinglistcontext);
 
 
-export const Shoppinglistprovider=({children})=>{
+const Shoppinglistprovider=({children})=>{
 
 const inital={
-  items:[],
   listStatus:'active',
   listName:null,
-  loading:false
+  loading:false,
+  items:[]
 }
 
-const [state,dispatch]=useReducer(shoppinglistreducer,inital);
+const [state,dispatch_cart]=useReducer(shoppinglistreducer,inital);
 
 useEffect(()=>{
 
@@ -28,9 +28,12 @@ useEffect(()=>{
 
 
 return (
-  <Shoppinglistcontext.Provider value={{state,dispatch}}>
+  <Shoppinglistcontext.Provider value={{state,dispatch_cart}}>
   {children}
   </Shoppinglistcontext.Provider>
 )
-
 };
+
+
+
+export {Shoppinglistprovider,useShoppinglist};
