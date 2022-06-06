@@ -42,7 +42,13 @@ switch(action.type){
         console.log("A");
         return {...state,items:state.items.map((el)=>(el.categoryID===action.payload.categoryID)?
             {...el,items:el.items.map((iel)=>(iel.itemID===action.payload.itemID)?{...iel,quantity:iel.quantity+1}:iel)}
-            :el)}
+            :el),
+            overview:{
+              status:false,
+              categoryID:null,
+              itemID:null
+            }
+          }
       }else{
         console.log("B");
         return {...state,items:state.items.map((el)=>(el.categoryID===action.payload.categoryID)?
@@ -52,7 +58,11 @@ switch(action.type){
             itemID:action.payload.itemID,
             checked:false
           }]}
-          :el)}
+          :el),overview:{
+            status:false,
+            categoryID:null,
+            itemID:null
+          }}
       }
     }else{
         console.log("C");
@@ -63,7 +73,11 @@ switch(action.type){
             {name:action.payload.name,quantity:1,itemID:action.payload.itemID,checked:false}
             ]
           }
-        ]
+        ],overview:{
+          status:false,
+          categoryID:null,
+          itemID:null
+        }
       };
       }
    

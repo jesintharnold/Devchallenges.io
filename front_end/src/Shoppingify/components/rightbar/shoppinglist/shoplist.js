@@ -34,7 +34,7 @@ return (
    <div className='text-lg text-caert mb-2'>{category}</div>
    {items.map(({name,quantity,itemID,checked},i)=>(
      <div className='w-full flex  flex-row items-center mb-2 gap-6' key={`Item-${i}`}>
-    {edit?"":<input type="checkbox" checked={checked} onClick={()=>dispatch_cart({type:CHECK_ITEM_LIST,
+    {edit?"":<input type="checkbox" checked={checked} onChange={()=>dispatch_cart({type:CHECK_ITEM_LIST,
               payload:{
                 categoryID:categoryID,
                 itemID:itemID
@@ -85,9 +85,9 @@ return (
   <div className="flex items-center justify-evenly text-lg font-bold">
   <div className="px-6 py-3 rounded-xl tracking-wide capitalize cursor-pointer" onClick={()=>dispatch_cart({type:MODAL_STATE})}>cancel</div>
   <div className="px-4 py-3 rounded-xl tracking-wide capitalize cursor-pointer bg-shop-blue text-white" onClick={()=>dispatch_cart({type:LIST_STATUS_LIST,
-              payload:{
-                status:'complete'
-              }})}>Complete</div>
+  payload:{
+    status:'complete'
+  }})}>Complete</div>
 </div>
 )}
 </div>  

@@ -22,15 +22,14 @@ export const Items=()=>{
            {
            items.map(({name,itemID},index)=>(
             //Dispatching with category/categoryID/name/itemID
-             <div className="shadow-lg flex items-center gap-4 px-2 md:px-4 py-1 md:py-3 rounded-xl md:rounded-2xl bg-white cursor-pointer" key={`L-${index}`} 
+             <div className="shadow-lg flex items-center gap-4 px-2 md:px-4 py-1 md:py-3 rounded-xl md:rounded-2xl bg-white cursor-pointer" key={`L-${index}`}>
+
+             <span className="block  text-base md:text-xl font-light float-left" 
              onClick={()=>dispatch_cart({type:OVERVIEW_STATE,payload:{
               status:true,
               categoryID:categoryID,
               itemID:itemID
-            }})}
-          >
-
-             <span className="block  text-base md:text-xl font-light float-left">{name}</span>
+            }})}>{name}</span>
              <span className="material-icons text-xl md:text-3xl block text-shop-tooltip opacity-70"    onClick={()=>dispatch_cart({type:ADD_ITEM_LIST,
              payload:{
                categoryID:categoryID,
