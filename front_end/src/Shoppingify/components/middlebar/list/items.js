@@ -13,7 +13,7 @@ export const Items=()=>{
        {console.log("Rendering")}
        <span className="font-quick font-bold tracking-wider md:text-4xl text-base text-left"><span className="text-shop-orange text-4xl">Shoppingify</span><br className="block md:hidden"></br> allows you take your<br className="hidden md:block"></br> shopping list wherever you go</span>
        </div>
-       {state.loading?<div className='w-full bg-transparent mt-20 text-center'><ClipLoader color="#F9A109" css={{borderWidth:'5px',top:"20%"}} loading={state.loading} size={50}/></div>:
+       {state.loading?<div className='w-full bg-transparent mt-[30%] text-center'><ClipLoader color="#F9A109" css={{borderWidth:'5px',top:"20%"}} loading={state.loading} size={50}/></div>:
        state.items.map(({category,categoryID,items},index)=>(
            <div className="first:mt-12 mt-8" key={`c-${index}`}>    
            <span className="text-xl md:text-2xl font-medium">{category}</span>

@@ -87,7 +87,7 @@ switch(action.type){
   case CHECK_ITEM_LIST:
     //cross-check with category and value and make check as true/false
     return {...state,items:state.items.map((el)=>(el.categoryID===action.payload.categoryID)?
-      {...el,items:el.items.map((iel)=>(iel.itemID===action.payload.itemID)?iel.checked=action.payload.checked:iel)}
+      {...el,items:el.items.map((iel)=>(iel.itemID===action.payload.itemID)?{...iel,checked:!iel.checked}:iel)}
       :el)};
 
 
