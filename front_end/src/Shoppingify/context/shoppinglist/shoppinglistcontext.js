@@ -12,8 +12,14 @@ const inital={
   listStatus:'active',
   listName:null,
   loading:false,
-  items:[]
-}
+  items:[],
+  modal:false,
+  overview:{
+    status:false,
+    categoryID:null,
+    itemID:null
+  }
+};
 
 const [state,dispatch_cart]=useReducer(shoppinglistreducer,inital);
 

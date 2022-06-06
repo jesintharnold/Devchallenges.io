@@ -3,7 +3,7 @@ import {GET_ITEMS_LIST,
   DELETE_ITEM_LIST,
   CHECK_ITEM_LIST,
   SET_NAME_LIST,
-  LIST_STATUS_LIST,LOADING,DECR_ITEM_LIST} from '../dispatchactions';
+  LIST_STATUS_LIST,LOADING,DECR_ITEM_LIST,MODAL_STATE, OVERVIEW_STATE} from '../dispatchactions';
 
 //Schema - design
 
@@ -34,9 +34,7 @@ switch(action.type){
     return {...action.payload};
   case ADD_ITEM_LIST:
     //cross-check with category and value , if exists ++ else add new
-     
     let category_exist=state.items.filter(({categoryID})=>categoryID===action.payload.categoryID);
-    
     
     if(category_exist.length>0){
       let item_exist=category_exist[0].items?.filter(({itemID})=>itemID===action.payload.itemID);
@@ -45,7 +43,6 @@ switch(action.type){
         return {...state,items:state.items.map((el)=>(el.categoryID===action.payload.categoryID)?
             {...el,items:el.items.map((iel)=>(iel.itemID===action.payload.itemID)?{...iel,quantity:iel.quantity+1}:iel)}
             :el)}
-
       }else{
         console.log("B");
         return {...state,items:state.items.map((el)=>(el.categoryID===action.payload.categoryID)?
@@ -72,7 +69,6 @@ switch(action.type){
    
   case DELETE_ITEM_LIST:
     //cross-check with category and value get the count , if exists -- else add new
-
     let item_cnt=state.items.filter(({categoryID})=>categoryID===action.payload.categoryID)[0].items.length;
     if(item_cnt===1){
       return {...state,items:state.items.filter(({categoryID})=>categoryID!==action.payload.categoryID)}
@@ -107,7 +103,12 @@ switch(action.type){
         :el)};
     };
     
-
+  case OVERVIEW_STATE:
+    return {...state,overview:{
+      status:!state.overview.status,
+      categoryID:action.payload.categoryID,
+      itemID:action.payload.itemID
+    }}
   case SET_NAME_LIST:
     //set name to the list by default it is null
     return {...state,listName:action.payload.name};
@@ -115,7 +116,9 @@ switch(action.type){
     // Set status as active|true(completed)|false(cancelled)  
     return {...state,listStatus:action.payload.status};  
   case LOADING:
-    return {...state,loading:action.payload.loading};        
+    return {...state,loading:action.payload.loading};     
+  case MODAL_STATE:
+    return {...state,modal:!state.modal};     
   default:
     return state; 
 }

@@ -1,13 +1,22 @@
-import { Link } from "react-router-dom";
-
+import { useEffect, useState } from "react";
+import { OVERVIEW_STATE } from "../../../context/dispatchactions";
+import { useShoppinglist } from "../../../context/shoppinglist/shoppinglistcontext";
 
 export const Itemoverview=()=>{
+  const {state,dispatch_cart}=useShoppinglist();
+  
+  
+  
   return (
     <>
-    <Link to="/shop/history" className="flex items-center text-shop-orange font-medium mb-5">
+    <div className="flex items-center text-shop-orange font-medium mb-5" onClick={()=>dispatch_cart({type:OVERVIEW_STATE,payload:{
+      status:false,
+      categoryID:null,
+      itemID:null
+    }})}>
     <span className="material-icons tracking-wider text-xl mr-3">keyboard_backspace</span>
     <span className="text-xl">back</span>
-    </Link>
+    </div>
     <div className="rounded-3xl overflow-hidden">
      <img src={"https://www.w3schools.com/css/lights600x400.jpg"} className="w-full h-full" alt='none'/>
     </div>

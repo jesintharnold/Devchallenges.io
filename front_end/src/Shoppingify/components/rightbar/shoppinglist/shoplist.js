@@ -1,45 +1,17 @@
 import { useState } from 'react';
 import bottle from '../../../../Assets/bottle.svg'
 import {useShoppinglist} from '../../../context/shoppinglist/shoppinglistcontext';
-import {ADD_ITEM_LIST,DECR_ITEM_LIST,DELETE_ITEM_LIST,CHECK_ITEM_LIST} from '../../../context/dispatchactions';
+import {ADD_ITEM_LIST,DECR_ITEM_LIST,DELETE_ITEM_LIST,CHECK_ITEM_LIST,LIST_STATUS_LIST,MODAL_STATE} from '../../../context/dispatchactions';
 import {ClipLoader} from 'react-spinners';
-
-const seeding_data=[
-  {
-  category:"Fruit and vegetables",
-  items:[
-    {name:"Avocodo",quantity:5},
-    {name:"Avocodo bell",quantity:5},
-    {name:"Avocodo Laptop",quantity:5},
-    {name:"Avocodo bell",quantity:5},
-    {name:"Avocodo taco",quantity:5},
-    {name:"Avocodo youtube",quantity:5},
-    {name:"Avocodo search",quantity:5},
-    {name:"Avocodo SE02E04",quantity:5}
-      ]
-  },
-  {
-    category:"Non-Veg",
-    items:[
-      {name:"Avocodo",quantity:5},
-      {name:"Avocodo wolves",quantity:4},
-      {name:"Avocodo",quantity:3},
-      {name:"Avocodo wolves",quantity:2},
-      {name:"Avocodo chicken",quantity:1},
-      {name:"Avocodo",quantity:1},
-      {name:"Avocodo raised",quantity:3},
-      {name:"Avocodo",quantity:6}
-        ]
-  }
-];
+import {Modal} from '../../modal/modal';
 
 
 export const List=({setAdditem})=>{
-
   const [edit,setEdit]=useState(false);
   const {state,dispatch_cart}=useShoppinglist();
-
+  
 return (
+  <>
   <div className='w-full flex flex-col  gap-2 h-full'>
   <div className="bg-shop-bottle-bg w-full h-40 rounded-3xl items-center justify-evenly flex flex-row">
   <img src={bottle} alt="Bottle" className='block h-[105%] -translate-y-5 flex-shrink-0'/>
@@ -49,9 +21,7 @@ return (
   </div>
  </div>
  
- 
 <div className='w-full px-4 flex-auto overflow-y-scroll scroll-hide'>
-  
 {state.loading?<div className='w-full bg-transparent mt-[50%] text-center'><ClipLoader color="#F9A109" css={{borderWidth:'5px',top:"20%"}} loading={state.loading} size={50}/></div>:(
    <>
    <div className='flex flex-row justify-between text-2xl w-full mt-6 mb-9'>
@@ -59,7 +29,6 @@ return (
      <span class="material-icons block cursor-pointer" onClick={()=>setEdit(prevState=>!prevState)}>edit</span>
    </div>
    
- 
    {state.items.map(({category,items,categoryID},index)=>(
    <div className='p-0 mb-2 last:mb-28 inline-block w-full'  key={`CA-${index}`}>
    <div className='text-lg text-caert mb-2'>{category}</div>
@@ -114,15 +83,18 @@ return (
   </div>
 ):(
   <div className="flex items-center justify-evenly text-lg font-bold">
-  <button className="px-6 py-3 rounded-xl tracking-wide capitalize">cancel</button>
-  <button type='submit' className="px-4 py-3 rounded-xl tracking-wide capitalize bg-shop-blue text-white">Complete</button>
+  <div className="px-6 py-3 rounded-xl tracking-wide capitalize cursor-pointer" onClick={()=>dispatch_cart({type:MODAL_STATE})}>cancel</div>
+  <div className="px-4 py-3 rounded-xl tracking-wide capitalize cursor-pointer bg-shop-blue text-white" onClick={()=>dispatch_cart({type:LIST_STATUS_LIST,
+              payload:{
+                status:'complete'
+              }})}>Complete</div>
 </div>
 )}
 </div>  
-
-
- 
-
 </div>
-);
+
+{(state.modal&&state.listStatus!=='cancel')?<Modal dispatch={dispatch_cart}/>:''}
+</>
+
+)
 };

@@ -6,6 +6,8 @@ export const CHECK_ITEM_LIST="CHECK_ITEM_LIST";
 export const SET_NAME_LIST="SET_NAME_LIST";
 export const LIST_STATUS_LIST="LIST_STATUS_LIST";
 export const DECR_ITEM_LIST="DECR_ITEM_LIST";
+export const MODAL_STATE="MODAL_STATE";
+export const OVERVIEW_STATE="OVERVIEW_STATE";
 
 // Main Items 
 
