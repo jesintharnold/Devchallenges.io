@@ -23,12 +23,19 @@ const inital={
 
 const [state,dispatch_cart]=useReducer(shoppinglistreducer,inital);
 
+function alertreload(e){ 
+  e.preventDefault();
+  const message="Are you sure you want to leave? All provided data will be lost, please save before reloading ";
+  e.returnValue = message;
+ return message;
+ };
+
 useEffect(()=>{
 
-// check and delete in local Storage 
-// Get the data
-// Set Again
-
+    if(false){window.addEventListener("beforeunload",alertreload)}
+    return ()=>{
+     window.addEventListener("beforeunload",alertreload);
+    };         
 
 },[]);
 
