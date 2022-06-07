@@ -4,10 +4,9 @@ import { shoppinglistreducer } from "./shoppinglistReducer";
 
 const Shoppinglistcontext=createContext(null);
 const useShoppinglist=()=>useContext(Shoppinglistcontext);
-
-
 const Shoppinglistprovider=({children})=>{
 
+  
 const inital={
   listStatus:'active',
   listName:null,
