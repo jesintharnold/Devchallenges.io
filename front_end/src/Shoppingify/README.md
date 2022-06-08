@@ -5,9 +5,11 @@
    - [x] Adding required colors to tailwind css config
    - [x] Invidual component creation
    - [x] Create a context for items/display main items 
-   - [ ] Prevent reload on unsaved list
-   - [ ] Overview/Analytics/History API
+   - [x] Prevent reload on unsaved list
+   - [x] Overview/Analytics/History API
+   - [ ] Complete/save/sent add item
    - [ ] Integrating API with Frontend
+  
   
 
    
