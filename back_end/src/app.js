@@ -12,7 +12,6 @@ const { Msgschema,channelSchema} = require('./Schema/chatschemaval');
 const { insertRoomMsg } = require("./DB/chat/channel");
 const userDAO=require("./DB/user/users");
 const imageuploadDAO=require("./DB/imageupload/imageupload");
-const { appendFile } = require("fs");
 const { globalHandle } = require("./utils/ErrorObject");
 
 express.use(cors());

@@ -1,6 +1,6 @@
 const {logger}=require('../../utils/logger');
 const {ObjectId}=require('mongodb');
-
+const config=require("config");
 let channel_collection;
 class channelDAO{
     static async injectCol(db){
@@ -9,7 +9,7 @@ class channelDAO{
       }
 
       try{
-         channel_collection=await db.collection("channel"); 
+         channel_collection=await db.collection(config.get("dbConfig.col_channel")); 
          logger.info('Channel collection is connected');
       }catch(e){
          logger.error('Channel collection error , \n ',e)
