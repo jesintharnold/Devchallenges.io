@@ -1,6 +1,6 @@
 const authroute=require("express").Router();
-const {googleOauth,githubOauth,twitterOauth,facebookOauth}=require("../Controller/Auth/Authcontroller");
-const {NormalControllerlogin,NormalControllerregister}=require("../Controller/Auth/Emailcontroller");
+const {googleOauth,githubOauth,twitterOauth,facebookOauth}=require("../Controller/auth/authcontroller");
+const {NormalControllerlogin,NormalControllerregister}=require("../Controller/auth/emailcontroller");
 
 authroute.route("/facebook").get(facebookOauth);
 authroute.route("/google").get(googleOauth);

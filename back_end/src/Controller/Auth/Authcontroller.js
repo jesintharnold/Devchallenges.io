@@ -2,7 +2,7 @@ const config=require("config");
 const axios=require("axios");
 const { URLSearchParams } = require("url");
 const {logger}=require("../../utils/logger");
-const {EmailController}=require('./Emailcontroller');
+const {EmailController}=require('./emailcontroller');
 const bcrypt=require("bcrypt");
 
 const googleOauth=async (req,res,next)=>{

@@ -1,5 +1,5 @@
 const userroute=require("express").Router();
-const {getuserProfile,getuserProfileupdate}=require('../Controller/User/Usercontroller');
+const {getuserProfile,getuserProfileupdate}=require('../Controller/user/usercontroller');
 //const {bucketupload} = require("../Middlewares/bucket");
 
 userroute.route('/').get(getuserProfile);
