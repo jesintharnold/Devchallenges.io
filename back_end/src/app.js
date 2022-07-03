@@ -18,7 +18,7 @@ express.use(cors());
 express.use(bodyParser.urlencoded({extended:true}));
 express.use(bodyParser.json());
 express.use(route);
-express.use(globalHandle);
+express.use(globalHandle); //Global Error handler
 
 Dbconnect().then(con=>{
     channelDAO.injectCol(con);
