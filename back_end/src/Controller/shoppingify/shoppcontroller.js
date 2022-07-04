@@ -76,7 +76,8 @@ if(resp_.length>0){
 });
 
 const historyviewshopList=asyncWrapper(async(req,res,next)=>{
-let {error,value}=historySchema.validate(req.body);
+let {historyid}=req.params;
+let {error,value}=historySchema.validate({listID:historyid});
 if(error){
 next(error);
 };
@@ -91,6 +92,11 @@ if(resp_.length>0){
 });
 
 
-
-
-
+module.exports={
+historyviewshopList,
+historyshopList,
+postshopList,
+getshopList,
+addshopItem,
+getAllItems
+};
