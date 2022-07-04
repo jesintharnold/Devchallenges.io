@@ -2,9 +2,9 @@ const Joi = require('joi');
 
 const addItemSchema=Joi.object().keys({
   name:Joi.string().required(),
-  note:Joi.string().trim().allow('').optional(),
-  imageURL:Joi.string().trim().allow('').optional(),
-  category:Joi.string().trim().required(),
+  description:Joi.string().trim().allow('').optional(),
+  imageurl:Joi.string().trim().allow('').optional(),
+  categoryname:Joi.string().trim().required(),
   categoryID:Joi.string().trim().max(24).allow('').optional()
 });
 
