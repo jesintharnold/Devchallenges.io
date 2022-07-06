@@ -24,7 +24,7 @@ class ItemDAO{
         imageurl:payload.imageurl,
         description:payload.description
       };
-      let check_category_items=await shop_collection.find({_id:payload.categoryID}).toArray(); 
+      let check_category_items=await shop_collection.find({_id:ObjectId(payload.categoryID)}).toArray(); 
       if(check_category_items.length===0||payload.categoryID===null){
         return await shop_collection.insertOne({
           category:payload.categoryname,
@@ -32,7 +32,7 @@ class ItemDAO{
         }).then(res_=>{logger.info(payload_,res_);payload_});   //Items along with payload
       }else{
         //Add Item - update addtoset
-        return await shop_collection.updateOne({_id:payload.categoryID,'items.item':{'$ne':payload.name}},{
+        return await shop_collection.updateOne({_id:ObjectId(payload.categoryID),'items.item':{'$ne':payload.name}},{
           $addToSet:{"items":{...payload_}}
         }).then(q=>payload_);
       } 

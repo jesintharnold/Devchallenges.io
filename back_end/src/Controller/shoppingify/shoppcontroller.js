@@ -11,7 +11,7 @@ const getAllItems=asyncWrapper(async(req,res,next)=>{
     next(new APIError({name:"ItemNotFound",message:"No Items found , Please start by adding",statusCode:200}));
   }else{
     return res.status(200).json({
-      data:data
+      data:mon_res
     });
   }
 });
