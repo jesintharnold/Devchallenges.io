@@ -29,12 +29,11 @@ class ItemDAO{
         return await shop_collection.insertOne({
           category:payload.categoryname,
           items:[payload_]
-        }).then(res_=>{logger.info(payload_,res_);payload_});   //Items along with payload
+        }).then((q)=>{return {...payload_,categoryID:q.insertedId}});  
       }else{
-        //Add Item - update addtoset
         return await shop_collection.updateOne({_id:ObjectId(payload.categoryID),'items.item':{'$ne':payload.name}},{
           $addToSet:{"items":{...payload_}}
-        }).then(q=>payload_);
+        }).then((q)=>{return {...payload_,categoryID:payload.categoryID}});
       } 
 
     };
@@ -52,17 +51,17 @@ class ListDAO{
     return await list_collection.find({status:'Active',userID:payload.userID}).toArray();
   };
   static async postList(payload){
-   let q=await list_collection.find({status:'Active',userID:payload.userID}).toArray();
+   let q=await list_collection.find({status:'Active',userID:ObjectId(payload.userID)}).toArray();
    if(q.length>1){
    await list_collection.findAndModify({
-    query:{status:'Active',userID:payload.userID},
+    query:{status:'Active',userID:ObjectId(payload.userID)},
     update:{$set:{'status':'completed'}}
    });
    };
   if(payload.cartID!==null){
     await list_collection.updateOne({
-      _id:payload.cartID,
-      userID:payload.userID
+      _id:ObjectId(payload.cartID),
+      userID:ObjectId(payload.userID)
       },{
        name:payload.listName,
        status:payload.status,
@@ -75,13 +74,13 @@ class ListDAO{
        status:payload.status,
        items:[...payload.items],
        timestamp:Date.now(),
-       userID:payload.userID
+       userID:ObjectId(payload.userID)
       }).then(q=>{return q}).catch(e=>{throw e});//check on return types
   }
   };
   static async history(payload){
    return await list_collection.aggregate([
-    {$match:{status:{$ne:"Active"},userID:payload.userID}},
+    {$match:{status:{$ne:"Active"},userID:ObjectId(payload.userID)}},
     {$project:{categoryID:"$_id",timestamp:1,status:1,name:1}},
     {$group:{
         _id: { $dateToString: { date: "$timestamp", format: "%m/%Y"}},
@@ -92,7 +91,7 @@ class ListDAO{
   //return await list_collection.find({status:{$ne:'Active'}},{status:1,name:1,timestamp:1}).toArray();
   };
   static async historyView(payload){
-  return await list_collection.find({_id:payload.listID}).toArray();
+  return await list_collection.find({_id:ObjectId(payload.listID)}).toArray();
   };
   static async analytics(payload){
   };

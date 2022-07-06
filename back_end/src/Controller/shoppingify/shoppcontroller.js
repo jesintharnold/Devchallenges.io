@@ -22,7 +22,7 @@ const addshopItem=asyncWrapper(async(req,res,next)=>{
   if(error){
     next(error); //Pass error to global handler
   }else{
-    let resp_=ItemDAO.addItem({
+    let resp_=await ItemDAO.addItem({
       categoryID:value.categoryID||null,
       categoryname:value.categoryname,
       name:value.name,
@@ -30,7 +30,7 @@ const addshopItem=asyncWrapper(async(req,res,next)=>{
       description:value.description
     });
     if(resp_){
-      res.status(200).json({
+      res.status(201).json({
         data:resp_
       });
     };
