@@ -28,8 +28,8 @@ const jwt_token_expired=()=>new APIError({name:"TokenExpired",message:"Your Toke
 
 //Development - function 
 const devfunc=(err,req,res)=>{
-logger.error(err);
-return res.status(err.statusCode).json({
+ logger.info(err);
+ res.status(200).json({
     error:err,
     message:err.message,
     name:err.name,
@@ -41,14 +41,13 @@ return res.status(err.statusCode).json({
 //Production  - object
 const prodfunc=(err,req,res)=>{
     if(err.isOperational){
-        return res.status(err.statusCode).json({
+        res.status(err.statusCode).json({
             name:err.name,
             message:err.message
         });
     };
-
-
-    return res.status(500).json({
+    
+    res.status(500).json({
         status: 'unknown-error',
         message: 'Something went very wrong'
     })

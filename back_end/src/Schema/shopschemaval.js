@@ -31,7 +31,6 @@ items:Joi.array().items(Joi.object({
 
 
 module.exports={
-  getAllItemSchema,
   addItemSchema,
   postCartSchema,
   cartgetSchema,

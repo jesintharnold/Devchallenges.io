@@ -13,6 +13,7 @@ const { insertRoomMsg } = require("./DB/chat/channel");
 const userDAO=require("./DB/user/users");
 const imageuploadDAO=require("./DB/imageupload/imageupload");
 const { globalHandle } = require("./utils/ErrorObject");
+const { ListDAO,ItemDAO } = require("./DB/shoppingify/shoppingify");
 
 express.use(cors());
 express.use(bodyParser.urlencoded({extended:true}));
@@ -24,6 +25,8 @@ Dbconnect().then(con=>{
     channelDAO.injectCol(con);
     userDAO.injectCol(con);
     imageuploadDAO.injectCol(con);
+    ListDAO.injectCol(con);
+    ItemDAO.injectCol(con);
 });
 
 

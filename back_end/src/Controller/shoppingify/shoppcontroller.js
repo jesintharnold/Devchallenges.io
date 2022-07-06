@@ -2,13 +2,13 @@ const {logger}=require('../../utils/logger');
 const asyncWrapper=require("../../utils/asyncWrapper");
 const APIError = require('../../utils/APIError');
 const {ItemDAO,ListDAO}=require('../../DB/shoppingify/shoppingify');
-const {addItemSchema,cartgetSchema,getAllItemSchema,historySchema,postCartSchema}=require('../../Schema/shopschemaval');
+const {addItemSchema,cartgetSchema,historySchema,postCartSchema}=require('../../Schema/shopschemaval');
 
 
 const getAllItems=asyncWrapper(async(req,res,next)=>{
   let mon_res=await ItemDAO.getItems();
   if(mon_res.length<=0){
-    next(new APIError({name:"ItemNotFound",message:"No Items found , Please start by adding",statusCode:204}));
+    next(new APIError({name:"ItemNotFound",message:"No Items found , Please start by adding",statusCode:200}));
   }else{
     return res.status(200).json({
       data:data
@@ -43,7 +43,7 @@ const getshopList=asyncWrapper(async(req,res,next)=>{
  };
  let resp_=ListDAO.getList({userID:value.userID});
  if(resp_.length<=0){
-  next(new APIError({name:"ItemNotFound",message:"No Items found , Please start by adding",statusCode:204}));
+  next(new APIError({name:"ItemNotFound",message:"No Items found , Please start by adding",statusCode:200}));
  }else{
  res.status(200).json({data:resp_});
  }
@@ -71,7 +71,7 @@ if(resp_.length>0){
     data:data
   });
 }else{
-  next(new APIError({name:"ItemNotFound",message:"No History found , Please start by changing status",statusCode:204}));
+  next(new APIError({name:"ItemNotFound",message:"No History found , Please start by changing status",statusCode:200}));
 }
 });
 
@@ -87,7 +87,7 @@ if(resp_.length>0){
     data:resp_
    });
 }else{
-  next(new APIError({name:"ItemNotFound",message:"Unable to Retrive items for the HistoryID mentioned",statusCode:204}));
+  next(new APIError({name:"ItemNotFound",message:"Unable to Retrive items for the HistoryID mentioned",statusCode:200}));
 }
 });
 
