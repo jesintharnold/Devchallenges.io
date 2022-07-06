@@ -1,11 +1,11 @@
 const Joi = require('joi');
 
 const addItemSchema=Joi.object().keys({
-  name:Joi.string().required(),
-  description:Joi.string().trim().allow('').optional(),
-  imageurl:Joi.string().trim().allow('').optional(),
+  name:Joi.string().trim().required(),
+  description:Joi.string().trim().allow(null).required(),
+  imageurl:Joi.string().trim().allow(null).required(),
   categoryname:Joi.string().trim().required(),
-  categoryID:Joi.string().trim().max(24).allow('').optional()
+  categoryID:Joi.string().trim().max(24).allow(null).required()
 });
 
 const cartgetSchema=Joi.object().keys({

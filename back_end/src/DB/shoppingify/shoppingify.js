@@ -26,10 +26,10 @@ class ItemDAO{
       };
       let check_category_items=await shop_collection.find({_id:payload.categoryID}).toArray(); 
       if(check_category_items.length===0||payload.categoryID===null){
-        return await shop_collection.insert({
+        return await shop_collection.insertOne({
           category:payload.categoryname,
           items:[payload_]
-        }).then(res_=>payload_);   //Items along with payload
+        }).then(res_=>{logger.info(payload_,res_);payload_});   //Items along with payload
       }else{
         //Add Item - update addtoset
         return await shop_collection.updateOne({_id:payload.categoryID,'items.item':{'$ne':payload.name}},{

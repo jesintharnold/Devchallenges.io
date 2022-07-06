@@ -17,9 +17,10 @@ const getAllItems=asyncWrapper(async(req,res,next)=>{
 });
 
 const addshopItem=asyncWrapper(async(req,res,next)=>{
+  logger.warn(req.body);
   let {error,value}=addItemSchema.validate(req.body);
   if(error){
-    next(err); //Pass error to global handler
+    next(error); //Pass error to global handler
   }else{
     let resp_=ItemDAO.addItem({
       categoryID:value.categoryID||null,
