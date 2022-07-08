@@ -42,7 +42,7 @@ const getshopList=asyncWrapper(async(req,res,next)=>{
  if(error){
   next(error);
  };
- let resp_=ListDAO.getList({userID:value.userID});
+ let resp_=await ListDAO.getList({userID:value.userID});
  if(resp_.length<=0){
   next(new APIError({name:"ItemNotFound",message:"No Items found , Please start by adding",statusCode:200}));
  }else{
@@ -55,7 +55,7 @@ let {error,value}=postCartSchema.validate(req.body);
 if(error){
  next(error);
 };
-let resp_=ListDAO.postList({});
+let resp_=await ListDAO.postList({});
 if(resp_){
 res.status(201).json({data:data});
 }
@@ -66,7 +66,7 @@ let {error,value}=cartgetSchema.validate(req.body);
 if(error){
 next(error);
 };
-let resp_=ListDAO.history({userID:value.userID});
+let resp_=await ListDAO.history({userID:value.userID});
 if(resp_.length>0){
   res.status(200).json({
     data:data
@@ -82,7 +82,7 @@ let {error,value}=historySchema.validate({listID:historyid});
 if(error){
 next(error);
 };
-let resp_=ListDAO.historyView({listID:value.listID});
+let resp_=await ListDAO.historyView({listID:value.listID});
 if(resp_.length>0){
   res.status(200).json({
     data:resp_
