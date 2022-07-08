@@ -38,7 +38,7 @@ const addshopItem=asyncWrapper(async(req,res,next)=>{
 });
 
 const getshopList=asyncWrapper(async(req,res,next)=>{
- let {error,value}=cartgetSchema.valid(req.body);
+ let {error,value}=cartgetSchema.validate(req.body);
  if(error){
   next(error);
  };
@@ -55,9 +55,9 @@ let {error,value}=postCartSchema.validate(req.body);
 if(error){
  next(error);
 };
-let resp_=await ListDAO.postList({});
+let resp_=await ListDAO.postList(value);
 if(resp_){
-res.status(201).json({data:data});
+res.status(201).json({data:resp_});
 }
 });
 

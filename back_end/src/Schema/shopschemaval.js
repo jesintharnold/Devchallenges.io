@@ -17,15 +17,19 @@ const historySchema=Joi.object().keys({
 
 
 const postCartSchema=Joi.object().keys({
-cartID:Joi.string().trim().allow(null).max(24).optional(),
-listName:Joi.string().trim().optional(),
+cartID:Joi.string().trim().allow(null).max(24).required(),
+listname:Joi.string().trim().allow(null).required(),
 status:Joi.string().required(),
 userID:Joi.string().trim().max(24).required(),
-items:Joi.array().items(Joi.object({
-  category_ID:Joi.string().trim().max(24).required(),
-  Item_ID:Joi.string().trim().max(24).required(),
-  quantity:Joi.number().required(),
-  checked:Joi.boolean().required()
+list:Joi.array().items(Joi.object({
+  categoryID:Joi.string().trim().max(24).required(),
+  category:Joi.string().trim().required(),
+  items:Joi.array().items(Joi.object({
+    item:Joi.string().trim().required(),
+    itemID:Joi.string().trim().max(24).required(),
+    quantity:Joi.number().required(),
+    checked:Joi.boolean().required()
+  }))
 })).required()
 });
 

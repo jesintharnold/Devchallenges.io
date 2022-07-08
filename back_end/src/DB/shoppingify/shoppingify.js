@@ -1,6 +1,7 @@
 const {logger}=require("../../utils/logger");
 const {ObjectId}=require("mongodb");
 const config=require("config");
+const { mode } = require("crypto-js");
 
 let shop_collection;
 let list_collection;
@@ -48,34 +49,35 @@ class ListDAO{
     logger.info("List -  collection connected");
   };
   static async getList(payload){
-    return await list_collection.find({status:'Active',userID:payload.userID}).toArray();
+    return await list_collection.find({status:'Active',userID:ObjectId(payload.userID)}).toArray();
   };
   static async postList(payload){
    let q=await list_collection.find({status:'Active',userID:ObjectId(payload.userID)}).toArray();
-   if(q.length>1){
-   await list_collection.findAndModify({
-    query:{status:'Active',userID:ObjectId(payload.userID)},
-    update:{$set:{'status':'completed'}}
-   });
+   if(q.length>=1){
+   await list_collection.updateMany(
+    {status:'Active',userID:ObjectId(payload.userID)},
+    {$set:{'status':'completed'}}
+   );
    };
   if(payload.cartID!==null){
-    await list_collection.updateOne({
+    return await list_collection.replaceOne({
       _id:ObjectId(payload.cartID),
       userID:ObjectId(payload.userID)
       },{
-       name:payload.listName,
+       name:payload.listname,
        status:payload.status,
-       items:[...payload.items],
-       timestamp:Date.now()
-      }).then(q=>{return q}).catch(e=>{throw e});   //check on return types
-  }else{
-    await list_collection.insertOne({
-       name:payload.listName,
-       status:payload.status,
-       items:[...payload.items],
+       list:[...payload.list],
        timestamp:Date.now(),
        userID:ObjectId(payload.userID)
-      }).then(q=>{return q}).catch(e=>{throw e});//check on return types
+      }).then(({modifiedCount})=>{return {update:modifiedCount===1,cartID:payload.cartID}});   //check on return types
+  }else{
+    return await list_collection.insertOne({
+       name:payload.listname,
+       status:payload.status,
+       list:[...payload.list],
+       timestamp:Date.now(),
+       userID:ObjectId(payload.userID)
+      }).then(({insertedId})=>{return {cartID:insertedId,update:true}}).catch(e=>{throw e});//check on return types
   }
   };
   static async history(payload){
