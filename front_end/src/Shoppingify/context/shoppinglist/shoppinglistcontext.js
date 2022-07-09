@@ -8,7 +8,7 @@ const Shoppinglistprovider=({children})=>{
 
   
 const inital={
-  listStatus:'active',
+  listStatus:'Active',
   listName:null,
   loading:false,
   items:[],
