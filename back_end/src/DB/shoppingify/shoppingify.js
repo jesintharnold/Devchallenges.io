@@ -82,14 +82,13 @@ class ListDAO{
   };
   static async history(payload){
    return await list_collection.aggregate([
-    {$match:{status:{$ne:"Active"},userID:ObjectId(payload.userID)}},
-    {$project:{categoryID:"$_id",timestamp:1,status:1,name:1}},
-    {$group:{
-        _id: { $dateToString: { date: "$timestamp", format: "%m/%Y"}},
-        data:{$addToSet:{_id:"$categoryID",status:"$status",name:"$name"}}
-    }},
-    {$project:{data:1,month_year:"$_id",_id:0}}
-  ]);
+    {$match:{status:{$ne:"Active"},userID:ObjectId("622f2294a6a47c987f87ab22")}},
+    {$project:{listID:"$_id","timestamp":{"$toDate":{"$toLong":"$timestamp"}},status:1,name:1}},
+    {$group:{_id:{ 
+    $dateToString: { date:"$timestamp", format: "%m/%Y"}},
+    data:{$addToSet:{listID:"$listID",status:"$status",name:"$name"}}}},
+    {$project:{data:1,monthyear:"$_id",_id:0}}    
+  ]).toArray();
   //return await list_collection.find({status:{$ne:'Active'}},{status:1,name:1,timestamp:1}).toArray();
   };
   static async historyView(payload){

@@ -63,13 +63,15 @@ res.status(201).json({data:resp_});
 
 const historyshopList=asyncWrapper(async(req,res,next)=>{
 let {error,value}=cartgetSchema.validate(req.body);
+logger.info(value);
 if(error){
 next(error);
 };
 let resp_=await ListDAO.history({userID:value.userID});
+logger.warn(resp_);
 if(resp_.length>0){
   res.status(200).json({
-    data:data
+    data:resp_
   });
 }else{
   next(new APIError({name:"ItemNotFound",message:"No History found , Please start by changing status",statusCode:200}));
@@ -78,6 +80,7 @@ if(resp_.length>0){
 
 const historyviewshopList=asyncWrapper(async(req,res,next)=>{
 let {historyid}=req.params;
+logger.warn(historyid);
 let {error,value}=historySchema.validate({listID:historyid});
 if(error){
 next(error);
