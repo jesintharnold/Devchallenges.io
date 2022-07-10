@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { shoppinglistreducer } from "./shoppinglistReducer";
-
+import axios from "../../../utils/axios";
 
 const Shoppinglistcontext=createContext(null);
 const useShoppinglist=()=>useContext(Shoppinglistcontext);
@@ -30,6 +30,13 @@ function alertreload(e){
  };
 
 useEffect(()=>{
+     
+   //Fetch data 
+   const fetchItems=async ()=>{
+    await axios.get(`${process.env.REACT_APP_URL}/shoppingify/list`).then(res=>console.log(res));
+  }
+  
+  fetchItems();
 
     if(false){window.addEventListener("beforeunload",alertreload)}
     return ()=>{

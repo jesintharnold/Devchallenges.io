@@ -39,6 +39,7 @@ export const Additem=({setAdditem})=>{
     
     if(!err.name && !err.note && !err.url &&!err.category){
        console.log("Sending a response ...");
+       // Going to send add-item response here
        console.log(obj);
     };
   };

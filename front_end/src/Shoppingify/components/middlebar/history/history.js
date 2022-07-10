@@ -26,7 +26,7 @@ export const History=()=>{
 
   useEffect(()=>{
 
-  // sent the request set the payload and do this shit
+  // sent the request to History endpoint
 
   },[]);
 
