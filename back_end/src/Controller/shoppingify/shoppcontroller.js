@@ -6,6 +6,7 @@ const {addItemSchema,cartgetSchema,historySchema,postCartSchema}=require('../../
 
 
 const getAllItems=asyncWrapper(async(req,res,next)=>{
+  logger.warn(req.body);
   let mon_res=await ItemDAO.getItems();
   if(mon_res.length<=0){
     next(new APIError({name:"ItemNotFound",message:"No Items found , Please start by adding",statusCode:200}));
@@ -38,6 +39,7 @@ const addshopItem=asyncWrapper(async(req,res,next)=>{
 });
 
 const getshopList=asyncWrapper(async(req,res,next)=>{
+ logger.warn(req.body);
  let {error,value}=cartgetSchema.validate(req.body);
  if(error){
   next(error);
@@ -51,6 +53,7 @@ const getshopList=asyncWrapper(async(req,res,next)=>{
 });
 
 const postshopList=asyncWrapper(async(req,res,next)=>{
+logger.warn(req.body);
 let {error,value}=postCartSchema.validate(req.body);
 if(error){
  next(error);
@@ -62,6 +65,7 @@ res.status(201).json({data:resp_});
 });
 
 const historyshopList=asyncWrapper(async(req,res,next)=>{
+logger.warn(req.body);  
 let {error,value}=cartgetSchema.validate(req.body);
 logger.info(value);
 if(error){
@@ -79,6 +83,7 @@ if(resp_.length>0){
 });
 
 const historyviewshopList=asyncWrapper(async(req,res,next)=>{
+logger.warn(req.body);  
 let {historyid}=req.params;
 logger.warn(historyid);
 let {error,value}=historySchema.validate({listID:historyid});

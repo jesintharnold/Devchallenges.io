@@ -18,35 +18,20 @@ useEffect(()=>{
  // GET LIST OF ALL ITEMS /items
  
  const fetchItems=async ()=>{
-   await axios.get(`${process.env.REACT_APP_URL}/shoppingify/items`).then(res=>console.log(res));
+   await axios.get(`${process.env.REACT_APP_URL}/shoppingify/items`).then(res=>
+  
+    dispatch({
+      type:GET_ITEMS_LIST,
+      payload:{
+        loading:false,
+        items:res.data.data
+      } 
+    })
+  );
  }
  
  fetchItems();
  
-
-dispatch({
-  type:GET_ITEMS_LIST,
-  payload:{
-    loading:false,
-    items:[
-        {category:"Fruit and vegetables",categoryID:"1000",items:[
-        {name:"Avocodo",itemID:100},
-        {name:"Banana",itemID:200},
-        {name:"Bunch of carrots",itemID:300},
-        {name:"Chicken",itemID:400},
-        {name:"Pre-cooked corn",itemID:500}
-      ]},
-      {category:"Fruit and vegetables",categoryID:"2000",items:[
-        {name:"Avocodo",itemID:100},
-        {name:"Banana",itemID:200},
-        {name:"Bunch of carrots",itemID:300},
-        {name:"Chicken",itemID:400},
-        {name:"Pre-cooked corn",itemID:500}
-      ]}
-    ]
-  } 
-});
-
 },[]);
 
 

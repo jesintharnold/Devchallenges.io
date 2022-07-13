@@ -83,10 +83,10 @@ class ListDAO{
   static async history(payload){
    return await list_collection.aggregate([
     {$match:{status:{$ne:"Active"},userID:ObjectId("622f2294a6a47c987f87ab22")}},
-    {$project:{listID:"$_id","timestamp":{"$toDate":{"$toLong":"$timestamp"}},status:1,name:1}},
+    {$project:{listID:"$_id","timestamp_":{"$toDate":{"$toLong":"$timestamp"}},status:1,name:1,timestamp:1}},
     {$group:{_id:{ 
-    $dateToString: { date:"$timestamp", format: "%m/%Y"}},
-    data:{$addToSet:{listID:"$listID",status:"$status",name:"$name"}}}},
+    $dateToString: { date:"$timestamp_", format: "%m/%Y"}},
+    data:{$addToSet:{listID:"$listID",status:"$status",name:"$name",timestamp:"$timestamp"}}}},
     {$project:{data:1,monthyear:"$_id",_id:0}}    
   ]).toArray();
   //return await list_collection.find({status:{$ne:'Active'}},{status:1,name:1,timestamp:1}).toArray();
