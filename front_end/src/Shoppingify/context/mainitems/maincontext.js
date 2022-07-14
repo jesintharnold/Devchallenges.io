@@ -9,7 +9,8 @@ const Mainitemprovider=({children})=>{
 
 const inital={
   items:[],
-  loading:true
+  loading:true,
+  renderagain:false
 };  
 
 const [state,dispatch]=useReducer(MainitemReducer,inital);
@@ -32,7 +33,7 @@ useEffect(()=>{
  
  fetchItems();
  
-},[]);
+},[state.renderagain]);
 
 
 

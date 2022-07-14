@@ -6,8 +6,21 @@ const {addItemSchema,cartgetSchema,historySchema,postCartSchema}=require('../../
 
 
 const getAllItems=asyncWrapper(async(req,res,next)=>{
-  logger.warn(req.body);
+  //logger.warn(req.body);
   let mon_res=await ItemDAO.getItems();
+  if(mon_res.length<=0){
+    next(new APIError({name:"ItemNotFound",message:"No Items found , Please start by adding",statusCode:200}));
+  }else{
+    return res.status(200).json({
+      data:mon_res
+    });
+  }
+});
+
+const getAllCategory=asyncWrapper(async (req,res,next)=>{
+  logger.warn(req.body);
+  let mon_res=await ItemDAO.getCategory();
+  logger.info(mon_res);
   if(mon_res.length<=0){
     next(new APIError({name:"ItemNotFound",message:"No Items found , Please start by adding",statusCode:200}));
   }else{
@@ -107,5 +120,6 @@ historyshopList,
 postshopList,
 getshopList,
 addshopItem,
-getAllItems
+getAllItems,
+getAllCategory
 };

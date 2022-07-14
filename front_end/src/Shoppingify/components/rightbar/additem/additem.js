@@ -1,25 +1,42 @@
 import { data } from 'autoprefixer';
 import {useEffect, useState} from 'react';
+import toast from 'react-hot-toast';
 import validator from 'validator';
-
+import axios from '../../../../utils/axios';
+import { GET_ITEMS_LIST } from '../../../context/dispatchactions';
+import { useMainitem } from '../../../context/mainitems/maincontext';
 
 export const Additem=({setAdditem})=>{
   
-  const [load,setLoad]=useState(false);
-
+  const [category,setCategory]=useState({category:"",categoryID:""});
+  const [cat,setCat]=useState([]);
   const [err,setErr]=useState({
     name:'',
     note:'',
     url:'',
     category:''
   });
+  const [filter,setFilter]=useState("");
+  const {dispatch}=useMainitem();
 
+  useEffect(()=>{
+    const fetchItems=async ()=>{
+      await axios.get(`${process.env.REACT_APP_URL}/shoppingify/items/category`).then(res=>
+      setCat(res.data.data)
+     );
+    }
+    
+    fetchItems();
+
+  },[]);
+  
 
 
   function addform(e){
     let err={};
     e.preventDefault();
     const data_=new FormData(e.target);
+    console.log(data_);
     const obj=Object.fromEntries(data_.entries());
     if(validator.isEmpty(obj.name)){
       err.name="please provide name";
@@ -38,9 +55,51 @@ export const Additem=({setAdditem})=>{
     // check before sending a response
     
     if(!err.name && !err.note && !err.url &&!err.category){
-       console.log("Sending a response ...");
-       // Going to send add-item response here
-       console.log(obj);
+      let payload;
+      if(category.category===obj.category){
+       payload={
+  "name":obj.name,
+  "description":obj.note||null,
+  "imageurl":obj.url||null,
+  "categoryname":category.category,
+  "categoryID":category.categoryID
+       };
+      }else{
+       payload={
+  "name":obj.name,
+  "description":obj.note||null,
+  "imageurl":obj.url||null,
+  "categoryname":obj.category,
+  "categoryID":null
+       };
+      }
+      async function postData(pay){
+        console.log(pay);
+      await axios.post(`${process.env.REACT_APP_URL}/shoppingify/items`,pay).then(res=>{
+        if(res.data.name=="ValidationError"){
+          toast.error(res.data.message);
+        }else{
+          toast.success("Added successfully");
+          //Dispatch to Items
+          setAdditem(prev=>!prev);
+        }
+      }
+      );
+      await axios.get(`${process.env.REACT_APP_URL}/shoppingify/items`).then(res=>
+        dispatch({
+          type:GET_ITEMS_LIST,
+          payload:{
+            loading:false,
+            items:res.data.data
+          } 
+        })
+      );
+
+
+      };
+
+      postData(payload);
+      
     };
   };
   
@@ -70,10 +129,10 @@ export const Additem=({setAdditem})=>{
 
     <div className='group mb-4'>
     <label htmlFor='category' className="text-lg text-txtOpac font-semibold mb-3 group-focus-within:text-shop-orange">Category</label>
-    <input id="category" type="text" name='category' placeholder="Enter a category" className='mt-4 w-full text-xl placeholder:text-lg px-4 py-3  border-2 outline-none rounded-xl focus:border-shop-orange text-black font-normal'/>
+    <input id="category" type="text" name='category' list='listcategory' placeholder="Enter a category" value={filter} onChange={e=>setFilter(e.target.value)} className='mt-4 w-full text-xl placeholder:text-lg px-4 py-3  border-2 outline-none rounded-xl focus:border-shop-orange text-black font-normal'/>
     {err.category?<p className='text-base text-red-800'>{err.category}</p>:''}
-    <div className="search_recommends">
-     {/* {cartData.filter(p=>(p.category.name)??"".toLowerCase().includes(frm.category)).map((c)=><div key={c.category.name} onClick={()=>setFrmchange(c.category)}>{c.category.name}</div>)}  */}
+    <div className="listcategory" id="listcategory">
+    {cat.filter((c)=>c.category.toLowerCase().includes(filter)).map(({_id,category})=><div key={_id} onClick={()=>{setCategory({category:category,categoryID:_id});setFilter(category);}} value={category}>{category}</div>)}
     </div>
     </div>
 

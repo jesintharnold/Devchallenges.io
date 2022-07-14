@@ -18,6 +18,9 @@ class ItemDAO{
     static async getItems(){
       return await shop_collection.find().toArray();
     };
+    static async getCategory(){
+      return await shop_collection.find({}).project(["category"]).toArray();
+    };
     static async addItem(payload){
       let payload_={ 
         item:payload.name,
