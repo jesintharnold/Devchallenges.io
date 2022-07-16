@@ -32,7 +32,7 @@ return (
    {state.items.map(({category,items,categoryID},index)=>(
    <div className='p-0 mb-2 last:mb-28 inline-block w-full'  key={`CA-${index}`}>
    <div className='text-lg text-caert mb-2'>{category}</div>
-   {items.map(({name,quantity,itemID,checked},i)=>(
+   {items.map(({item,quantity,itemID,checked},i)=>(
      <div className='w-full flex  flex-row items-center mb-2 gap-6' key={`Item-${i}`}>
     {edit?"":<input type="checkbox" checked={checked} onChange={()=>dispatch_cart({type:CHECK_ITEM_LIST,
               payload:{
@@ -40,20 +40,20 @@ return (
                 itemID:itemID
               }})}/>}  
     <span className='flex flex-1 flex-row flex-nowrap flex-shrink-0 items-center justify-between'>
-    <span className='block strike text-xl font-semibold text-black opacity-80'>{name}</span>
+    <span className='block strike text-xl font-semibold text-black opacity-80'>{item}</span>
      <span className={`flex items-center gap-4 font-extrabold group ${edit?"":" pointer-events-none"}`}>
        <span class="material-icons px-1 py-1 text-white bg-red-600 rounded-md hidden group-hover:block cursor-pointer" onClick={()=>dispatch_cart({type:DELETE_ITEM_LIST,
               payload:{
                 categoryID:categoryID,
                 itemID:itemID,
-                name:name,
+                item:item,
                 category:category
               }})}>delete_outline</span>
        <span class="material-icons text-white bg-shop-orange rounded-full hidden group-hover:block cursor-pointer" onClick={()=>dispatch_cart({type:DECR_ITEM_LIST,
               payload:{
                 categoryID:categoryID,
                 itemID:itemID,
-                name:name,
+                item:item,
                 category:category
               }})}>remove</span>
        <span className='px-2 py-1 block border-2 text-center border-shop-orange text-shop-orange font-extrabold rounded-xl'>{`${quantity} pcs`}</span>
@@ -61,7 +61,7 @@ return (
               payload:{
                 categoryID:categoryID,
                 itemID:itemID,
-                name:name,
+                item:item,
                 category:category
               }})}>add</span>
      </span>

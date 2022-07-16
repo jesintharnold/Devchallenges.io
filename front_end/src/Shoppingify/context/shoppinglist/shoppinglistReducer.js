@@ -31,7 +31,7 @@ export const shoppinglistreducer=(state,action)=>{
 switch(action.type){
   case GET_ITEMS_LIST:
     //fetch and place it
-    return {...action.payload};
+    return {...state,...action.payload};
   case ADD_ITEM_LIST:
     //cross-check with category and value , if exists ++ else add new
     let category_exist=state.items.filter(({categoryID})=>categoryID===action.payload.categoryID);
@@ -53,7 +53,7 @@ switch(action.type){
         console.log("B");
         return {...state,items:state.items.map((el)=>(el.categoryID===action.payload.categoryID)?
           {...el,items:[...el.items,{
-            name:action.payload.name,
+            item:action.payload.item,
             quantity:1,
             itemID:action.payload.itemID,
             checked:false
@@ -70,7 +70,7 @@ switch(action.type){
           category:action.payload.category,
           categoryID:action.payload.categoryID,
           items:[
-            {name:action.payload.name,quantity:1,itemID:action.payload.itemID,checked:false}
+            {item:action.payload.item,quantity:1,itemID:action.payload.itemID,checked:false}
             ]
           }
         ],overview:{
