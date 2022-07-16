@@ -35,10 +35,16 @@ list:Joi.array().items(Joi.object({
 })).required()
 });
 
+const overviewSchema=Joi.object().keys({
+  categoryID:Joi.string().trim().max(24).required(),
+  itemID:Joi.string().trim().max(24).required(),
+  userID:Joi.string().trim().max(24).required()
+});
 
 module.exports={
   addItemSchema,
   postCartSchema,
   cartgetSchema,
-  historySchema
+  historySchema,
+  overviewSchema
 }

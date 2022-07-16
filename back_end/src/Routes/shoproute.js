@@ -1,10 +1,11 @@
 const shoproute=require("express").Router();
-const {getAllItems,getshopList,addshopItem,postshopList,historyshopList,historyviewshopList,getAllCategory}=require('../Controller/shoppingify/shoppcontroller');
+const {getAllItems,getshopList,addshopItem,postshopList,historyshopList,historyviewshopList,getAllCategory,itemOverview}=require('../Controller/shoppingify/shoppcontroller');
 
 //Main Page routes
 shoproute.route('/items').get(getAllItems).post(addshopItem);              //OPEN TO ALL
 shoproute.route('/items/category').get(getAllCategory);
 shoproute.route('/list').get(getshopList).put(postshopList); //Make it as put so it can be created if it no exists
+shoproute.route('/items/overview').post(itemOverview); 
  
 // req.body.userID=userID
 

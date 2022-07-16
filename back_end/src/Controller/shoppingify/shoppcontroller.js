@@ -2,7 +2,7 @@ const {logger}=require('../../utils/logger');
 const asyncWrapper=require("../../utils/asyncWrapper");
 const APIError = require('../../utils/APIError');
 const {ItemDAO,ListDAO}=require('../../DB/shoppingify/shoppingify');
-const {addItemSchema,cartgetSchema,historySchema,postCartSchema}=require('../../Schema/shopschemaval');
+const {addItemSchema,cartgetSchema,historySchema,postCartSchema,overviewSchema}=require('../../Schema/shopschemaval');
 
 
 const getAllItems=asyncWrapper(async(req,res,next)=>{
@@ -113,6 +113,22 @@ if(resp_.length>0){
 }
 });
 
+const itemOverview=asyncWrapper(async(req,res,next)=>{
+logger.warn(req.body);
+let {error,value}=overviewSchema.validate({categoryID:req.body.categoryID,itemID:req.body.itemID,userID:req.body.userID});
+if(error){
+next(error);
+};
+let resp_=await ItemDAO.itemOverview({categoryID:value.categoryID,itemID:value.itemID});
+if(resp_.length>0){
+  res.status(200).json({
+    data:resp_
+   });
+}else{
+  next(new APIError({name:"ItemNotFound",message:"Unable to Retrive items for the Item and Category mentioned",statusCode:400}));
+}
+});
+
 
 module.exports={
 historyviewshopList,
@@ -121,5 +137,6 @@ postshopList,
 getshopList,
 addshopItem,
 getAllItems,
-getAllCategory
+getAllCategory,
+itemOverview
 };
