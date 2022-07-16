@@ -42,7 +42,7 @@ class ItemDAO{
 
     };
     static async itemOverview(payload){
-      return await shop_collection.find({"_id":ObjectId(payload.categoryID),"items.itemID":ObjectId(payload.itemID)}).project(["items.$"]).toArray();
+      return await shop_collection.find({"_id":ObjectId(payload.categoryID),"items.itemID":ObjectId(payload.itemID)}).project(["items.$","category"]).toArray();
     }
 };
 
