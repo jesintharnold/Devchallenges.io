@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 import { GET_ITEMS_LIST } from "../dispatchactions";
 import {MainitemReducer} from './mainreducer';
 import axios from '../../../utils/axios';
+import toast from 'react-hot-toast';
 
 const Mainitemcontext=createContext(null);
 const useMainitem=()=>useContext(Mainitemcontext);
@@ -29,7 +30,9 @@ useEffect(()=>{
       } 
     })
     //console.log(res.data.data)
-  );
+  ).catch((error)=>{
+    toast.error(error.response.data.message);
+  });
  }
  
  fetchItems();

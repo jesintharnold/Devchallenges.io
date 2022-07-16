@@ -29,7 +29,7 @@ const jwt_token_expired=()=>new APIError({name:"TokenExpired",message:"Your Toke
 //Development - function 
 const devfunc=(err,req,res)=>{
  logger.info(err);
- res.status(200).json({
+ res.status(err.statusCode).json({
     error:err,
     message:err.message,
     name:err.name,

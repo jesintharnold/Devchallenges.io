@@ -1,14 +1,45 @@
 import { useState } from 'react';
 import bottle from '../../../../Assets/bottle.svg'
 import {useShoppinglist} from '../../../context/shoppinglist/shoppinglistcontext';
-import {ADD_ITEM_LIST,DECR_ITEM_LIST,DELETE_ITEM_LIST,CHECK_ITEM_LIST,LIST_STATUS_LIST,MODAL_STATE} from '../../../context/dispatchactions';
+import {ADD_ITEM_LIST,DECR_ITEM_LIST,DELETE_ITEM_LIST,CHECK_ITEM_LIST,LIST_STATUS_LIST,MODAL_STATE, GET_ITEMS_LIST} from '../../../context/dispatchactions';
 import {ClipLoader} from 'react-spinners';
 import {Modal} from '../../modal/modal';
+import axios from '../../../../utils/axios';
+import toast from 'react-hot-toast';
 
 
 export const List=({setAdditem})=>{
   const [edit,setEdit]=useState(false);
   const {state,dispatch_cart}=useShoppinglist();
+  const [name,setName]=useState();
+
+
+
+  async function savelist(pay){
+    await axios.put(`${process.env.REACT_APP_URL}/shoppingify/list`,{
+      "cartID":state.listID,
+      "listname":state.listName,
+      "status":pay,
+      "list":state.items
+      }).then((res)=>{
+        if(res.data.data.update){
+          dispatch_cart({type:GET_ITEMS_LIST,
+            payload:{
+              listStatus:"Active",
+              listName:null,
+              loading:false,
+              listID:null,
+              items:[]
+            }});
+          
+          toast.success('Cart saved successfully');  
+        }else{
+          toast.error('Unknown error - saving Cart');
+        }
+      }).catch((error)=>{
+        toast.error(error.response.data.message);
+      });
+  }
   
 return (
   <>
@@ -78,22 +109,41 @@ return (
 <div className="px-2 py-4 bg-transparent text-xl w-full bg-shop-right-back">
 {edit?(
   <div className='flex p-[0.2rem] w-[90%] mx-auto border-2 border-shop-orange items-center rounded-xl flex-shrink-0'>
-  <input type="text" placeholder='Enter a name' className='flex-2 caret-caert w-0 py-2 px-2 border-none text-caert  outline-none focus:outline-none m-0 bg-transparent'/>
-  <button className='flex-1 bg-shop-orange py-2 text-white tracking-wide capitalize rounded-lg'>Save</button>
+  <input type="text" placeholder='Enter a name' className='flex-2 caret-caert w-0 py-2 px-2 border-none text-caert  outline-none focus:outline-none m-0 bg-transparent' onChange={e=>setName(e.target.value)}/>
+  <button disabled={state.items.length===0} className="flex-1 bg-shop-orange py-2 text-white tracking-wide capitalize rounded-lg" onClick={async ()=>{
+
+await axios.put(`${process.env.REACT_APP_URL}/shoppingify/list`,{
+  "cartID":state.listID,
+  "listname":name,
+  "status":"Active",
+  "list":state.items
+  }).then((res)=>{
+    if(res.data.data.update){
+      toast.success('Cart saved successfully'); 
+      dispatch_cart({type:GET_ITEMS_LIST,
+        payload:{
+          listName:name,
+          listID:res.data.data.cartID,
+        }});
+    }else{
+      toast.error('Unknown error - saving Cart');
+    }
+  }).catch((error)=>{
+    toast.error(error.response.data.message);
+  });
+
+  }}>Save</button>
   </div>
 ):(
   <div className="flex items-center justify-evenly text-lg font-bold">
   <div className="px-6 py-3 rounded-xl tracking-wide capitalize cursor-pointer" onClick={()=>dispatch_cart({type:MODAL_STATE})}>cancel</div>
-  <div className="px-4 py-3 rounded-xl tracking-wide capitalize cursor-pointer bg-shop-blue text-white" onClick={()=>dispatch_cart({type:LIST_STATUS_LIST,
-  payload:{
-    status:'complete'
-  }})}>Complete</div>
+  <div className="px-4 py-3 rounded-xl tracking-wide capitalize cursor-pointer bg-shop-blue text-white" onClick={()=>savelist("complete")}>Complete</div>
 </div>
 )}
 </div>  
 </div>
 
-{(state.modal&&state.listStatus!=='cancel')?<Modal dispatch={dispatch_cart}/>:''}
+{(state.modal&&state.listStatus!=='cancel')?<Modal dispatch={dispatch_cart} cancelfunc={savelist}/>:''}
 </>
 
 )

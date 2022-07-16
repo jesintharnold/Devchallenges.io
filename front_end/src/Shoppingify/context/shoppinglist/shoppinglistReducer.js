@@ -5,25 +5,6 @@ import {GET_ITEMS_LIST,
   SET_NAME_LIST,
   LIST_STATUS_LIST,LOADING,DECR_ITEM_LIST,MODAL_STATE, OVERVIEW_STATE} from '../dispatchactions';
 
-//Schema - design
-
-// {
-//   items:[
-//     {
-//       category:"Fruit and vegetables",
-//       categoryID:"xxxxxxxxxx",
-//       items:[
-//         {name:"Avocodo",quantity:5,itemID:"xxxxx",checked:false},
-//         {name:"Avocodo bell",quantity:5,itemID:"xxxxx",checked:false},
-//         {name:"Avocodo Laptop",quantity:5,itemID:"xxxxx",checked:false}
-//         ]
-//       }
-//   ],
-//   listStatus:00001000,
-//   listName:null,
-//   loading:true
-// }
-
 
 
 export const shoppinglistreducer=(state,action)=>{
