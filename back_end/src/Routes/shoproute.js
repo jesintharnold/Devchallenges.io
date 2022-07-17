@@ -1,5 +1,5 @@
 const shoproute=require("express").Router();
-const {getAllItems,getshopList,addshopItem,postshopList,historyshopList,historyviewshopList,getAllCategory,itemOverview}=require('../Controller/shoppingify/shoppcontroller');
+const {getAllItems,getshopList,addshopItem,postshopList,historyshopList,historyviewshopList,getAllCategory,itemOverview, listanalytics}=require('../Controller/shoppingify/shoppcontroller');
 
 //Main Page routes
 shoproute.route('/items').get(getAllItems).post(addshopItem);              //OPEN TO ALL
@@ -14,7 +14,7 @@ shoproute.route('/history').get(historyshopList);
 shoproute.route('/history/:historyid').get(historyviewshopList);
 
 //Analytics
-shoproute.route('/analytics').get();
+shoproute.route('/analytics').get(listanalytics);
 
 
 module.exports=shoproute;

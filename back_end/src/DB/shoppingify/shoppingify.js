@@ -100,7 +100,40 @@ class ListDAO{
   static async historyView(payload){
   return await list_collection.find({_id:ObjectId(payload.listID)}).toArray();
   };
-  static async analytics(payload){
+  static async topitems(payload){
+    return await list_collection.aggregate([
+      {$match:{status:{$ne:"Active"},userID:ObjectId(payload.userID)}},
+      {$project:{"list":1,"_id":0}},
+      {$unwind:"$list"},
+      {$project:{"Items":"$list.items"}},
+      {$unwind:"$Items"},
+      {$group:{"_id":"$Items.itemID",count:{$sum:"$Items.quantity"},data:{$addToSet:{name:"$Items.item"}}}},
+      {$project:{"itemID":"$_id","_id":0,"item":{$first:"$data.name"},"quantity":"$count"}},
+      {$sort:{"quantity":-1}},
+      {$limit:3}
+    ]).toArray();
+  };
+  static async topcategory(payload){
+    return await list_collection.aggregate([
+      {$match:{status:{$ne:"Active"},userID:ObjectId(payload.userID)}},
+      {$project:{"list":1,"_id":0}},
+      {$unwind:"$list"},
+      {$group:{"_id":"$list.categoryID",count:{$sum:1},data:{$addToSet:{name:"$list.category"}}}},
+      {$project:{"categoryID":"$_id","_id":0,"category":{$first:"$data.name"},"quantity":"$count"}},
+      {$sort:{"quantity":-1}},
+      {$limit:3}
+    ]).toArray(); 
+  };
+  static async graphanalytics(payload){
+    return await list_collection.aggregate([
+      {$match:{status:{$ne:"Active"},userID:ObjectId(payload.userID)}},
+      {$project:{listID:"$_id","timestamp":{"$toDate":{"$toLong":"$timestamp"}},timestamp:1,list:"$list.items"}},
+      {$unwind:"$list"},
+      {$project:{list:1,timestamp:1}},
+      {$unwind:"$list"},
+      {$project:{listID:"$_id","timestamp":{"$toDate":{"$toLong":"$timestamp"}},"quantity":"$list.quantity"}},
+      {$group:{_id:{$dateToString: { date:"$timestamp", format: "%m"}},itemcount:{$sum:"$quantity"}}}
+    ]).toArray();
   };
 };
 

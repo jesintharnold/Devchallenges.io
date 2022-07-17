@@ -129,6 +129,30 @@ if(resp_.length>0){
 }
 });
 
+const listanalytics=asyncWrapper(async(req,res,next)=>{
+  logger.warn(req.body);
+  let {error,value}=cartgetSchema.validate({userID:req.body.userID});
+  if(error){
+  next(error);
+  };
+  let topitems=await ListDAO.topitems({userID:value.userID});
+  let topcategory=await ListDAO.topcategory({userID:value.userID});
+  let graphanalytics=await ListDAO.graphanalytics({userID:value.userID});
+  logger.error({
+    items:topitems,
+    category:topcategory,
+    graph:graphanalytics
+   });
+  if(topitems.length>0&&topcategory.length>0&&graphanalytics.length>0){
+    res.status(200).json({
+      items:topitems,
+      category:topcategory,
+      graph:graphanalytics
+     });
+  }else{
+    next(new APIError({name:"ItemNotFound",message:"Unable to Retrive items for the Item and Category mentioned",statusCode:400}));
+  }
+  });
 
 module.exports={
 historyviewshopList,
@@ -138,5 +162,6 @@ getshopList,
 addshopItem,
 getAllItems,
 getAllCategory,
-itemOverview
+itemOverview,
+listanalytics
 };

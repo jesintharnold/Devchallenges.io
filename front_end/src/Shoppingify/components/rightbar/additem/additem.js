@@ -131,8 +131,8 @@ export const Additem=({setAdditem})=>{
     <label htmlFor='category' className="text-lg text-txtOpac font-semibold mb-3 group-focus-within:text-shop-orange">Category</label>
     <input id="category" type="text" name='category' list='listcategory' placeholder="Enter a category" value={filter} onChange={e=>setFilter(e.target.value)} className='mt-4 w-full text-xl placeholder:text-lg px-4 py-3  border-2 outline-none rounded-xl focus:border-shop-orange text-black font-normal'/>
     {err.category?<p className='text-base text-red-800'>{err.category}</p>:''}
-    <div className="listcategory" id="listcategory">
-    {cat.filter((c)=>c.category.toLowerCase().includes(filter)).map(({_id,category})=><div key={_id} onClick={()=>{setCategory({category:category,categoryID:_id});setFilter(category);}} value={category}>{category}</div>)}
+    <div className="listcategory overflow-y-scroll h-36 flex flex-col scroll-hide" id="listcategory">
+    {cat.filter((c)=>c.category.toLowerCase().includes(filter)).map(({_id,category})=><div className='first:mt-4 pl-8 py-2 hover:bg-white rounded-md' key={_id} onClick={()=>{setCategory({category:category,categoryID:_id});setFilter(category);}} value={category}>{category}</div>)}
     </div>
     </div>
 

@@ -40,10 +40,9 @@ export const Shopnav=()=>{
 
   </ul>
 
-  <Link className='block my-8'>
+  <Link className='block my-8' to="/">
   <span class="material-icons-outlined">logout</span>
   </Link>
-  
   </div>
   );
 };
