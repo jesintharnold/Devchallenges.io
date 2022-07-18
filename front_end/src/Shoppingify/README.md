@@ -9,7 +9,7 @@
    - [x] Overview/Analytics/History API
    - [x] Complete/save/sent add item
    - [x] Integrating API with Frontend
-   - [ ] Migrating the application from 70% to 100%
+   - [x] Migrating the application from 70% to 100
   
   
 
