@@ -30,7 +30,7 @@ const [state,dispatch_cart]=useReducer(shoppinglistreducer,inital);
 
 function alertreload(e){ 
   e.preventDefault();
-  const message="Are you sure you want to leave? All provided data will be lost, please save before reloading ";
+  const message="Are you sure you want to reload ? Please save before doing .";
   e.returnValue = message;
  return message;
  };
@@ -61,7 +61,7 @@ useEffect(()=>{
   
   fetchItems();
 
-    if(false){window.addEventListener("beforeunload",alertreload)}
+    if(true){window.addEventListener("beforeunload",alertreload)}
     return ()=>{
      window.addEventListener("beforeunload",alertreload);
     };         

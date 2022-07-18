@@ -7,8 +7,9 @@
    - [x] Create a context for items/display main items 
    - [x] Prevent reload on unsaved list
    - [x] Overview/Analytics/History API
-   - [ ] Complete/save/sent add item
-   - [ ] Integrating API with Frontend
+   - [x] Complete/save/sent add item
+   - [x] Integrating API with Frontend
+   - [ ] Migrating the application from 70% to 100%
   
   
 
