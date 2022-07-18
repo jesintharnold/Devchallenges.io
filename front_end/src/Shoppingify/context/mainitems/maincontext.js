@@ -11,10 +11,10 @@ const Mainitemprovider=({children})=>{
 const inital={
   items:[],
   loading:true,
-  renderagain:false
+  isMobile:false
 };  
 
-const [state,dispatch]=useReducer(MainitemReducer,inital);
+const [mainstate,dispatch]=useReducer(MainitemReducer,inital);
 
 useEffect(()=>{
  // GET LIST OF ALL ITEMS /items
@@ -37,12 +37,12 @@ useEffect(()=>{
  
  fetchItems();
  
-},[state.renderagain]);
+},[]);
 
 
 
 return (
-  <Mainitemcontext.Provider value={{state,dispatch}}>
+  <Mainitemcontext.Provider value={{mainstate,dispatch}}>
     {children}
   </Mainitemcontext.Provider>
 )

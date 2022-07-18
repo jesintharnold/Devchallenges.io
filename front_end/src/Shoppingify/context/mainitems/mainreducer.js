@@ -1,4 +1,4 @@
-import { GET_ITEMS_LIST,LOADING,RENDERAGAIN} from "../dispatchactions";
+import { GET_ITEMS_LIST,LOADING,ISMOBILE} from "../dispatchactions";
 
 export const MainitemReducer=(state,action)=>{
 switch(action.type){
@@ -6,8 +6,8 @@ switch(action.type){
     return {items:[...action.payload.items],loading:action.payload.loading,RenderAgain:false};
   case LOADING:
     return {...state,loading:action.payload.loading};
-  case RENDERAGAIN:
-    return {...state,RenderAgain:true};  
+  case ISMOBILE:
+    return {...state,isMobile:!state.isMobile};  
   default:
     return state;  
 }

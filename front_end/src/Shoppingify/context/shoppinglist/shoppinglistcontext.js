@@ -22,7 +22,8 @@ const inital={
     status:false,
     categoryID:null,
     itemID:null
-  }
+  },
+  isMobile:false
 };
 
 const [state,dispatch_cart]=useReducer(shoppinglistreducer,inital);

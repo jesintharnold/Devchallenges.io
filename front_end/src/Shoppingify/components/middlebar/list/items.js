@@ -5,7 +5,7 @@ import { LOADING,ADD_ITEM_LIST,OVERVIEW_STATE} from '../../../context/dispatchac
 
 //<ClipLoader color="#38ACC5" size={20}/>
 export const Items=()=>{
-  const {state}=useMainitem();
+  const {mainstate}=useMainitem();
   const {dispatch_cart}=useShoppinglist();
   return (
         <>
@@ -13,8 +13,8 @@ export const Items=()=>{
        
        <span className="font-quick font-bold tracking-wider md:text-4xl text-base text-left"><span className="text-shop-orange text-4xl">Shoppingify</span><br className="block md:hidden"></br> allows you take your<br className="hidden md:block"></br> shopping list wherever you go</span>
        </div>
-       {state.loading?<div className='w-full bg-transparent mt-[30%] text-center'><ClipLoader color="#F9A109" css={{borderWidth:'5px',top:"20%"}} loading={state.loading} size={50}/></div>:
-       state.items.map(({category,_id,items},index)=>(
+       {mainstate.loading?<div className='w-full bg-transparent mt-[30%] text-center'><ClipLoader color="#F9A109" css={{borderWidth:'5px',top:"20%"}} loading={mainstate.loading} size={50}/></div>:
+       mainstate.items.map(({category,_id,items},index)=>(
            
            
            <div className="first:mt-12 mt-8" key={`c-${index}`}>    
