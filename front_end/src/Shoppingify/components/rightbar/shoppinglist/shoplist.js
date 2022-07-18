@@ -137,7 +137,7 @@ await axios.put(`${process.env.REACT_APP_URL}/shoppingify/list`,{
   </div>
 ):(
   <div className="flex items-center justify-evenly text-lg font-bold">
-  <div className="px-6 py-1 rounded-lg tracking-wide capitalize cursor-pointer text-base" onClick={()=>dispatch_cart({type:MODAL_STATE})}>cancel</div>
+  <div className="px-6 py-1 rounded-lg tracking-wide capitalize cursor-pointer text-base" onClick={()=>dispatch_cart({type:MODAL_STATE,payload:false})}>cancel</div>
   <div className="px-2 py-2 rounded-lg tracking-wide capitalize cursor-pointer text-base bg-shop-blue text-white" onClick={()=>savelist("complete")}>Complete</div>
 </div>
 )}
