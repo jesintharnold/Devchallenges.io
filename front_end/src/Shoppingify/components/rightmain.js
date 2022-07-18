@@ -12,7 +12,7 @@ const {state}=useShoppinglist();
 const {mainstate}=useMainitem();
 
 return (
-<div className={`box-border bg-red relative font-quick scroll-hide  w-full  min-h-screen h-screen overflow-y-scroll  flex-nowrap flex-shrink-0 bg-shop-right-back flex-1 shadow-md px-2 pt-8 md:px-4  ${(mobile)?((mainstate.isMobile)?'block':'hidden'):''}`}>
+<div className={`box-border bg-red relative font-quick scroll-hide  w-full  min-h-screen h-screen overflow-y-scroll  flex-nowrap flex-shrink-0 bg-shop-right-back flex-1 shadow-md px-2 pt-6 md:px-4  ${(mobile)?((mainstate.isMobile)?'block':'hidden'):''}`}>
 {state.overview.status?<Itemoverview/>:<Rightpagerender/>}
 </div>
 );

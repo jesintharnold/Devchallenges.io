@@ -7,7 +7,7 @@ switch(action.type){
   case LOADING:
     return {...state,loading:action.payload.loading};
   case ISMOBILE:
-    return {...state,isMobile:!state.isMobile};  
+    return {...state,isMobile:action.payload};  
   default:
     return state;  
 }

@@ -99,7 +99,7 @@ const historyviewshopList=asyncWrapper(async(req,res,next)=>{
 logger.warn(req.body);  
 let {historyid}=req.params;
 logger.warn(historyid);
-let {error,value}=historySchema.validate({listID:historyid});
+let {error,value}=historySchema.validate({listID:historyid,userID:req.body.userID});
 if(error){
 next(error);
 };

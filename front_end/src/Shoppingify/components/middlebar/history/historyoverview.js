@@ -25,29 +25,28 @@ export const Historyoverview=()=>{
 
   return (
     <>
-    <Link to="/shop/history" className="flex items-center text-shop-orange font-medium mb-10">
-    <span className="material-icons tracking-wider text-3xl mr-3">keyboard_backspace</span>
-    <span className="text-2xl">back</span>
+    <Link to="/shop/history" className="flex items-center text-shop-orange font-medium mb-4">
+    <span className="material-icons tracking-wider text-xl mr-3">keyboard_backspace</span>
+    <span className="text-xl">back</span>
     </Link>
     {data!==null?
     <>
-    <div className="text-4xl font-semibold">{data.name||"Shopping list"}</div>
-    <div className="flex flex-row text-caert text-xl items-center gap-4 my-8">
+    <div className="text-xl font-semibold">{data.name||"Shopping list"}</div>
+    <div className="flex flex-row text-caert items-center gap-4 my-4">
       <span className="material-icons-outlined block">calendar_month</span>
       <span className="block">{new Date(data.timestamp).toLocaleString('en-US',{month:'numeric',year:'numeric',weekday:'short',day:'numeric'}).replaceAll('/','.').replaceAll(',','  ')}</span>
     </div>
     {
       data.list.map(({category,categoryID,items},index)=>(
-    <div className="first:mt-12 mt-8" key={`HOC-${index}`}>
-        {/* LIST CATEGORY NAME */}
-      <span className="text-xl md:text-2xl font-medium">{category}</span>
-      {/* LIST ITEMS IN CATEGORY */}
-      <div className="flex w-full flex-wrap gap-2 md:gap-5 my-6">
+    <div className="first:mt-8 mt-8" key={`HOC-${index}`}>
+
+      <span className="text-base font-semibold">{category}</span>
+      <div className="flex w-full flex-wrap gap-2 md:gap-5 my-4 mx-2">
       {
          items.map(({item,itemID,quantity,checked},i)=>(
-          <div key={`HOCI-${i}`} className="shadow-lg flex items-center font-light gap-4 flex-nowrap flex-shrink-0 px-5 md:px-4 py-1 md:py-3 rounded-lg md:rounded-2xl bg-white cursor-pointer">
-          <span className="block  font-medium text-base md:text-xl">{item}</span>
-          <span className="block  text-lg text-shop-orange font-semibold">{`${quantity} pcs`}</span>
+          <div key={`HOCI-${i}`} className="shadow-lg flex items-center font-light gap-4 flex-nowrap flex-shrink-0 px-5 md:px-3 py-2 rounded-lg bg-white cursor-pointer">
+          <span className="block  font-medium text-base">{item}</span>
+          <span className="block  text-base text-shop-orange font-semibold">{`${quantity} pcs`}</span>
           </div>
          ))
       }

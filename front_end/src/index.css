@@ -21,11 +21,11 @@
   input[type="checkbox"]{
     appearance:none;
     -webkit-appearance:none;
-    height:1.5rem;
-    width:1.5rem;
+    height:1.3rem;
+    width:1.3rem;
     background-color:transparent;
-    border:3px solid #F9A109;
-    border-radius:5px;
+    border:2px solid #F9A109;
+    border-radius:2px;
     display:flex;
     align-items:center;
     justify-content:center;

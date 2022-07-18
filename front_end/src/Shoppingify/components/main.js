@@ -16,7 +16,7 @@ return (
 <Shoppinglistprovider>
 
 <div className="w-full min-h-full flex flex-row box-border font-quick  overflow-y-hidden">
-<div className={`h-screen scroll-hide flex-3 py-6 px-4 md:px-14 box-border flex-shrink-0 font-quick font-medium overflow-y-scroll overflow-x-hidden ${(mobile&&mainstate.isMobile)?'hidden':'block'}`}>
+<div className={`h-screen scroll-hide flex-3 py-6 px-4 md:px-8 box-border flex-shrink-0 font-quick font-medium overflow-y-scroll overflow-x-hidden ${(mobile&&mainstate.isMobile)?'hidden':'block'}`}>
 <Switch>
   <Route exact path={path} component={Items}/>
   <Route exact path={`${path}/history`} component={History}/>

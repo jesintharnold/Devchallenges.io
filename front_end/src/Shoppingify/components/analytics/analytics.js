@@ -68,13 +68,6 @@ export const Analytics=()=>{
 
   const fetchItems=async ()=>{
       await axios.get(`${process.env.REACT_APP_URL}/shoppingify/analytics`).then(res=>{
-       
-      console.log({
-        item:res.data.items,
-        category:res.data.category,
-        graph:changePayload(res.data.graph)
-      })
-        
        setData({
         item:res.data.items,
         category:res.data.category,
@@ -91,17 +84,17 @@ export const Analytics=()=>{
 
 return(
 <>
-<div className="flex md:flex-row flex-col min-w-full gap-5 md:gap-20 mb-10">
-<div className="w-full md:w-1/3">
-  <span className="my-4 font-semibold text-3xl mb-10 block">Top items</span>
+<div className="flex md:flex-row flex-col min-w-full gap-5 mb-8 md:gap-20">
+<div className="w-full md:w-1/2">
+  <span className="my-4 font-semibold text-xl mb-5 block">Top items</span>
   {data.item.length>0?data.item.map(({item,quantity},index)=>(
     <Progress color="bg-shop-orange" name={item} percent={quantity} key={`Progress-${index}`}/>
   )):
   <div className='w-full mt-[20%] bg-transparent text-center'><ClipLoader color="#F9A109" css={{borderWidth:'3px',top:"20%"}} loading={data.item.length===0} size={30}/></div>
   }
 </div>
-<div className="w-full md:w-1/3">
-  <span className="my-4 font-semibold text-3xl mb-10 block">Top Categories</span>
+<div className="w-full md:w-1/2">
+  <span className="my-4 font-semibold text-xl mb-5 block">Top Categories</span>
   {data.category.length>0?data.category.map(({category,quantity},index)=>(
     <Progress color="bg-shop-blue" name={category} percent={quantity} key={`Progress-${index}`}/>
   ))
@@ -112,8 +105,8 @@ return(
 </div>
 
 <div className="w-full">
-<span className="block text-3xl md:text-3xl font-semibold mb-5">Monthly Summary</span>
-<div className="md:w-10/12 md:aspect-[3/1] sm:aspect-[2/1] aspect-square  w-full overflow-hidden border-2">
+<span className="block text-xl font-semibold mb-7">Monthly Summary</span>
+<div className="md:w-11/12 md:aspect-[3/1] sm:aspect-[2/1] aspect-square  w-full overflow-hidden border-2">
   {data.graph.length>0?<ResponsiveContainer height="100%" width="100%">
     <LineChart data={data.graph} margin={{top:10,left:-10,right:30,bottom:20}}>
       <CartesianGrid strokeDasharray="3" stroke="#aaa" />
