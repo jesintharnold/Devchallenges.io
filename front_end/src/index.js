@@ -23,14 +23,15 @@ ReactDOM.render(
     <Route exact path="/login/auth/:id_token/:id" component={AuthRedirect} />
     <PrivateRoute exact path="/profile" Comp={Profile}/>
     <PrivateRoute exact path="/chat" Comp={Chatapp}/>
-    <PrivateRoute exact path="/" Comp={Imageupload}/>
+    <PrivateRoute exact path="/" Comp={Imageupload}/>  
+    {/* change here the main application overview page */}
 
     <PrivateRoute path="/imageuploader" Comp={Imageupload}/>
-    <Route path="/imageuploader/:id" component={Imageredirect} />
+    <PrivateRoute path="/imageuploader/:id" component={Imageredirect} />
     
     {/* <PrivateRoute exact path="/catwiki" Comp={Catwiki}/> */}
-    <Route path="/catwiki" component={Catwiki} />
-    <Route path="/shop" component={Shoppingify} />
+    <PrivateRoute path="/catwiki" component={Catwiki} />
+    <PrivateRoute path="/shop" component={Shoppingify} />
   
 
     <Route component={Notfound}/>
