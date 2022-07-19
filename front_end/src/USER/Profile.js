@@ -4,6 +4,7 @@ import {ClipLoader} from 'react-spinners';
 import validator from 'validator';
 import axios from 'axios';
 import { profileToast } from '../Toast/Alltoast';
+import { Logout } from '../Authlibrary/AuthRedirect';
 
 
 export const Profilelogout=()=>{
@@ -22,14 +23,10 @@ return(
     {drop?
        <div className="top-14 z-[55] absolute right-4 lg:right-12  rounded-2xl bg-main border-2 border-authborder border-opacity-50 p-2 animate-topup">
        <div className="flex hover:bg-search  px-3  py-3 rounded-lg cursor-pointer">
-       <span className="material-icons">account_circle</span>
-       <span className="ml-3 font-sans font-semibold text-base">My Profile</span>
+       <span className="material-icons">apps</span>
+       <span className="ml-3 font-sans font-semibold text-base">Apps</span>
        </div>
-       <div className="flex hover:bg-search px-3  py-2 rounded-lg cursor-pointer">
-       <span className="material-icons">group</span>
-       <span className="ml-3 font-sans font-semibold text-base">Group Chat</span>
-       </div>
-       <div className="flex hover:bg-search px-3  py-2 rounded-lg text-redlog cursor-pointer">
+       <div className="flex hover:bg-search px-3  py-2 rounded-lg text-redlog cursor-pointer" onClick={()=>Logout()}>
        <span className="material-icons">logout</span>
        <span className="ml-3 font-sans font-semibold text-base">Logout</span>
        </div>
@@ -213,7 +210,6 @@ export const Profile=()=>{
     const [edit,setEdit]=useState(false);
     const [drop,setDrop]=useState(false);
      
-    
     const [data,setData]=useState({
         Bio: null,
         Email: "example@gmail.com",
@@ -224,7 +220,6 @@ export const Profile=()=>{
     });
     let {email}=JSON.parse(localStorage.getItem('user-access'));
     async function data_(){
-
         let userval_= await axios.get(`http://localhost:5000/user/profile`,{params:{email:email}});
         console.log(userval_);
         if(!userval_.data.redirect){
@@ -232,9 +227,7 @@ export const Profile=()=>{
         }else{
             window.location.href="/";
         }
-
     }
-    
     useEffect(()=>{          
     data_();
     },[]);

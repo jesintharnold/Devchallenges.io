@@ -73,7 +73,6 @@ export const Auth=()=>{
 
         if(validator.isEmpty(err.Password) && validator.isEmpty(err.Email)){
             setload(true);
-            console.log(`API request Sent to user`);
             let url=`http://localhost:5000/auth/${login?'login':'register'}`;
             console.log(url);
 
@@ -81,21 +80,14 @@ export const Auth=()=>{
                 
                 let {status,data}=data_;
                 let {access_token,_id,error}=data;
-
-                
-           
                 if(access_token==null&&error.status===true&&status==200){
-                    console.log(`This is 200 - some Error`);
                     setError({...err,...{Email:error.email,Password:error.password}});
                 }
-
-
                 if((status==201||status==200)&&error.status===false){
-                    console.log(`This is 201`);
-                   window.location.href=`/login/auth/${access_token}/${_id}`
+                    window.location.href=`/login/auth/${access_token}/${_id}`;
                 }
                 if(status==302){
-                    window.location.href=`/login`
+                    window.location.href=`/login`;
                 }
                 setload(false);
             });

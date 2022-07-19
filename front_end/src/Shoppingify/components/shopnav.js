@@ -47,11 +47,10 @@ export const Shopnav=()=>{
     <span class="material-icons text-shop-tooltip relative text-2xl  py-1 md:py-2 font-thin block text-center">shopping_cart</span>
     <span data-text={`cart`} className="absolute text-sm top-[30%] left-[95%]  bg-shop-tooltip text-white rounded-sm before:absolute before:content-[''] before:aspect-square before:h-[60%] px-1 before:-left-1 before:top-1 before:-z-10 before:rotate-45 before:bg-shop-tooltip hidden group-hover:block after:content-[attr(data-text)]"></span>
    </div>
-
   </ul>
-
   <Link className='block my-8' to="/">
-  <span class="material-icons-outlined">logout</span>
+  <span class="material-icons">apps</span>
+  <span data-text={`Apps`} className="absolute text-sm top-[30%] left-[95%]  bg-shop-tooltip text-white rounded-sm before:absolute before:content-[''] before:aspect-square before:h-[60%] px-1 before:-left-1 before:top-1 before:-z-10 before:rotate-45 before:bg-shop-tooltip hidden group-hover:block after:content-[attr(data-text)]"></span>
   </Link>
   </div>
   );
