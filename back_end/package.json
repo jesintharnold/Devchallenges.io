@@ -4,7 +4,7 @@
   "description": "Chat Application project created using nodejs/socketio/mongoDB/Redis for Dev challenges io",
   "main": "App.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --config ./jest.config.js",
     "start": "set NODE_ENV=development&&node src/app.js"
   },
   "author": "",
@@ -28,7 +28,10 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "jest": "^28.1.3",
+    "node-mocks-http": "^1.11.0",
     "pino": "7.8.0",
-    "pino-pretty": "7.5.1"
+    "pino-pretty": "7.5.1",
+    "superjest": "^0.1.0"
   }
 }

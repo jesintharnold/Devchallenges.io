@@ -1,0 +1,51 @@
+[{
+  "_id" :"61ace482ad7a52ad882aa3aa",
+  "User_ID" :"619a5bd0a01ef280b3b92bd4",
+  "name" : "Non-veg",
+  "Items" : [ 
+      {
+          "name" : "Tanddoori",
+          "Itm_id" :"61f00456489e5de215348a13",
+          "note" : "",
+          "imageURL" : ""
+      }, 
+      {
+          "name" : "Chicken Noodles",
+          "Itm_id" :"61f005b2ca5257d9b7bae220",
+          "note" : "",
+          "imageURL" : ""
+      }, 
+      {
+          "name" : "Chicken",
+          "Itm_id" :"61f024886f1d282ffe630688",
+          "note" : "",
+          "imageURL" : ""
+      }, 
+      {
+          "name" : "Mutton Sandwich",
+          "Itm_id" :"61f025a960c038733743d119",
+          "note" : "",
+          "imageURL" : ""
+      }
+  ]
+},
+{
+  "_id" :"61d45e4b2dc91798eaeb3c44",
+  "User_ID" :"619a5bd0a01ef280b3b92bd4",
+  "name" : "veg",
+  "Items" : [ 
+      {
+          "name" : "veg Burger",
+          "Itm_id" :"61d45e4bed886fb975803bd3",
+          "note" : "A Veg Burger grown in our own garden of Eden , served directly to your plater",
+          "imageURL" : "www.google.com/jesintharnold"
+      }, 
+      {
+          "name" : "veg Briyani",
+          "Itm_id" :"61df0501e5100aa48dcaf417",
+          "note" : "A Veg Briyani - Mugal Style",
+          "imageURL" : "www.google.com/jesintharnold"
+      }
+  ]
+}
+]
