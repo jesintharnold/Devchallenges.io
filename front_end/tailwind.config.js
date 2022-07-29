@@ -36,7 +36,9 @@ module.exports = {
         'shop-back':"#FAFAFE",
         'shop-right-back':"#FFF0DE",
         'shop-icon-bg':"#C1C1C4",
-        'shop-bottle-bg':"#80485B"
+        'shop-bottle-bg':"#80485B",
+        'modal-bg':'rgba(0,0,0,0.75)',
+        'modal-red-bg':'rgba(235, 87, 87, 1)'
       },
       fontFamily:{
         'san':['Noto Sans'],

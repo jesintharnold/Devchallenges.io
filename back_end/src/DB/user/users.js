@@ -1,5 +1,6 @@
 const {logger}=require("../../utils/logger");
 const {ObjectId}=require("mongodb");
+const config=require("config");
 let user_collection;
 
 class UserDAO{
@@ -8,7 +9,7 @@ class UserDAO{
            return
        }
        try{
-           user_collection=await db.collection("user");
+           user_collection=await db.collection(config.get("dbConfig.col_user"));
            logger.info("User collection connected");
        }
        catch(e){

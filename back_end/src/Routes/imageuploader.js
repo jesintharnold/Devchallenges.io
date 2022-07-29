@@ -1,5 +1,5 @@
 const imageupload=require("express").Router();
-const { Imageupload,ImageGet } = require("../Controller/imageupload/Imageuploadcontroller");
+const { Imageupload,ImageGet } = require("../Controller/imageupload/imageuploadcontroller");
 const { upload_Image } = require("../Middlewares/bucket");
 
 //Uploading image and sending data

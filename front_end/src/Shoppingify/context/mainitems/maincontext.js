@@ -1,32 +1,48 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { GET_ITEMS_LIST } from "../dispatchactions";
 import {MainitemReducer} from './mainreducer';
+import axios from '../../../utils/axios';
+import toast from 'react-hot-toast';
 
 const Mainitemcontext=createContext(null);
 const useMainitem=()=>useContext(Mainitemcontext);
 const Mainitemprovider=({children})=>{
 
 const inital={
-  items:[]
+  items:[],
+  loading:true,
+  isMobile:false
 };  
 
-const [state,dispatch]=useReducer(MainitemReducer,inital);
+const [mainstate,dispatch]=useReducer(MainitemReducer,inital);
 
 useEffect(()=>{
-
-//use axios to get payload then do the promise
-
-dispatch({
-  type:GET_ITEMS_LIST,
-  payload:[]  //Get content details here
-});
-
+ // GET LIST OF ALL ITEMS /items
+ 
+ const fetchItems=async ()=>{
+   await axios.get(`${process.env.REACT_APP_URL}/shoppingify/items`).then(res=>
+  
+    dispatch({
+      type:GET_ITEMS_LIST,
+      payload:{
+        loading:false,
+        items:res.data.data
+      } 
+    })
+    //console.log(res.data.data)
+  ).catch((error)=>{
+    toast.error(error.response.data.message);
+  });
+ }
+ 
+ fetchItems();
+ 
 },[]);
 
 
 
 return (
-  <Mainitemcontext.Provider value={{state,dispatch}}>
+  <Mainitemcontext.Provider value={{mainstate,dispatch}}>
     {children}
   </Mainitemcontext.Provider>
 )

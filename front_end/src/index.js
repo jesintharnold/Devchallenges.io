@@ -21,19 +21,22 @@ ReactDOM.render(
     <Switch>
     <LoginProtect exact path="/login" Comp={Auth}/> 
     <Route exact path="/login/auth/:id_token/:id" component={AuthRedirect} />
+
     <PrivateRoute exact path="/profile" Comp={Profile}/>
+
     <PrivateRoute exact path="/chat" Comp={Chatapp}/>
-    <PrivateRoute exact path="/" Comp={Imageupload}/>
 
-    <PrivateRoute path="/imageuploader" Comp={Imageupload}/>
-    <Route path="/imageuploader/:id" component={Imageredirect} />
+    <PrivateRoute exact path="/" Comp={Imageupload}/>  
+    {/* change here the main application overview page */}
+
+    <PrivateRoute exact path="/imageuploader" Comp={Imageupload}/>
+    <PrivateRoute exact path="/imageuploader/:id" component={Imageredirect} />
     
-    {/* <PrivateRoute exact path="/catwiki" Comp={Catwiki}/> */}
-    <Route path="/catwiki" component={Catwiki} />
-    <Route path="/shop" component={Shoppingify} />
+    <PrivateRoute exact path="/catwiki" Comp={Catwiki}/>
+    <PrivateRoute exact path="/shop" Comp={Shoppingify}/>
   
-
     <Route component={Notfound}/>
+    
     </Switch>
     </BrowserRouter>
   </React.StrictMode>,

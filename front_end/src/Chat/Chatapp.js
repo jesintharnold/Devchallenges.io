@@ -6,6 +6,7 @@ import Channels from "./component/channels";
 import Logout from "./component/logout";
 import Channeloverview from './component/channeloverview';
 import {io} from 'socket.io-client';
+import Logoutchat from "./component/logout";
 
 
 export const  Chatapp=({props})=>{
@@ -67,7 +68,7 @@ export const  Chatapp=({props})=>{
      <Channels setChannel={setChannel} getChannels={getChannels} setgetChannels={setgetChannels} />
     </div>
     <Channeloverview setChannel={setChannel} channel={channel}/>
-   <Logout drop={drop} setDrop={setDrop}/> 
+   <Logoutchat drop={drop} setDrop={setDrop}/> 
 </div>
 <div className="h-full relative bg-main text-white z-10  lg:flex-1">
 <Chat side={side} setSide={setSide} channel={channel} chats={chats} setChats={setChats}/>

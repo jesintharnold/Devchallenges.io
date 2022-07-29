@@ -24,10 +24,12 @@ const jwt_permission_error=()=>new APIError({name:"PermissionError",message:"You
 const jwt_token_expired=()=>new APIError({name:"TokenExpired",message:"Your Token has expired, Please Login Again",statusCode:401});
     
 
+
+
 //Development - function 
 const devfunc=(err,req,res)=>{
-logger.error(err);
-return res.status(err.statusCode).json({
+ logger.info(err);
+ res.status(err.statusCode).json({
     error:err,
     message:err.message,
     name:err.name,
@@ -39,14 +41,13 @@ return res.status(err.statusCode).json({
 //Production  - object
 const prodfunc=(err,req,res)=>{
     if(err.isOperational){
-        return res.status(err.statusCode).json({
+        res.status(err.statusCode).json({
             name:err.name,
             message:err.message
         });
     };
-
-
-    return res.status(500).json({
+    
+    res.status(500).json({
         status: 'unknown-error',
         message: 'Something went very wrong'
     })

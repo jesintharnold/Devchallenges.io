@@ -1,45 +1,32 @@
 import { useState } from "react";
+import { useMainitem } from "../context/mainitems/maincontext";
+import { useShoppinglist } from "../context/shoppinglist/shoppinglistcontext";
 import { Additem } from "./rightbar/additem/additem";
 import { Itemoverview } from "./rightbar/overview/itemoverview";
 import { List } from "./rightbar/shoppinglist/shoplist";
 
+export const Rightmain=({mobile})=>{
 
-export const Rightmain=()=>{
+//const {state}=useShoppinglist();
+const {state}=useShoppinglist();
+const {mainstate}=useMainitem();
 
-const [additem,setAdditem]=useState(false);
-// ON click -> dispath a overview Item 
-const [overview,setOverview]=useState(true);
-
-  
 return (
-<div className="box-border hidden relative md:block font-quick scroll-hide max-w-md w-full  min-h-screen h-screen overflow-y-scroll  flex-nowrap flex-shrink-0 bg-shop-right-back flex-1 shadow-md px-2 pt-8 md:px-4">
-{/* <Itemoverview/> */}
-{
-// IIFE function to Invoke a value - change to if statement once context is changed
-(()=>{
-  switch(additem){
-    case true:
-      return <Additem setAdditem={setAdditem}/>;
-    default:
-      return <List setAdditem={setAdditem}/>;   
-   };
-})()
-}
-
-
+<div className={`box-border bg-red relative font-quick scroll-hide  w-full  min-h-screen h-screen overflow-y-scroll  flex-nowrap flex-shrink-0 bg-shop-right-back flex-1 shadow-md px-2 pt-6 md:px-4  ${(mobile)?((mainstate.isMobile)?'block':'hidden'):''}`}>
+{state.overview.status?<Itemoverview/>:<Rightpagerender/>}
 </div>
 );
 };
 
 
-// const Rightpagerender=({additem,setAdditem})=>{
-//   console.log(additem);
-// switch(additem){
-//  case true:
-//    return <Additem setAdditem={setAdditem}/>;
-//  default:
-//    return <List setAdditem={setAdditem}/>;   
-// };
-// };
+const Rightpagerender=()=>{
+  const [additem,setAdditem]=useState(false);
+switch(additem){
+ case true:
+   return <Additem setAdditem={setAdditem}/>;
+ default:
+   return <List setAdditem={setAdditem}/>;   
+};
+};
 
-// export default Rightpagerender;
+export default Rightpagerender;

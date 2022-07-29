@@ -6,25 +6,27 @@ const bodyParser = require('body-parser');
 const channelDAO=require('./DB/chat/channel');
 const http=require('http').createServer(express);
 const {Dbconnect}=require('./DB/dbcon');
-const {joinAllchannels} = require('./Controller/CHAT/op-controller.js');
+const {joinAllchannels} = require('./Controller/chat/op-controller.js');
 const route=require('./Routes/route.js');
 const { Msgschema,channelSchema} = require('./Schema/chatschemaval');
 const { insertRoomMsg } = require("./DB/chat/channel");
 const userDAO=require("./DB/user/users");
 const imageuploadDAO=require("./DB/imageupload/imageupload");
-const { appendFile } = require("fs");
 const { globalHandle } = require("./utils/ErrorObject");
+const { ListDAO,ItemDAO } = require("./DB/shoppingify/shoppingify");
 
 express.use(cors());
 express.use(bodyParser.urlencoded({extended:true}));
 express.use(bodyParser.json());
 express.use(route);
-express.use(globalHandle);
+express.use(globalHandle); //Global Error handler
 
 Dbconnect().then(con=>{
     channelDAO.injectCol(con);
     userDAO.injectCol(con);
     imageuploadDAO.injectCol(con);
+    ListDAO.injectCol(con);
+    ItemDAO.injectCol(con);
 });
 
 
