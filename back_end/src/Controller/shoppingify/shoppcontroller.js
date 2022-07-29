@@ -6,7 +6,6 @@ const {addItemSchema,cartgetSchema,historySchema,postCartSchema,overviewSchema}=
 
 
 const getAllItems=asyncWrapper(async(req,res,next)=>{
-  //logger.warn(req.body);
   let mon_res=await ItemDAO.getItems();
   if(mon_res.length<=0){
     next(new APIError({name:"ItemNotFound",message:"No Items found , Please start by adding",statusCode:400}));
@@ -14,13 +13,12 @@ const getAllItems=asyncWrapper(async(req,res,next)=>{
     return res.status(200).json({
       data:mon_res
     });
+
   }
 });
 
 const getAllCategory=asyncWrapper(async (req,res,next)=>{
-  logger.warn(req.body);
   let mon_res=await ItemDAO.getCategory();
-  logger.info(mon_res);
   if(mon_res.length<=0){
     next(new APIError({name:"ItemNotFound",message:"No Items found , Please start by adding",statusCode:400}));
   }else{
