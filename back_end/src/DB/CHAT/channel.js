@@ -10,7 +10,7 @@ class channelDAO{
 
       try{
          channel_collection=await db.collection(config.get("dbConfig.col_channel")); 
-         logger.info('Channel collection is connected');
+         logger.info('Channel - collection connected');
       }catch(e){
          logger.error('Channel collection error , \n ',e)
       }
