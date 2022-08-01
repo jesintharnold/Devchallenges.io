@@ -6,8 +6,8 @@ const baseURL="http://localhost:5000";
 export function googleOauth(){
   const _url="https://accounts.google.com/o/oauth2/v2/auth";
   const options = {
-    redirect_uri: process.env.REACT_APP_REDIRECT_URL,
-    client_id: process.env.REACT_APP_CLIENTID,
+    redirect_uri: process.env.REACT_APP_GOOGLE_REDIRECT_URL,
+    client_id: process.env.REACT_APP_GOOGLE_CLIENTID,
     access_type: "offline",
     response_type: "code",
     prompt: "consent",
