@@ -1,0 +1,29 @@
+[
+  {
+      "_id": "62c87b70fa395bbe676c76a2",
+      "name": null,
+      "status": "completed",
+      "list": [
+          {
+              "categoryID": "62c5a5695e01727e88737640",
+              "category": "VEGAN",
+              "items": [
+                  {
+                      "item": "GOAT",
+                      "itemID": "62c5a5695e01727e8873763f",
+                      "quantity": 1,
+                      "checked": false
+                  },
+                  {
+                      "item": "GOATCURRY",
+                      "itemID": "62c5aebd680e8d45de99dab1",
+                      "quantity": 3,
+                      "checked": true
+                  }
+              ]
+          }
+      ],
+      "timestamp": 1657305968427,
+      "userID": "622f2294a6a47c987f87ab22"
+  }
+]

@@ -19,8 +19,8 @@ const Dbconnect=async ()=>{
             }
             mongoClient=client;           
             db=mongoClient.db(config.get('dbConfig.db_name'));
-            logger.info(`Established new connection...`);
-            logger.info(`Initating Connection .... ${mongoClient.topology.isConnected()?'Established':'Revoked'}`);
+            logger.info(`Established new connection`);
+            logger.info(`Initating Connection - ${mongoClient.topology.isConnected()?'Established':'Revoked'}`);
             resolve(db);
             process.on('exit',()=>{
               DBclose();

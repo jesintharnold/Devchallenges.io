@@ -1,0 +1,42 @@
+[
+  {
+    "_id" : "61f0de627d7cac87cab4f644",
+    "listName" : "Demo -- 27/01/2022",
+    "status" : "completed",
+    "User_ID" : "619a5bd0a01ef280b3b92bd4",
+    "items" : [ 
+        {
+            "category_ID" : "61d45e4b2dc91798eaeb3c44",
+            "Item_ID" : "61df0501e5100aa48dcaf417",
+            "quantity" : 2,
+            "checked" : true
+        }, 
+        {
+            "category_ID" : "61d45e4b2dc91798eaeb3c44",
+            "Item_ID" : "61d45e4bed886fb975803bd3",
+            "quantity" : 4,
+            "checked" : true
+        }, 
+        {
+            "category_ID" : "61ace482ad7a52ad882aa3aa",
+            "Item_ID" : "61f025a960c038733743d119",
+            "quantity" : 1,
+            "checked" : true
+        }, 
+        {
+            "category_ID" : "61df089c66793ce2d7d7b6f2",
+            "Item_ID" : "61df089c1b24f9a9f14804aa",
+            "quantity" : 1,
+            "checked" : true
+        }, 
+        {
+            "category_ID" : "61df089c66793ce2d7d7b6f2",
+            "Item_ID" : "61f0016868f6bf662e4bb019",
+            "quantity" : 1,
+            "checked" : true
+        }
+    ],
+    "Active_list" : true,
+    "DOC" : "2022-01-26T14:10:11.652Z"
+}
+]

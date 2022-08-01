@@ -1,0 +1,46 @@
+{
+  "items": [
+      {
+          "itemID": "62c5a5695e01727e8873763f",
+          "item": "GOAT",
+          "quantity": 18
+      },
+      {
+          "itemID": "62c5aebd680e8d45de99dab1",
+          "item": "GOATCURRY",
+          "quantity": 14
+      },
+      {
+          "itemID": "62d04d47eb2ce593005728f9",
+          "item": "LATER MINUTE",
+          "quantity": 13
+      }
+  ],
+  "category": [
+      {
+          "categoryID": "62c5a5695e01727e88737640",
+          "category": "VEGAN",
+          "quantity": 7
+      },
+      {
+          "categoryID": "62d044e2eb2ce593005728f0",
+          "category": "Fruits",
+          "quantity": 6
+      },
+      {
+          "categoryID": "62d04721eb2ce593005728f5",
+          "category": "HELLO",
+          "quantity": 4
+      }
+  ],
+  "graph": [
+      {
+          "_id": "01",
+          "itemcount": 4
+      },
+      {
+          "_id": "07",
+          "itemcount": 87
+      }
+  ]
+}

@@ -10,7 +10,7 @@ class UserDAO{
        }
        try{
            user_collection=await db.collection(config.get("dbConfig.col_user"));
-           logger.info("User collection connected");
+           logger.info("User - collection connected");
        }
        catch(e){
             logger.error(`Error while connecting to User collection \n ${e}`);

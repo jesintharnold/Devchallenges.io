@@ -6,7 +6,6 @@ const {addItemSchema,cartgetSchema,historySchema,postCartSchema,overviewSchema}=
 
 
 const getAllItems=asyncWrapper(async(req,res,next)=>{
-  //logger.warn(req.body);
   let mon_res=await ItemDAO.getItems();
   if(mon_res.length<=0){
     next(new APIError({name:"ItemNotFound",message:"No Items found , Please start by adding",statusCode:400}));
@@ -14,13 +13,12 @@ const getAllItems=asyncWrapper(async(req,res,next)=>{
     return res.status(200).json({
       data:mon_res
     });
+
   }
 });
 
 const getAllCategory=asyncWrapper(async (req,res,next)=>{
-  logger.warn(req.body);
   let mon_res=await ItemDAO.getCategory();
-  logger.info(mon_res);
   if(mon_res.length<=0){
     next(new APIError({name:"ItemNotFound",message:"No Items found , Please start by adding",statusCode:400}));
   }else{
@@ -31,7 +29,7 @@ const getAllCategory=asyncWrapper(async (req,res,next)=>{
 });
 
 const addshopItem=asyncWrapper(async(req,res,next)=>{
-  logger.warn(req.body);
+
   let {error,value}=addItemSchema.validate(req.body);
   if(error){
     next(error); //Pass error to global handler
@@ -52,7 +50,7 @@ const addshopItem=asyncWrapper(async(req,res,next)=>{
 });
 
 const getshopList=asyncWrapper(async(req,res,next)=>{
- logger.warn(req.body);
+
  let {error,value}=cartgetSchema.validate(req.body);
  if(error){
   next(error);
@@ -66,7 +64,7 @@ const getshopList=asyncWrapper(async(req,res,next)=>{
 });
 
 const postshopList=asyncWrapper(async(req,res,next)=>{
-logger.warn(req.body);
+
 let {error,value}=postCartSchema.validate(req.body);
 if(error){
  next(error);
@@ -78,14 +76,11 @@ res.status(201).json({data:resp_});
 });
 
 const historyshopList=asyncWrapper(async(req,res,next)=>{
-logger.warn(req.body);  
 let {error,value}=cartgetSchema.validate(req.body);
-logger.info(value);
 if(error){
 next(error);
 };
 let resp_=await ListDAO.history({userID:value.userID});
-logger.warn(resp_);
 if(resp_.length>0){
   res.status(200).json({
     data:resp_
@@ -96,9 +91,7 @@ if(resp_.length>0){
 });
 
 const historyviewshopList=asyncWrapper(async(req,res,next)=>{
-logger.warn(req.body);  
 let {historyid}=req.params;
-logger.warn(historyid);
 let {error,value}=historySchema.validate({listID:historyid,userID:req.body.userID});
 if(error){
 next(error);
@@ -114,7 +107,6 @@ if(resp_.length>0){
 });
 
 const itemOverview=asyncWrapper(async(req,res,next)=>{
-logger.warn(req.body);
 let {error,value}=overviewSchema.validate({categoryID:req.body.categoryID,itemID:req.body.itemID,userID:req.body.userID});
 if(error){
 next(error);
@@ -130,7 +122,6 @@ if(resp_.length>0){
 });
 
 const listanalytics=asyncWrapper(async(req,res,next)=>{
-  logger.warn(req.body);
   let {error,value}=cartgetSchema.validate({userID:req.body.userID});
   if(error){
   next(error);
@@ -138,11 +129,7 @@ const listanalytics=asyncWrapper(async(req,res,next)=>{
   let topitems=await ListDAO.topitems({userID:value.userID});
   let topcategory=await ListDAO.topcategory({userID:value.userID});
   let graphanalytics=await ListDAO.graphanalytics({userID:value.userID});
-  logger.error({
-    items:topitems,
-    category:topcategory,
-    graph:graphanalytics
-   });
+
   if(topitems.length>0&&topcategory.length>0&&graphanalytics.length>0){
     res.status(200).json({
       items:topitems,

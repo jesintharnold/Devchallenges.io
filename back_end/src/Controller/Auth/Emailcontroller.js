@@ -6,7 +6,6 @@ const jwt=require("jsonwebtoken");
 const bcrypt=require("bcrypt");
 const {resolve}=require("path");
 const {logger}=require("../../utils/logger");
-const { info } = require("console");
 const private_key=readFileSync(resolve("key","private.key"),{encoding:'utf8', flag:'r'});
 const public_key=readFileSync(resolve("key","public.key"),{encoding:'utf8', flag:'r'});
 
@@ -14,7 +13,7 @@ const public_key=readFileSync(resolve("key","public.key"),{encoding:'utf8', flag
 class Token{
    static access(payload) {
       logger.warn('Sign - - Method');
-      return jwt.sign(payload,private_key,config.get('Salt.access')); 
+      return jwt.sign(payload,private_key,config.get('JWT_EXPIRY')); 
    }
    static verify(token){
        try{

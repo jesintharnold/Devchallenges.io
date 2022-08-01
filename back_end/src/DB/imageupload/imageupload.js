@@ -9,7 +9,7 @@ class imageuploadDAO{
           return;
       };
     imageupload_collection=await db.collection(config.get("dbConfig.col_imageupload")); 
-    logger.info('imageuploader collection is connected');
+    logger.info('image - collection connected');
    };
    
    
