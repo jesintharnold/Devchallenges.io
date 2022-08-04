@@ -60,7 +60,22 @@ const getChatmessages=async (req,res,next)=>{
       }
       res.status(200).send(_res);
     }
+};
+
+
+const getMembers=async(req,res,next)=>{
+let {channel_ID}=req.params;
+let {error,value}=getmessageSchema.validate({channelID:channel_ID});
+if(error){
+
+}else{
+   let res_=await channelDAO.getChannelMembers(value.channelID);
+   
 }
+};
+
+
+
 
 module.exports={
     createChannel,

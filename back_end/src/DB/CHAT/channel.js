@@ -133,6 +133,12 @@ class channelDAO{
          return 500;
       }
    }
+
+   static async getChannelMembers(payload){
+    let pipeline=[
+
+    ];
+   }
 }
 
 module.exports=channelDAO;
