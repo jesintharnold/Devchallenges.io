@@ -36,6 +36,8 @@ export const Catoverview=()=>{
         ]
     });
     const {id}=useParams();
+
+    console.log(id);
     
     async function callcats(){
         await axios.get(`${Config.URL}/catwiki/search/${id}`).then(({status,data})=>{

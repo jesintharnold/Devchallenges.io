@@ -10,7 +10,6 @@ const getuserProfile=async (req,res,next)=>{
     let email=req.query.email;
     logger.info(req.query);
     let {value,error}=getprofile.validate({email:email});
-    
     try{
         if(error){
          res.status(200).json({
@@ -18,7 +17,7 @@ const getuserProfile=async (req,res,next)=>{
                 value:null
             });
         }else{  
-        let user_val=await UserDAO.findprotectuser(email);
+        let user_val=await UserDAO.findprotectuser(value.email);
      
         res.status(200).json({
             redirect:false,

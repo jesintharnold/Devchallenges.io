@@ -15,24 +15,7 @@ class UserDAO{
        catch(e){
             logger.error(`Error while connecting to User collection \n ${e}`);
        }
-    }
-
-
-          
-    static async finduser(email,user_payload){    
-        try{
-            let r= await user_collection.findOneAndUpdate({"email":email},{$set:user_payload},{upsert:false});
-            logger.info(r);
-            return r;
-        }
-        catch(err){
-            logger.error(`Unable to find the User - ${err}`);
-            if(err.code===11000){
-                return err.code;
-             };
-            return 500;
-        }
-    }
+    };
 
     static async insertuser(user_payload){
 
@@ -48,7 +31,7 @@ class UserDAO{
              };
              return 500;
         }
-    }
+    };
 
     static async findprotectuser(email){
         try{
@@ -58,10 +41,15 @@ class UserDAO{
             logger.error(`Unable to find the User - ${e}`);
             return 500;
         }
-    }
-    
-    
+    };
 
+    static async setlogout(userID){
+     return await user_collection.updateOne({"_id":ObjectId(userID)},{$set:{"online":false}});
+    };
+
+    static async setOnline(email){
+     return await user_collection.updateOne({"email":email},{$set:{online:true}});
+    };
 }
 
 
