@@ -1,9 +1,10 @@
 const Joi = require('joi');
 
-const Msgschema=Joi.object().keys({
+const messageSchema=Joi.object().keys({
     channelID:Joi.string().trim().max(24).required(),
-    Msg:Joi.string().trim().required(),
-    DAT:Joi.number().required()
+    message:Joi.string().trim().required(),
+    timestamp:Joi.number().required(),
+    userID:Joi.string().trim().max(24).required()
 });
 
 const channelSchema=Joi.object().keys({
@@ -18,8 +19,9 @@ const getmessageSchema=Joi.object().keys({
 });
 
 
+
 module.exports={
-    Msgschema,
+    messageSchema,
     channelSchema,
     getmessageSchema
 }

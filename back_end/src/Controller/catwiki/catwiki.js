@@ -29,24 +29,23 @@ const getCats=asyncWrapper(async (req,res)=>{
 
 
 const getCatbyname=asyncWrapper(async(req,res)=>{
-    let name=req.params.name;
+    let {name}=req.params;
+
     let api_res=await axios.get(`https://api.thecatapi.com/v1/images/search?breed_ids=${name}&limit=9`,
     {
-      Headers:{
+      headers:{
         "X-Api-Key": config.get("CAT.key"),
         "content-type":"application/json; charset=utf-8"
       }  
     });
-  
 
     if(api_res.data.length>0){
-      logger.warn(api_res.data);
+      
         let {name,description,temperament,origin,life_span,adaptability,
             affection_level,child_friendly,grooming,intelligence,health_issues,
             social_needs,stranger_friendly,id}=api_res.data[0].breeds[0];
-          logger.info(api_res.data[0].breeds);
         let url=api_res.data.map(({url})=>(url));
-        logger.error(url);    
+   
 
         let payload={
            name:name,

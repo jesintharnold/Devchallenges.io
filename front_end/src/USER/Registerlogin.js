@@ -30,14 +30,6 @@ const icon_list=[
 ] 
 
 
-// ,
-//    {
-//      "Path":twitter,
-//      "Name":"TI",
-//      "Func":twitterOauth()    
-//    }
-
-
 export const Auth=()=>{
 
     const Authref=useRef(null);
@@ -73,7 +65,7 @@ export const Auth=()=>{
 
         if(validator.isEmpty(err.Password) && validator.isEmpty(err.Email)){
             setload(true);
-            let url=`http://localhost:5000/auth/${login?'login':'register'}`;
+            let url=`http://localhost:5000/api/auth/${login?'login':'register'}`;
             console.log(url);
 
             await axios.post(`${url}`,obj).then((data_)=>{

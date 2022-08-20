@@ -6,6 +6,7 @@ const imageuploadroute=require('./imageuploader');
 const catroute=require('./catwiki');
 const shoproute=require('./shoproute');
 const {Tokencheck}=require('../Middlewares/auth');
+const { logOut } = require("../Controller/auth/authcontroller");
 // user - section routes
 route.use('/user/profile',userroute);
 
@@ -13,7 +14,7 @@ route.use('/user/profile',userroute);
 route.use('/chat',chatroute);
 
 // auth - section routes
-route.use('/api/auth',authroute);
+route.use('/api/oauth',authroute);
 
 // Image upload route
 route.use('/image',imageuploadroute);

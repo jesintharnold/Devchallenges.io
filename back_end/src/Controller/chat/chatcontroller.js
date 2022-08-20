@@ -1,6 +1,7 @@
 const {logger}=require('../../utils/logger');
-const {channelSchema,getmessageSchema}=require('../../Schema/chatschemaval');
+const {channelSchema,getmessageSchema,messageSchema}=require('../../Schema/chatschemaval');
 const channelDAO =require('../../DB/chat/channel');
+const Events = require('./chat.Events');
 
 
 const createChannel=async (req,res,next)=>{
@@ -10,15 +11,12 @@ const createChannel=async (req,res,next)=>{
     }else{
       let _res=await channelDAO.createChannel(req.body);
       if(_res.insertedCount===1){
-
         res.status(201).send({
             channelDesc: _res.channelDesc,
             channelName: _res.channelName,
             private: _res.private,
             _id:_res._id
           });
-
-
       }
       if(_res===11000){
         return res.status(400).send({Err:`Channel name already exists`,Errcode:11000})
@@ -29,12 +27,10 @@ const createChannel=async (req,res,next)=>{
     }
 };
 
-
 const getAllChannels=async(req,res,next)=>{
   let _res=await channelDAO.getAllChannelName();
   res.status(200).send(_res);
 }
-
 
 const joinAllchannels=async (socket)=>{
  let res=await channelDAO.getopenchannels();
@@ -56,15 +52,57 @@ const getChatmessages=async (req,res,next)=>{
     }else{
       let _res=await channelDAO.getChannelmessages(value.channelID);
       if(_res===500){
-        return res.status(500).json({Err:`Internal Server Error`});
+        res.status(500).json({Err:`Internal Server Error`});
       }
       res.status(200).send(_res);
-    }
+  }
+};
+
+const getMembers=async(req,res,next)=>{
+let {channelID}=req.params;
+let {error,value}=getmessageSchema.validate({channelID:channelID});
+if(error){
+  res.status(500).json({Err:`Missing Input (or) Validation Error \n`,error});
+}else{
+   let res_=await channelDAO.getChannelMembers(value.channelID);
+   if(res_.length>0){
+    res.status(200).json({members:res_});
+   }else{
+    res.status(500).json({Err:`Internal Server Error`});
+   }
 }
+};
+
+const sendMessages=async (socket,payload)=>{
+let {error,value}=messageSchema.validate({
+  channelID:payload.channelID,
+  message:payload.message,
+  timestamp:payload.timestamp,
+  userID:payload.userID
+});
+
+if(error){
+logger.info(socket.id);
+socket.broadcast.to(socket.id).emit(Events.toast,{status:0,toast:"Message not delivarable"});
+}else{
+let res_=await channelDAO.insertRoomMsg(value);
+if(res_.modifiedCount===1){
+  socket.broadcast.to(payload.channelID).emit(Events.channelmessage,
+  {
+  message:payload.message,
+  timestamp:payload.timestamp
+  }
+);
+return;
+};
+socket.broadcast.to(socket.id).emit(Events.toast,{status:0,toast:"Message not delivarable"});
+}};
 
 module.exports={
     createChannel,
     joinAllchannels,
     getAllChannels,
-    getChatmessages
-}
+    getChatmessages,
+    getMembers,
+    sendMessages
+};

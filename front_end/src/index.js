@@ -25,18 +25,16 @@ ReactDOM.render(
     <PrivateRoute exact path="/profile" Comp={Profile}/>
 
     <PrivateRoute exact path="/chat" Comp={Chatapp}/>
-
+ 
     <PrivateRoute exact path="/" Comp={Imageupload}/>  
-    {/* change here the main application overview page */}
 
     <PrivateRoute exact path="/imageuploader" Comp={Imageupload}/>
     <PrivateRoute exact path="/imageuploader/:id" component={Imageredirect} />
     
-    <PrivateRoute exact path="/catwiki" Comp={Catwiki}/>
-    <PrivateRoute exact path="/shop" Comp={Shoppingify}/>
+    <PrivateRoute path="/catwiki" Comp={Catwiki}/>
+    <PrivateRoute path="/shop" Comp={Shoppingify}/>
   
     <Route component={Notfound}/>
-    
     </Switch>
     </BrowserRouter>
   </React.StrictMode>,
