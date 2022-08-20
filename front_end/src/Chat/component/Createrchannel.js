@@ -19,9 +19,7 @@ export function Modal({setModal,getChannels,setgetChannels}){
     useEffect(()=>{
 
         return ()=>{
-            console.log(load);
             setLoad(false);
-            console.log(`Unmounting happened`);
             if(cancelToken){
                 cancelToken.cancel();
             }

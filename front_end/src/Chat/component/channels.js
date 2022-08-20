@@ -13,8 +13,7 @@ function Channels({setChannel,getChannels,setgetChannels}){
               console.log(res);
               setload(false);
             }
-      
-    }
+         }
     useEffect(()=>{
       if(load){
         data();

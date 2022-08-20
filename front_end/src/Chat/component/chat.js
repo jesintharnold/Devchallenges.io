@@ -9,8 +9,6 @@ import {ClipLoader} from 'react-spinners';
 export function Chat({side,setSide,channel,chats,setChats}){
   const options={year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:true}
 
-
-
   const [load,setload]=useState(true);
   useEffect(()=>{
      FetchData.getAllChats(channel.channelId).then((dat)=>{
@@ -36,12 +34,9 @@ export function Chat({side,setSide,channel,chats,setChats}){
         IDNAME:"Jesinth Arnold"
       };
        Client.sendRoomsg(payload);
-       
-       setChats({...chats,[channel.channelId.toString()]:[...chats[channel.channelId.toString()],payload]});
-       
+       setChats({...chats,[channel.channelId.toString()]:[...chats[channel.channelId.toString()],payload]});  
        send.current.children[0].value='';
     }
-    
    }
 
   return (
