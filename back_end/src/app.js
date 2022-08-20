@@ -4,13 +4,15 @@ const cors =require("cors");
 const {logger}=require('./utils/logger'); 
 const bodyParser = require('body-parser');
 const channelDAO=require('./DB/chat/channel');
-const http=require('http').createServer(express);
 const {Dbconnect}=require('./DB/dbcon');
+const {Server}=require("socket.io");
 const route=require('./Routes/route.js');
 const userDAO=require("./DB/user/users");
 const imageuploadDAO=require("./DB/imageupload/imageupload");
 const { globalHandle } = require("./utils/ErrorObject");
 const { ListDAO,ItemDAO } = require("./DB/shoppingify/shoppingify");
+const SocketInit=require('../src/Controller/chat/chat.socket');
+
 
 express.use(cors());
 express.use(bodyParser.urlencoded({extended:true}));
@@ -26,7 +28,25 @@ Dbconnect().then(con=>{
     ItemDAO.injectCol(con);
 });
 
-http.listen(config.get('App.PORT'),()=>logger.info(`Server running on ${config.get('App.PORT')}`));
+
+//Http server
+const http=require('http').createServer(express);
+
+//Socket IO server
+const io=new Server(http,{
+    cors:{
+        origin:config.get("clientOrgin"),
+        credentials:true
+    }}
+);
+
+
+http.listen(config.get('App.PORT'),()=>{
+    logger.info(`Server running on ${config.get('App.PORT')}`);
+    
+    //Initate io server here
+    SocketInit({io:io});
+});
 
 
 module.exports=http;

@@ -3,7 +3,7 @@ const {createChannel,getChatmessages, getAllChannels,getMembers}=require('../Con
 
 chatroute.route('/channel').get(getAllChannels).post(createChannel);
 chatroute.route('/getChatmessages').post(getChatmessages);
-chatroute.route('/channel/:channel_ID/members').get(getMembers);
+chatroute.route('/channel/:channelID/members').get(getMembers);
 module.exports=chatroute;
 
 

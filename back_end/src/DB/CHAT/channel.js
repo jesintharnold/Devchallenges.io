@@ -81,9 +81,9 @@ class channelDAO{
             _id:ObjectId(payload.channelID)
          },{
             $push:{"messages":{
-               Msg:payload.Msg,
-               DAT:payload.DAT,
-               ID:ObjectId(payload.ID)
+               message:payload.Msg,
+               timestamp:payload.timestamp,
+               userID:ObjectId(payload.userID)
             }}
          });
 
@@ -121,10 +121,9 @@ class channelDAO{
             {$match:{"_id" : ObjectId(payload.toString())}},
             {$project:{messages:1,_id:0}},
             {$unwind : "$messages"},
-            {$lookup:{from:"user",localField:"messages.ID",foreignField:"_id",as:"USD"}},
-            {$project:{Msg:"$messages.Msg",ID:"$messages.ID",DAT:"$messages.DAT",IDNAME:{$first:"$USD.Name"},PROFILEURL:{$first:"$USD.Profileurl"}}}
+            {$lookup:{from:"users",localField:"messages.ID",foreignField:"_id",as:"USD"}},
+            {$project:{message:"$messages.message",userID:"$messages.userID",timestamp:"$messages.timestamp",IDNAME:{$first:"$USD.Name"},PROFILEURL:{$first:"$USD.Profileurl"}}}
          ];
-
       try{
        let res=await channel_collection.aggregate(pipeline).toArray();
        return res;
@@ -135,9 +134,14 @@ class channelDAO{
    }
 
    static async getChannelMembers(payload){
-    let pipeline=[
-
-    ];
+      let pipeline=[
+         {$match:{"_id" : ObjectId(payload.toString())}},
+         {$project:{members:1,_id:0}},
+         {$unwind : "$members"},
+         {$lookup:{from:"users",localField:"members.userID",foreignField:"_id",as:"Channelmember"}},
+         {$project:{name:{$first:"$Channelmember.name"},status:{$first:"$Channelmember.online"}}}
+      ];
+      return await channel_collection.aggregate(pipeline).toArray();
    }
 }
 

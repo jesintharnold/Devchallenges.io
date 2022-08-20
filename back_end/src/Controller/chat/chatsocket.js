@@ -1,20 +1,14 @@
-
-const io=require("socket.io")(http,{
-    cors:{
-        origin:config.get("clientOrgin")
-    }
-});
+const io=require("socket.io")(http,{cors:{origin:config.get("clientOrgin")}});
 
 io.on('connection',(Socket)=>{
-
     Socket.on("joinopenchannel",(payload)=>{
         joinAllchannels(Socket);  
-    })
+    });
 
     Socket.on('joinchannel',(payload)=>{
         Socket.join(payload.channelID);
         logger.warn(`${Socket.id}-Joined-${payload.channelID}`);
-    })
+    });
 
     Socket.on('channel',payload=>{
         Socket.broadcast.emit('channel',payload);
