@@ -19,7 +19,7 @@ const SocketInit=({io})=>{
     socket.broadcast.emit(Events.newchannel,payload); // Broadcast to all users
     });
 
-    socket.on(Events.channelmessage,(payload)=>{
+    socket.on(Events.sendmessage,(payload)=>{
     sendMessages(socket,payload);
     });
 

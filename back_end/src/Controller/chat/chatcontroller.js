@@ -87,7 +87,7 @@ socket.broadcast.to(socket.id).emit(Events.toast,{status:0,toast:"Message not de
 }else{
 let res_=await channelDAO.insertRoomMsg(value);
 if(res_.modifiedCount===1){
-  socket.broadcast.to(payload.channelID).emit(Events.channelmessage,
+  socket.broadcast.to(payload.channelID).emit(Events.sendmessage,
   {
   message:payload.message,
   timestamp:payload.timestamp

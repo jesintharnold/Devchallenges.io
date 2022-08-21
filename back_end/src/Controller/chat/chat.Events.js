@@ -3,7 +3,7 @@ const Events={
     joinopenchannel:"joinopenchannel",
     joinchannel:"joinchannel",
     newchannel:"newchannel",
-    channelmessage:"channelmessage",
+    sendmessage:"sendmessage",
     toast:"toast"
 };
 

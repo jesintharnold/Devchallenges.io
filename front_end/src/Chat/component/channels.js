@@ -1,26 +1,32 @@
 import {useEffect, useState } from "react";
 import Namebox from './Namebox';
 import {ClipLoader} from 'react-spinners';
-import FetchData from "../FetchData";
+import axios from "../../utils/axios";
+import toast from "react-hot-toast";
+import { useSocket } from "../context/socket/socket.context";
+import { GET_CHANNELS } from "../context/chatdispatchactions";
 
-function Channels({setChannel,getChannels,setgetChannels}){
+function Channels(){
 
     const [load,setload]=useState(true);
-    const data=async()=>{
-      let res=await FetchData.getAllChannels();
-            if(res.length>0){
-              setgetChannels(res);
-              console.log(res);
-              setload(false);
-            }
-         }
+    const {socketstate,socketdispatch}=useSocket();
+    const {channellist}=socketstate;
+
+    const getAllChannels=async ()=>{
+     await axios.get(`${process.env.REACT_APP_API_URL}/chat/channel`).then(({data})=>{
+      if(data.length>0){
+        socketdispatch({
+          type:GET_CHANNELS,
+          payload:data
+        })
+        return;
+      }
+      toast.error(`No Channels found`);
+     }).then(()=>setload(false)).catch((err)=>toast.error());
+    };
+
     useEffect(()=>{
-      if(load){
-        data();
-      }
-      return ()=>{
-        setload(false);
-      }
+        getAllChannels();
     },[]);
 
     return (
@@ -28,8 +34,8 @@ function Channels({setChannel,getChannels,setgetChannels}){
      {load?(
         <div className="w-full h-full flex justify-center items-center">
           <ClipLoader color="#38ACC5" size={30}/>
-        </div>):getChannels.map((dat,index)=>(
-            <Namebox channel={dat} key={index}  setChannel={setChannel} />
+        </div>):channellist.map((dat,index)=>(
+            <Namebox channel={dat} key={index}  dispatch={socketdispatch} />
         ))}
       </div>
     )

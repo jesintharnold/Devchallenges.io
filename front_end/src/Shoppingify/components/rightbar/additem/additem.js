@@ -80,7 +80,6 @@ export const Additem=({setAdditem})=>{
           toast.error(res.data.message);
         }else{
           toast.success("Added successfully");
-          //Dispatch to Items
           setAdditem(prev=>!prev);
         }
       }

@@ -1,12 +1,11 @@
-import {useContext, useEffect, useRef, useState } from "react";
+import {useEffect, useState } from "react";
 import  ReactDOM  from "react-dom";
 import {ClipLoader} from 'react-spinners';
-import FetchData from "../FetchData";
-import axios from "axios";
-import Client from "../socketclient";
+import axios from "../../utils/axios";
 
 
-export function Modal({setModal,getChannels,setgetChannels}){
+
+export function Modal({setmodal,getChannels,setgetChannels}){
 
     const [err,setErr]=useState({
         Name:'',
@@ -24,7 +23,17 @@ export function Modal({setModal,getChannels,setgetChannels}){
                 cancelToken.cancel();
             }
         }
-    },[])
+    },[]);
+
+
+    const createChannel=async(payload,error)=>{
+          await axios.post(`${process.env.REACT_APP_API_URL}/chat/channel`,payload).then(({data})=>{
+            if(data.status===400 && data.data.Errcode===11000){
+            setErr({...error,Name:data.data.Err});
+            }
+          })
+    };
+
 
 
     function handleSubmit(e){
@@ -32,51 +41,46 @@ export function Modal({setModal,getChannels,setgetChannels}){
          e.preventDefault();
          const data=new FormData(e.target);
          let obj=Object.fromEntries(data.entries());
-         
          if(!obj.Name){
              error.Name="Provide Channel Name";
          }
          if(!obj.Description){
              error.Description="Provide Channel Description"
          }
-
          setErr({...error});
-
-         // Send an API request - if fails show an error
          if(!error.Name&&!error.Description){
-                console.log(`API request - sent`);
                 setLoad(true);
-                FetchData.createChannel({
-                        channelName:obj.Name.toString(),
-                        channelDesc:obj.Description.toString(),
-                        private: obj.bool=='on'?true:false,
-                        userID: "619a5bd0a01ef280b3b92bd5"
-                },cancelToken.token).then(data=>{
-                   if(data.status===400 && data.data.Errcode===11000){
-                       console.log(`Duplicate is called`);
-                       setErr({...error,Name:data.data.Err});
-                       //Join the channel through Socket IO
+                // FetchData.createChannel({
+                //         channelName:obj.Name.toString(),
+                //         channelDesc:obj.Description.toString(),
+                //         private: obj.bool=='on'?true:false,
+                //         userID: "619a5bd0a01ef280b3b92bd5"
+                // },cancelToken.token).then(data=>{
+                //    if(data.status===400 && data.data.Errcode===11000){
+                //        console.log(`Duplicate is called`);
+                //        setErr({...error,Name:data.data.Err});
+                //        //Join the channel through Socket IO
                        
-                   }
+                //    }
                    
-                   if(data.status===500){
-                      console.log(`Internal ServerError`);
-                   }
+                //    if(data.status===500){
+                //       console.log(`Internal ServerError`);
+                //    }
 
-                   if(data.status===201){
+                //    if(data.status===201){
 
-                   Client.sendchannel(data.data);
+                //    Client.sendchannel(data.data);
                      
-                   setgetChannels([...getChannels,data.data]);  
-                    //I think Memory leak is happening here , after closing unMounting component only 
-                    // setLoad is called , in side a .then  , so axios cancel menthod is called ,which will clear everything while unMounting is going -on
-                    //can be also resolved by calling setLoad function before setModal inside 201 status function , but what is the fun in that ./ 
-                    setModal(false);
-                   }    
-                    setLoad(false); // Issue Memeory Leak
-                });
+                //    setgetChannels([...getChannels,data.data]);  
+                //     //I think Memory leak is happening here , after closing unMounting component only 
+                //     // setLoad is called , in side a .then  , so axios cancel menthod is called ,which will clear everything while unMounting is going -on
+                //     //can be also resolved by calling setLoad function before setModal inside 201 status function , but what is the fun in that ./ 
+                //     setmodal(false);
+                //    }    
+                //     setLoad(false); // Issue Memeory Leak
+                // });
 
-                
+                //await axios.post(`${process.env.REACT_APP_API_URL}/chat/channel`)
                 
          }
 
@@ -90,7 +94,7 @@ export function Modal({setModal,getChannels,setgetChannels}){
             <div className="flex flex-col bg-side h-auto rounded-2xl pt-4 px-2 w-[90%] md:w-1/2  xl:w-1/3">
                 <div className="flex justify-between">
                 <span className="ml-4 font-bold text-txt text-lg font-sans uppercase block">New Channel</span>
-                <span className="material-icons-outlined bg-main p-1 rounded hover:bg-gray-500 cursor-pointer" onClick={()=>setModal(false)}>close</span>
+                <span className="material-icons-outlined bg-main p-1 rounded hover:bg-gray-500 cursor-pointer" onClick={()=>setmodal(prev=>!prev)}>close</span>
                 </div>
                   
                 {console.log(`RE-RENDER`)}

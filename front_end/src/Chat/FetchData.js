@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL="http://localhost:5000";
+const baseURL=`${process.env.REACT_APP_URL}`;
 
 class FetchData{
     static async getAllChats(payload){
@@ -8,7 +8,6 @@ class FetchData{
             let res=await axios.post(`${baseURL}/chat/getChatmessages`,{
                 channelID:payload
             });
-            console.log(res);
             return res.data;
        }catch(e){
               console.log(e);

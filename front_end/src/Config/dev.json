@@ -1,4 +1,5 @@
 {
  "URL":"http://localhost:5000",
- "UI":"http://localhost:3005"
+ "UI":"http://localhost:3005",
+ "SOCKETURL":"http://localhost:5000"
 }
