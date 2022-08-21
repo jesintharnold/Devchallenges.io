@@ -12,6 +12,7 @@ import { Imageupload } from './Imageuploader/Imageupload';
 import {Imageredirect} from "./Imageuploader/Imageredirect";
 import { Catwiki } from './Catwiki/Catwiki';
 import { Shoppingify } from './Shoppingify/shoppingify';
+import { Chat } from './Chat/chat';
 
 
 ReactDOM.render(
@@ -24,7 +25,7 @@ ReactDOM.render(
 
     <PrivateRoute exact path="/profile" Comp={Profile}/>
 
-    <PrivateRoute exact path="/chat" Comp={Chatapp}/>
+    <PrivateRoute exact path="/chat" Comp={Chat}/>
  
     <PrivateRoute exact path="/" Comp={Imageupload}/>  
 

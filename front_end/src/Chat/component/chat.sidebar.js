@@ -17,7 +17,6 @@ return (
 
 <Channeloverview/>
 <Logoutchat/> 
-
 </div>
 )
 };

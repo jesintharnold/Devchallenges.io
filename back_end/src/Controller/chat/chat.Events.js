@@ -4,7 +4,8 @@ const Events={
     joinchannel:"joinchannel",
     newchannel:"newchannel",
     sendmessage:"sendmessage",
-    toast:"toast"
+    toast:"toast",
+    recievemessage:"recievemessage"
 };
 
 module.exports=Events;

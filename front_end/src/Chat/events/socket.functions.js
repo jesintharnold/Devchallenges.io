@@ -5,6 +5,9 @@ export const sendMessage=(payload)=>{
 socket.emit(SocketEvents.sendmessage,payload);
 };
 
+export const newchannel=(payload)=>{
+socket.emit(SocketEvents.newchannel,payload);
+};
 
 // channelID:payload.channelID,
 // message:payload.message,

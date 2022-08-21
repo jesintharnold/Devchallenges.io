@@ -14,7 +14,6 @@ const createChannel=async (req,res,next)=>{
         res.status(201).send({
             channelDesc: _res.channelDesc,
             channelName: _res.channelName,
-            private: _res.private,
             _id:_res._id
           });
       }
@@ -87,10 +86,11 @@ socket.broadcast.to(socket.id).emit(Events.toast,{status:0,toast:"Message not de
 }else{
 let res_=await channelDAO.insertRoomMsg(value);
 if(res_.modifiedCount===1){
-  socket.broadcast.to(payload.channelID).emit(Events.sendmessage,
+  socket.to(payload.channelID).emit(Events.recievemessage,
   {
   message:payload.message,
-  timestamp:payload.timestamp
+  timestamp:payload.timestamp,
+  channelID:payload.channelID
   }
 );
 return;

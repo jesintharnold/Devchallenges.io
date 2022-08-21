@@ -1,22 +1,22 @@
 import {useEffect, useState } from "react";
 import  ReactDOM  from "react-dom";
+import toast from "react-hot-toast";
 import {ClipLoader} from 'react-spinners';
 import axios from "../../utils/axios";
+import { ADD_CHANNEL } from "../context/chatdispatchactions";
+import { useSocket } from "../context/socket/socket.context";
+import { newchannel } from "../events/socket.functions";
 
 
 
 export function Modal({setmodal,getChannels,setgetChannels}){
 
-    const [err,setErr]=useState({
-        Name:'',
-        Description:''
-    });
+    const [err,setErr]=useState({Name:'',Description:''});
     const [load,setLoad]=useState(false);
-    
-    let cancelToken=axios.CancelToken.source();
-    
-    useEffect(()=>{
+    const {_,socketdispatch}=useSocket();
 
+    let cancelToken=axios.CancelToken.source();
+    useEffect(()=>{
         return ()=>{
             setLoad(false);
             if(cancelToken){
@@ -25,13 +25,28 @@ export function Modal({setmodal,getChannels,setgetChannels}){
         }
     },[]);
 
-
     const createChannel=async(payload,error)=>{
-          await axios.post(`${process.env.REACT_APP_API_URL}/chat/channel`,payload).then(({data})=>{
-            if(data.status===400 && data.data.Errcode===11000){
-            setErr({...error,Name:data.data.Err});
-            }
-          })
+        await axios.post(`${process.env.REACT_APP_API_URL}/chat/channel`,payload,cancelToken.token).then(({data})=>{
+        console.log(data);
+        let payload={
+          channelDesc: data.channelDesc,
+          channelName: data.channelName,
+          _id:data._id
+          };
+          socketdispatch({
+            type:ADD_CHANNEL,
+            payload:payload
+          });
+          newchannel(payload); //we can also sent from backend - but i used this ,so we can implement Private channel option in future upgrade
+          }).then(()=>{ 
+            setLoad(false);
+            setmodal(false);
+          }).catch(({response})=>{
+            if(response.status===400&&response.data.Errcode===11000){
+            setErr({...error,Name:response.data.Err});
+            };
+            toast.error("Internal server Error");
+          });
     };
 
 
@@ -50,40 +65,15 @@ export function Modal({setmodal,getChannels,setgetChannels}){
          setErr({...error});
          if(!error.Name&&!error.Description){
                 setLoad(true);
-                // FetchData.createChannel({
-                //         channelName:obj.Name.toString(),
-                //         channelDesc:obj.Description.toString(),
-                //         private: obj.bool=='on'?true:false,
-                //         userID: "619a5bd0a01ef280b3b92bd5"
-                // },cancelToken.token).then(data=>{
-                //    if(data.status===400 && data.data.Errcode===11000){
-                //        console.log(`Duplicate is called`);
-                //        setErr({...error,Name:data.data.Err});
-                //        //Join the channel through Socket IO
-                       
-                //    }
-                   
-                //    if(data.status===500){
-                //       console.log(`Internal ServerError`);
-                //    }
-
-                //    if(data.status===201){
-
-                //    Client.sendchannel(data.data);
-                     
-                //    setgetChannels([...getChannels,data.data]);  
-                //     //I think Memory leak is happening here , after closing unMounting component only 
-                //     // setLoad is called , in side a .then  , so axios cancel menthod is called ,which will clear everything while unMounting is going -on
-                //     //can be also resolved by calling setLoad function before setModal inside 201 status function , but what is the fun in that ./ 
-                //     setmodal(false);
-                //    }    
-                //     setLoad(false); // Issue Memeory Leak
-                // });
-
-                //await axios.post(`${process.env.REACT_APP_API_URL}/chat/channel`)
-                
+            let payload={
+                channelName:obj.Name.toString(),
+                channelDesc:obj.Description.toString(),
+                // private: obj.bool=='on'?true:false,
+                userID: "619a5bd0a01ef280b3b92bd5"
+            }    
+            createChannel(payload);
+            return;
          }
-
     }
 
 
@@ -96,8 +86,6 @@ export function Modal({setmodal,getChannels,setgetChannels}){
                 <span className="ml-4 font-bold text-txt text-lg font-sans uppercase block">New Channel</span>
                 <span className="material-icons-outlined bg-main p-1 rounded hover:bg-gray-500 cursor-pointer" onClick={()=>setmodal(prev=>!prev)}>close</span>
                 </div>
-                  
-                {console.log(`RE-RENDER`)}
                 <div className="m-4">
                 <form noValidate className="flex flex-col flex-1" onSubmit={handleSubmit}>
                     <div className="bg-search rounded-lg mb-5 p-2">
@@ -117,8 +105,6 @@ export function Modal({setmodal,getChannels,setgetChannels}){
                    </div> 
                 </form>
                 </div>
-
-
             </div> 
         </div>,
         document.getElementById("modal")

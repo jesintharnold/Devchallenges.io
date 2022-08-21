@@ -11,6 +11,7 @@ import { sendMessage } from "../events/socket.functions";
 
 
 export function Chatview({setmenu}){
+  
   const options={year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:true}
 
   const [load,setload]=useState(true);
@@ -20,15 +21,18 @@ export function Chatview({setmenu}){
   const getchats=async ()=>{
    await axios.post(`${process.env.REACT_APP_API_URL}/chat/getChatmessages`,{
     channelID:selectedchannel.channelID
-    }).then(({data})=>socketdispatch({
+    }).then(({data})=>{
+      console.log(`Dispatching - GET CHANNELS`);
+      socketdispatch({
       type:GET_CHANNEL_CHATS,
       payload:data
-    })).then(()=>setload(false)).catch((err)=>toast.error());
+    });
+  }).then(()=>setload(false)).catch((err)=>toast.error());
   };
 
   useEffect(()=>{
     getchats();
-  });
+  },[selectedchannel.channelID]);
 
    const send=useRef(null);
    function sendfunc(e){
@@ -72,12 +76,9 @@ export function Chatview({setmenu}){
     <input type="text" placeholder="Type a message here" className="p-0 flex-1 ml-4 caret-caert overflow-hidden bg-transparent text-white placeholder:text-caert text-sm font-sans outline-none" onKeyUp={(e)=>{
       if(e.key === 'Enter'){
         sendfunc(e);
-      }
+      };
     }}/>
-    <div className="m-1 cursor-pointer" onClick={(e)=>{
-       e.preventDefault();
-       sendfunc(e);
-    }}>
+    <div className="m-1 cursor-pointer" onClick={(e)=>sendfunc(e)}>
     <span className="material-icons-outlined text-xl bg-sky py-1 px-2 rounded-lg hover:scale-95">send</span>
     </div>
     </div>
