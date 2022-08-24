@@ -29,7 +29,7 @@ ReactDOM.render(
     <Route exact path="/login/auth/:id_token/:id" component={AuthRedirect} />
 
     <PrivateRoute exact path="/profile" Comp={Profile}/>
-    <PrivateRoute exact path="/" Comp={Chat}/>
+    <PrivateRoute exact path="/chat" Comp={Chat}/>
     <PrivateRoute exact path="/app" Comp={Imageupload}/>  
     <PrivateRoute exact path="/imageuploader" Comp={Imageupload}/>
     <PrivateRoute exact path="/imageuploader/:id" component={Imageredirect} />
