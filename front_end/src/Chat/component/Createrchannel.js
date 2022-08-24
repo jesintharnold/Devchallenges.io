@@ -2,6 +2,7 @@ import {useEffect, useState } from "react";
 import  ReactDOM  from "react-dom";
 import toast from "react-hot-toast";
 import {ClipLoader} from 'react-spinners';
+import { useUser } from "../../Authlibrary/context/user.context";
 import axios from "../../utils/axios";
 import { ADD_CHANNEL } from "../context/chatdispatchactions";
 import { useSocket } from "../context/socket/socket.context";
@@ -14,6 +15,7 @@ export function Modal({setmodal,getChannels,setgetChannels}){
     const [err,setErr]=useState({Name:'',Description:''});
     const [load,setLoad]=useState(false);
     const {_,socketdispatch}=useSocket();
+    const {user,setauth,Logout}=useUser();
 
     let cancelToken=axios.CancelToken.source();
     useEffect(()=>{
@@ -69,7 +71,7 @@ export function Modal({setmodal,getChannels,setgetChannels}){
                 channelName:obj.Name.toString(),
                 channelDesc:obj.Description.toString(),
                 // private: obj.bool=='on'?true:false,
-                userID: "619a5bd0a01ef280b3b92bd5"
+                userID: user.userID
             }    
             createChannel(payload);
             return;

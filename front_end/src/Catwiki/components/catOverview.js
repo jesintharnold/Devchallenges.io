@@ -1,11 +1,9 @@
 import { Progressblock } from "./progressblock";
-import seeds from './seed.json';
 import {useEffect, useState} from 'react';
 import toast from 'react-hot-toast';
 import Config from '../../Config/dev.json';
-import axios from 'axios';
 import { Redirect, useParams } from "react-router-dom";
-
+import axios from '../../utils/axios';
 
 export const Catoverview=()=>{
     const [data,setData]=useState({
@@ -40,7 +38,7 @@ export const Catoverview=()=>{
     console.log(id);
     
     async function callcats(){
-        await axios.get(`${Config.URL}/catwiki/search/${id}`).then(({status,data})=>{
+        await axios.get(`${process.env.REACT_APP_API_URL}/catwiki/search/${id}`).then(({status,data})=>{
             if(status===200){
                 setData(data);
             }
@@ -54,7 +52,6 @@ export const Catoverview=()=>{
 
 
     useEffect(()=>{
-        // call api at initial fetch
         callcats();
     },[])
 

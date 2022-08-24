@@ -7,6 +7,7 @@ import axios from "../../utils/axios";
 import { ADD_CHAT, GET_CHANNEL_CHATS } from "../context/chatdispatchactions";
 import toast from "react-hot-toast";
 import { sendMessage } from "../events/socket.functions";
+import { useUser } from "../../Authlibrary/context/user.context";
 
 
 
@@ -17,6 +18,7 @@ export function Chatview({setmenu}){
   const [load,setload]=useState(true);
   const {socketstate,socketdispatch}=useSocket();
   const {selectedchannel,chats}=socketstate;
+  const {user,_,Logout}=useUser();
 
   const getchats=async ()=>{
    await axios.post(`${process.env.REACT_APP_API_URL}/chat/getChatmessages`,{
@@ -42,9 +44,9 @@ export function Chatview({setmenu}){
         channelID:selectedchannel.channelID,
         message:send.current.children[0].value.trim(),
         timestamp:Date.now(),
-        userID:"6219fd00f897b3d831ba714d",
-        profile:"https://cdn.pixabay.com/photo/2016/11/22/21/42/woman-1850703_960_720.jpg",
-        user:"Jesinth Arnold"
+        userID:user.userID,
+        profile:user.profile,
+        user:user.name
       };
        sendMessage(payload);
        socketdispatch({

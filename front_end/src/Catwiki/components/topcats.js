@@ -1,17 +1,14 @@
-import seedata from './seed.json';
-import axios from 'axios';
 import toast from 'react-hot-toast';
 import {useEffect, useState} from 'react';
-import Config from '../../Config/dev.json';
 import { Link } from 'react-router-dom';
-
+import axios from '../../utils/axios';
 
 export const Topcats=()=>{
 
   const [data,setData]=useState([]);
     
     async function callcats(){
-        await axios.get(`${Config.URL}/catwiki/cats/10`).then(({status,data})=>{
+        await axios.get(`${process.env.REACT_APP_API_URL}/catwiki/cats/10`).then(({status,data})=>{
             if(status===200){
                 setData(data);
             }

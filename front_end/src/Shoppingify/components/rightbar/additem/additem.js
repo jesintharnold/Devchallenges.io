@@ -1,4 +1,3 @@
-import { data } from 'autoprefixer';
 import {useEffect, useState} from 'react';
 import toast from 'react-hot-toast';
 import validator from 'validator';

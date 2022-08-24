@@ -1,12 +1,11 @@
 import {useContext,useEffect, createContext, useReducer} from "react";
 import toast from "react-hot-toast";
 import {io} from 'socket.io-client';
-import constants from '../../../Config/dev.json';
 import { ADD_CHANNEL, ADD_CHAT } from "../chatdispatchactions";
 import socketevents from '../../events/socketevents.json';
 import {chatreducer} from './socket.reducer';
 
-const socket=io(constants.SOCKETURL);
+const socket=io(process.env.REACT_APP_SOCKET_URL);
 // console.log(constants.SOCKETURL);
 
 const socketcontext=createContext(null);
@@ -31,7 +30,6 @@ const [socketstate,socketdispatch]=useReducer(chatreducer,Initalstate);
 
 useEffect(()=>{
 socket.emit(socketevents.joinopenchannel);
-
 socket.on(socketevents.newchannel,(payload)=>{
         socketdispatch({
           type:ADD_CHANNEL,

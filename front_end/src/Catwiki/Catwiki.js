@@ -1,4 +1,4 @@
-import { Route, Switch,useRouteMatch} from "react-router-dom";
+import {Switch,useRouteMatch} from "react-router-dom";
 import { PrivateRoute } from "../Authlibrary/AuthRedirect";
 import { Catoverview } from "./components/catOverview";
 import { Footer, Header } from "./components/headfoot";
@@ -8,7 +8,7 @@ import { Topcats } from "./components/topcats";
 
 
 export const Catwiki=()=>{
-    let { path, url } = useRouteMatch();
+    let { path} = useRouteMatch();
 return (
 <div className="w-full bg-white">
     <div className="container md:p-0 px-1 mx-auto min-h-screen relative">

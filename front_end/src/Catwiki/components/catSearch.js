@@ -1,15 +1,15 @@
 import {useEffect, useState} from 'react';
-import axios from "axios";
 import toast from 'react-hot-toast';
 import Config from '../../Config/dev.json';
 import { Link } from 'react-router-dom';
+import axios from '../../utils/axios';
 
 export const Catsearch=()=>{
 const [search,setSearch]=useState([]);
 const [data,setData]=useState([]);
 
 async function getrecommends(){
-  await axios.get(`${Config.URL}/catwiki/recommend`).then(({status,data})=>{
+  await axios.get(`${process.env.REACT_APP_API_URL}/catwiki/recommend`).then(({status,data})=>{
         if(status===200){
             setData(data);
         }
