@@ -1,13 +1,16 @@
 import React from "react";
-import {Redirect,useParams,Route,useHistory} from 'react-router-dom';
+import {Redirect,useParams,Route,useHistory,Navigate} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
+import { useUser } from "./context/user.context";
 
 export function LoginProtect({Comp,...rest}){
-    let val=localStorage.getItem("user-access");
-
+    let token=localStorage.getItem("user-access");
+    const {user}=useUser();
+    const {userID}=user;
+    const contextvalue=userID!==null&&userID!==undefined;
     return <Route {...rest} render={
         props=>{
-        if(val){
+        if(token&&contextvalue){
             return <Redirect to="/"/>
         }else{
             return <Comp/>
@@ -18,6 +21,7 @@ export function LoginProtect({Comp,...rest}){
 
 export function Notfound(){
     if(localStorage.getItem("user-access")){
+        console.log("Rendering - Not Found");
       return <Redirect to="/" />
      }else{
          return <Redirect to="/login"/>
@@ -25,31 +29,25 @@ export function Notfound(){
 }
 
 export function AuthRedirect(){
-    console.log("Redirect Method is called");
-    let {id_token,id}=useParams();
-    console.log(id_token);
-    try{
-        let param=jwt_decode(id_token);
-        let payload={
-            Token:id_token,
-            Id:id,
-            ...param
-        }
-        console.log(payload);
-        localStorage.setItem("user-access",JSON.stringify(payload));
+    
+    let {id_token}=useParams();
+    const {user,setauth}=useUser();
+      console.log(id_token); 
 
+
+    try{
+        localStorage.setItem("user-access",id_token);
+        setauth(id_token);
+        
         if(id_token.trim()!==""){
             return <Redirect to="/" />
            }else{
-               document.getElementById("root").remove();
-               return <Redirect to="/login"/>
+            document.getElementById("root").remove();
+            return <Redirect to="/login"/>
            }
-       
     }catch(e){
         console.log(e);
     }
-
-    
 }
 
 
@@ -59,20 +57,10 @@ export function Logout(){
 }
 
 export const PrivateRoute=({Comp,...rest})=>{
-    let val=localStorage.getItem("user-access");
-    console.log(val);
-    let history=useHistory();
+    const {user}=useUser();
+    const {userID}=user;
+    const contextvalue=userID!==null&&userID!==undefined;
     return <Route {...rest} render={
-        props=>{
-        if(val){
-            console.log(`Calling this Method`);
-            return <Comp/>
-        }else{
-            history.replace({
-                pathname:"/login",
-                state:{isActive: true}
-            });
-            return <Redirect to="/login"/>
-        }}
+    props=>contextvalue?<Comp/>:<Redirect to="/login"/>
     }/>
 };

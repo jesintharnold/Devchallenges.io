@@ -220,7 +220,7 @@ export const Profile=()=>{
     });
     let {email}=JSON.parse(localStorage.getItem('user-access'));
     async function data_(){
-        let userval_= await axios.get(`http://localhost:5000/user/profile`,{params:{email:email}});
+        let userval_= await axios.get(`${process.env.REACT_APP_API_URL}/user/profile`,{params:{email:email}});
         console.log(userval_);
         if(!userval_.data.redirect){
          setData(userval_.data.value);
@@ -245,7 +245,7 @@ export const Profile=()=>{
 
     <div className='flex items-center m-6 mt-0  cursor-pointer' onClick={(e)=>{
          e.preventDefault();
-         setEdit(!edit); 
+         setEdit(prev=>!prev); 
         }}>
      <span className="material-icons text-base text-sky">arrow_back_ios</span>
      <span className='font-normal text-sky ml-1'>Back</span>

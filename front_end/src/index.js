@@ -13,6 +13,7 @@ import {Imageredirect} from "./Imageuploader/Imageredirect";
 import { Catwiki } from './Catwiki/Catwiki';
 import { Shoppingify } from './Shoppingify/shoppingify';
 import { Chat } from './Chat/chat';
+import { UserProvider } from './Authlibrary/context/user.context';
 
 
 ReactDOM.render(
@@ -20,22 +21,22 @@ ReactDOM.render(
     <BrowserRouter>
     <Toaster position="top-right" reverseOrder={false}/>
     <Switch>
+    
+    <UserProvider>
+
     <LoginProtect exact path="/login" Comp={Auth}/> 
+    {/* <Route exact path="/login" component={Auth}/> */}
     <Route exact path="/login/auth/:id_token/:id" component={AuthRedirect} />
 
     <PrivateRoute exact path="/profile" Comp={Profile}/>
-
-    <PrivateRoute exact path="/chat" Comp={Chat}/>
- 
-    <PrivateRoute exact path="/" Comp={Imageupload}/>  
-
+    <PrivateRoute exact path="/" Comp={Chat}/>
+    <PrivateRoute exact path="/app" Comp={Imageupload}/>  
     <PrivateRoute exact path="/imageuploader" Comp={Imageupload}/>
     <PrivateRoute exact path="/imageuploader/:id" component={Imageredirect} />
-    
     <PrivateRoute path="/catwiki" Comp={Catwiki}/>
     <PrivateRoute path="/shop" Comp={Shoppingify}/>
-  
-    <Route component={Notfound}/>
+    </UserProvider>
+
     </Switch>
     </BrowserRouter>
   </React.StrictMode>,

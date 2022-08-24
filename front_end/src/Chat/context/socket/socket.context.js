@@ -7,7 +7,7 @@ import socketevents from '../../events/socketevents.json';
 import {chatreducer} from './socket.reducer';
 
 const socket=io(constants.SOCKETURL);
-console.log(constants.SOCKETURL);
+// console.log(constants.SOCKETURL);
 
 const socketcontext=createContext(null);
 const useSocket=()=>useContext(socketcontext);

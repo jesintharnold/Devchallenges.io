@@ -3,6 +3,7 @@ import { Chatview } from "./component/chatview";
 import { SocketProvider } from "./context/socket/socket.context";
 import { Chatsidebar } from "./component/chat.sidebar";
 import { useState } from "react";
+import jwt_decode from 'jwt-decode';
 
 
 export const Chat=()=>{
