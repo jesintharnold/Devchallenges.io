@@ -6,4 +6,5 @@
 > Open Bugs & Features
 
 - [x] Logic for Send Message
-- [ ] user context  ---> decrypt current token in Context,place userID,name,profileURL
+- [x] user context  ---> decrypt current token in Context,place userID,name,profileURL
+- [ ] consuming all user-context in Applications

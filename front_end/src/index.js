@@ -25,7 +25,7 @@ ReactDOM.render(
     <UserProvider>
 
     <LoginProtect exact path="/login" Comp={Auth}/> 
-    {/* <Route exact path="/login" component={Auth}/> */}
+
     <Route exact path="/login/auth/:id_token/:id" component={AuthRedirect} />
 
     <PrivateRoute exact path="/profile" Comp={Profile}/>
