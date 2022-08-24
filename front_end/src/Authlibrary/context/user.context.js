@@ -41,8 +41,16 @@ const UserProvider=({children})=>{
         }
     };
 
+    const Logout=()=>{
+        localStorage.removeItem("user-access");
+       
+        setTimeout(()=>{
+            window.location.href="/login";
+       },3000);
+    }
+
 return(
-    <usercontext.Provider value={{user,setauth}}>
+    <usercontext.Provider value={{user,setauth,Logout}}>
         {children}
     </usercontext.Provider>
     )

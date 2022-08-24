@@ -12,6 +12,7 @@ module.exports = {
       colors:{
         'side':'#120f13',
         'main':'#252329',
+        'main_':'#131227',
         'search':'#3C393F',
         'sky':'#2F80ED',
         'bt':'#252329',
