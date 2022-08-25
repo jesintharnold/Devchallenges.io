@@ -28,7 +28,7 @@ const googleOauth=async (req,res,next)=>{
                }
            });
            if(res_access_token.data.verified_email===false){
-            res.status(403).send({Error:"Google account is not verified"});
+            next(new APIError({name:"AuthenticationError",message:"Google account is not verified",statusCode:403}));
            }
            if(res_access_token.data.verified_email){
             let payload={
@@ -36,7 +36,7 @@ const googleOauth=async (req,res,next)=>{
                 Profileurl:res_access_token.data.picture,
                 email:res_access_token.data.email
                };
-               EmailController(payload,res);
+               EmailController(payload,res,next);
             } 
         });
     }catch(err){
@@ -64,7 +64,7 @@ const facebookOauth=async (req,res,next)=>{
             Profileurl:user_data.data.picture.data.url,
             email:user_data.data.email
            }
-           EmailController(payload,res);
+           EmailController(payload,res,next);
       });
     }
     catch(e){
@@ -72,16 +72,6 @@ const facebookOauth=async (req,res,next)=>{
     }
 };
 
-const twitterOauth=async (req,res,next)=>{
-    let twitter_code=req.query.code;
-    const values={
-        code:twitter_code,
-        client_id:config.get('Twitter.client_id'),
-        client_secret:config.get('Twitter.client_secret'),
-        redirect_uri:config.get('Twitter.redirect_URL')
-    };
-
-};
 
 const githubOauth=async (req,res,next)=>{
     let github_code=req.query.code;
@@ -123,7 +113,6 @@ const githubOauth=async (req,res,next)=>{
 
 
 const logOut=async(req,res,next)=>{
-    logger.error("Reached Here");
     let logout_response=await UserDAO.setlogout(req.body.userID);
     if(logout_response.matchedCount===1&&logout_response.modifiedCount===1){
         res.status(200).json({

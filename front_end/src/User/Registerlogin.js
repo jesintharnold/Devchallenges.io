@@ -40,52 +40,40 @@ export const Auth=()=>{
         Password:''
     });
     
-  
-    
-
     async  function Authsubmit(e,payload){
         e.preventDefault();
-        
         let err={Email:'',Password:''};
         let passwordVal={
-            minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1
+        minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1
         };
         const data=new FormData(e.target);
         let obj=Object.fromEntries(data.entries());
-        console.log(validator.isEmail(obj.Email))
         if(validator.isEmpty(obj.Email) && validator.isEmail(obj.Email)===false){
-            err.Email="provide a valid email";
+        err.Email="provide a valid email";
         }
         if(validator.isEmpty(obj.Password) && validator.isStrongPassword(obj.Password,passwordVal)===false){
-            err.Password="provide a strong passprase"
+        err.Password="provide a strong passprase"
         }
-        
         setError({...err});
-
-
         if(validator.isEmpty(err.Password) && validator.isEmpty(err.Email)){
             setload(true);
             let url=`${process.env.REACT_APP_API_URL}/api/auth/${login?'login':'register'}`;
-            console.log(url);
-
             await axios.post(`${url}`,obj).then((data_)=>{
-                
                 let {status,data}=data_;
                 let {access_token,_id,error}=data;
-                if(access_token==null&&error.status===true&&status==200){
+                if(access_token===null&&error.status===true&&status===200){
                     setError({...err,...{Email:error.email,Password:error.password}});
                 }
-                if((status==201||status==200)&&error.status===false){
+                if((status===201||status===200)&&error.status===false){
                     window.location.href=`/login/auth/${access_token}/${_id}`;
                 }
-                if(status==302){
+                if(status===302){
                     window.location.href=`/login`;
                 }
                 setload(false);
             });
         }
     };
-
     return (
         <div className="w-full min-h-screen bg-transparent flex justify-center sm:items-center box-border ">
                <div className="w-full border-2 rounded-2xl border-transparent sm:border-authborder p-5 sm:w-1/2 xl:w-1/3">               
@@ -119,7 +107,6 @@ export const Auth=()=>{
                <div className='flex justify-center gap-6 my-8'>
                    {icon_list.map((data,index)=>(
                        <a className="box-border"  key={index} href={data.Func} onClick={(e)=>{
-                           console.log(data.Name);
                        }}><img src={data.Path} className="w-full h-full" alt={`${data.Name}`}/></a>
                    ))}
                </div>

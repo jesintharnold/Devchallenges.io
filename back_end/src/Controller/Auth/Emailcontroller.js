@@ -33,10 +33,10 @@ class Token{
 
 }
 
-const EmailController=async (payload,res)=>{
+const EmailController=async (payload,res,next)=>{
     const {value,error}=emailfromauth.validate(payload);
     if(error){
-       res.status(403).send({Error:`Validation Error`});
+      next(error);
     }
     try{
        let user=await UserDAO.findprotectuser(value.email);
