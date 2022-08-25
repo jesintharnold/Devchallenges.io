@@ -65,7 +65,7 @@ export const Auth=()=>{
 
         if(validator.isEmpty(err.Password) && validator.isEmpty(err.Email)){
             setload(true);
-            let url=`http://localhost:5000/api/auth/${login?'login':'register'}`;
+            let url=`${process.env.REACT_APP_API_URL}/api/auth/${login?'login':'register'}`;
             console.log(url);
 
             await axios.post(`${url}`,obj).then((data_)=>{

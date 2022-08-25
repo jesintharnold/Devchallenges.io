@@ -42,11 +42,11 @@ const EmailController=async (payload,res)=>{
        let user=await UserDAO.findprotectuser(value.email);
        if(user==null){
         let user_update=await UserDAO.insertuser({email:payload.email,name:payload.Name,profile_url:payload.Profileurl,Admin:false,online:true});
-        let access_token=Token.access({name:payload.Name,email:payload.email,profile_url:payload.Profileurl});
+        let access_token=Token.access({user:payload.Name,email:payload.email,profile:payload.Profileurl,userID:user_update.insertedId});
         res.redirect(`${config.get("clientOrgin")}/login/auth/${access_token}/${user_update.insertedId}`);
        }else{
         await UserDAO.setOnline(value.email); // setting user online
-        let access_token=Token.access({name:user.Name,email:user.email,profile_url:user.Profileurl});
+        let access_token=Token.access({user:user.Name,email:user.email,profile:user.Profileurl,userID:user._id});
         res.redirect(`${config.get("clientOrgin")}/login/auth/${access_token}/${user._id}`);
        }
     }catch(e){

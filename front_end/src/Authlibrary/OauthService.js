@@ -1,8 +1,3 @@
-import axios from 'axios';
-import { HmacSHA1, enc } from "crypto-js";
-import { v4 as uuidv4 } from 'uuid';
-
-const baseURL="http://localhost:5000";
 export function googleOauth(){
   const _url="https://accounts.google.com/o/oauth2/v2/auth";
   const options = {
@@ -28,7 +23,6 @@ export function githubOauth(){
         scope:["read:user","user:email"].join(" ")
      };
      const qs=new URLSearchParams(options);
-     console.log(`${url}?${qs.toString()}`);
      return `${url}?${qs.toString()}`;
 
 };
@@ -42,7 +36,6 @@ export function facebookOauth(){
     scope:"email,public_profile"
   }
   const qs=new URLSearchParams(options);
-  console.log(`${url}?${qs.toString()}`);
   return `${url}?${qs.toString()}`;
 }
 

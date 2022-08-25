@@ -1,0 +1,10 @@
+{
+"connection":"connection",
+"joinopenchannel":"joinopenchannel",
+"joinchannel":"joinchannel",
+"newchannel":"newchannel",
+"toast":"toast",
+"sendmessage":"sendmessage",
+"recievemessage":"recievemessage"
+}
+

@@ -1,0 +1,7 @@
+export const GET_CHANNELS="GET_CHANNELS";
+export const ADD_CHANNEL="ADD_CHANNEL";
+export const ADD_CHAT="ADD_CHAT";
+export const SELECT_CHANNEL="SELECT_CHANNEL";
+export const MODAL="MODAL";
+export const GET_CHANNEL_CHATS="GET_CHANNEL_CHATS";
+export const SELCT_CHANNEL_POPUP="SELCT_CHANNEL_POPUP";

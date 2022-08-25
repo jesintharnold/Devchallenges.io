@@ -2,26 +2,11 @@ import {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import catwikilight from '../../Assets/Catwiki_white.svg';
 import { Catsearch } from './catSearch';
-import axios from 'axios';
 import Img1 from '../Asset/image_1.png';
 import Img2 from '../Asset/image_2.png';
 import Img3 from '../Asset/image_3.png';
-import Config from '../../Config/dev.json';
 import toast from 'react-hot-toast';
-
-
-
-const seeder=[
-    {"url": "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg",
-    "name": "Abyssinian"},
-    {"url": "https://cdn2.thecatapi.com/images/ozEvzdVM-.jpg",
-    "name": "Aegean"},
-    {"url": "https://cdn2.thecatapi.com/images/xnsqonbjW.jpg",
-    "name": "American Curl"},
-    {"url": "https://cdn2.thecatapi.com/images/hBXicehMA.jpg",
-    "name": "American Bobtail"}
-];
-
+import axios from '../../utils/axios';
 
 
 export const Main=()=>{
@@ -29,7 +14,7 @@ export const Main=()=>{
     const [data,setData]=useState([]);
     
     async function callcats(){
-        await axios.get(`${Config.URL}/catwiki/cats/4`).then(({status,data})=>{
+        await axios.get(`${process.env.REACT_APP_API_URL}/catwiki/cats/4`).then(({status,data})=>{
             if(status===200){
                 setData(data);
             }

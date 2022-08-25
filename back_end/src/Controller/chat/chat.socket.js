@@ -1,3 +1,4 @@
+const { logger } = require("../../utils/logger");
 const Events=require("./chat.Events");
 const {joinAllchannels,sendMessages}=require("./chatcontroller");
 
@@ -19,7 +20,8 @@ const SocketInit=({io})=>{
     socket.broadcast.emit(Events.newchannel,payload); // Broadcast to all users
     });
 
-    socket.on(Events.channelmessage,(payload)=>{
+    socket.on(Events.sendmessage,(payload)=>{
+    logger.info(payload);
     sendMessages(socket,payload);
     });
 

@@ -1,13 +1,13 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
-import config from '../Config/dev.json';
+import axios from '../utils/axios';
+
 export const Imageredirect=()=>{
    let {id}=useParams();
    const [data,setdata]=useState(null);
    async function get_redirect(){
-    await axios.get(`${config.URL}/image/${id}`).then(data=>{
+    await axios.get(`${process.env.REACT_APP_API_URL}/image/${id}`).then(data=>{
          if(data.status===200){
              setdata(data.data.url); 
              setTimeout(()=>{

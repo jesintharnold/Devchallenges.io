@@ -81,7 +81,7 @@ class channelDAO{
             _id:ObjectId(payload.channelID)
          },{
             $push:{"messages":{
-               message:payload.Msg,
+               message:payload.message,
                timestamp:payload.timestamp,
                userID:ObjectId(payload.userID)
             }}
@@ -139,8 +139,8 @@ class channelDAO{
          {$project:{members:1,_id:0}},
          {$unwind : "$members"},
          {$lookup:{from:"users",localField:"members.userID",foreignField:"_id",as:"Channelmember"}},
-         {$project:{name:{$first:"$Channelmember.name"},status:{$first:"$Channelmember.online"}}}
-      ];
+         {$project:{name:{$first:"$Channelmember.name"},status:{$first:"$Channelmember.online"},profile:{$first:"$Channelmember.profile_url"}}}
+         ];
       return await channel_collection.aggregate(pipeline).toArray();
    }
 }
