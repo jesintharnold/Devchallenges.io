@@ -38,7 +38,6 @@ const devfunc=(err,req,res)=>{
 };
 
 
-//Production  - object
 const prodfunc=(err,req,res)=>{
     if(err.isOperational){
         res.status(err.statusCode).json({
@@ -46,22 +45,18 @@ const prodfunc=(err,req,res)=>{
             message:err.message
         });
     };
-    
     res.status(500).json({
         status: 'unknown-error',
         message: 'Something went very wrong'
     })
 };
 
-//global handler for centralized error handling
+
 
 const globalHandle=(err,req,res,next)=>{
     err.statusCode = err.statusCode || 500;
     if(process.env.NODE_ENV==='development'){
        devfunc(err,req,res);
-
-       //development
-       //production
     }
     else if(process.env.NODE_ENV==='production'){
         if(err.name===`ValidationError`) err=joi_validation_error(err);

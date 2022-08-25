@@ -18,8 +18,7 @@ class channelDAO{
 
 
    static async createChannel(payload){
-       try{      //change payload to array
-          let res=await channel_collection.insertOne({
+      return await channel_collection.insertOne({
             channelName:payload.channelName.trim(),
             channelDesc:payload.channelDesc.trim(),
             private:payload.private,
@@ -34,27 +33,18 @@ class channelDAO{
              return O;
           });
 
-          logger.warn(res);
-         return res;
-
-       }catch(err){
+      //  }catch(err){
          
-          if(err.code===11000){
-             return err.code;
-          };
-          return 500;
-       }
-   }
+      //     if(err.code===11000){
+      //        return err.code;
+      //     };
+      //     return 500;
+      //  }
+   };
 
 
    static async getAllChannelName(){      
-      try{
-       return await channel_collection.find({},{projection:{"channelName":1,"_id":1,"channelDesc":1}}).toArray();
-      }catch(e){
-         logger.error(e);
-         return 500;
-
-      }
+      return await channel_collection.find({},{projection:{"channelName":1,"_id":1,"channelDesc":1}}).toArray();
    }
 
    static async getopenchannels(){
@@ -101,7 +91,6 @@ class channelDAO{
       }
    }
 
-   // User clicks on the invitation sends allows user to join to the channel.
    static async joinChannel(payload){
      try{
          let res=await channel_collection.update({
@@ -124,14 +113,9 @@ class channelDAO{
             {$lookup:{from:"users",localField:"messages.ID",foreignField:"_id",as:"USD"}},
             {$project:{message:"$messages.message",userID:"$messages.userID",timestamp:"$messages.timestamp",IDNAME:{$first:"$USD.Name"},PROFILEURL:{$first:"$USD.Profileurl"}}}
          ];
-      try{
-       let res=await channel_collection.aggregate(pipeline).toArray();
-       return res;
-      }catch(e){
-         logger.error(e);
-         return 500;
-      }
-   }
+    
+      return await channel_collection.aggregate(pipeline).toArray();
+   };
 
    static async getChannelMembers(payload){
       let pipeline=[

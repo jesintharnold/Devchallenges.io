@@ -2,34 +2,34 @@ const {logger}=require('../../utils/logger');
 const {channelSchema,getmessageSchema,messageSchema}=require('../../Schema/chatschemaval');
 const channelDAO =require('../../DB/chat/channel');
 const Events = require('./chat.Events');
+const APIError = require('../../utils/APIError');
+const asyncWrapper=require("../../utils/asyncWrapper");
 
 
-const createChannel=async (req,res,next)=>{
+const createChannel=asyncWrapper(async (req,res,next)=>{
     let {error,value}=channelSchema.validate(req.body);
     if(error){
-        res.status(500).send({Err:`Missing Input (or) Validation Error \n`,error});
+      next(error);
     }else{
-      let _res=await channelDAO.createChannel(req.body);
+      let _res=await channelDAO.createChannel(value);
       if(_res.insertedCount===1){
         res.status(201).send({
             channelDesc: _res.channelDesc,
             channelName: _res.channelName,
             _id:_res._id
           });
-      }
-      if(_res===11000){
-        return res.status(400).send({Err:`Channel name already exists`,Errcode:11000})
-      }
-      if(_res===500){
-        return res.status(500).send({Err:`Internal Server Error`});
-      }
+      };
     }
-};
+});
 
-const getAllChannels=async(req,res,next)=>{
+const getAllChannels=asyncWrapper(async(req,res,next)=>{
   let _res=await channelDAO.getAllChannelName();
-  res.status(200).send(_res);
-}
+  if(_res.length>0){
+    res.status(200).send(_res);
+  }else{
+    next(new APIError({name:"ItemNotFound",message:"No channels found , please start adding",statusCode:400}));
+  }
+})
 
 const joinAllchannels=async (socket)=>{
  let res=await channelDAO.getopenchannels();
@@ -43,32 +43,32 @@ const joinAllchannels=async (socket)=>{
  }
 }
 
-const getChatmessages=async (req,res,next)=>{
-  logger.info(`Get Messages - CHAT -`,req.body);
+const getChatmessages=asyncWrapper(async (req,res,next)=>{
   let {error,value}=getmessageSchema.validate(req.body);
    if(error){
-        res.status(500).json({Err:`Missing Input (or) Validation Error \n`,error});
+      next(error);
     }else{
       let _res=await channelDAO.getChannelmessages(value.channelID);
-      if(_res===500){
-        res.status(500).json({Err:`Internal Server Error`});
+      if(_res.length>0){
+        res.status(200).send(_res);
+      }else{
+      next(new APIError({name:"ItemNotFound",message:"No Messages found",statusCode:400}));
       }
-      res.status(200).send(_res);
   }
-};
+});
 
 const getMembers=async(req,res,next)=>{
 let {channelID}=req.params;
 let {error,value}=getmessageSchema.validate({channelID:channelID});
 if(error){
-  res.status(500).json({Err:`Missing Input (or) Validation Error \n`,error});
+  next(error);
 }else{
    let res_=await channelDAO.getChannelMembers(value.channelID);
    if(res_.length>0){
     res.status(200).json({members:res_});
    }else{
-    res.status(500).json({Err:`Internal Server Error`});
-   }
+    next(new APIError({name:"ItemNotFound",message:"No Messages found",statusCode:400}));
+  }
 }
 };
 

@@ -6,7 +6,7 @@ let user_collection;
 class UserDAO{
     static async injectCol(db){
        if(user_collection){
-           return
+           return;
        }
        try{
            user_collection=await db.collection(config.get("dbConfig.col_user"));

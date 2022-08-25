@@ -4,9 +4,6 @@ const {nanoid}=require("nanoid");
 const asyncWrapper=require("../../utils/asyncWrapper");
 const APIError = require('../../utils/APIError');
 
-
-//Upload and get functionality
-
 const Imageupload=asyncWrapper(async(req,res,next)=>{
       if(!req.file){
         return next(new APIError({name:"Unknown Error",message:"Image location not found",statusCode:500}));
