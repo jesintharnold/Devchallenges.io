@@ -14,7 +14,11 @@ function Channeloverview(){
     const [load,setload]=useState(true);
     const [members,setmembers]=useState([]);
     const getmembers=async ()=>{
-        await axios.get(`${process.env.REACT_APP_API_URL}/chat/channel/${selectedchannel.channelID}/members`).then(({data})=>{setmembers(data.members);setload(false);}).catch((e)=>{toast.error(`unable to fetch members`);console.log(e)});
+        await axios.get(`${process.env.REACT_APP_API_URL}/chat/channel/${selectedchannel.channelID}/members`).then(({data})=>{setmembers(data.members);setload(false);}).catch(({response})=>{
+            if(response.data.name.trim().includes("ItemNotFound")){
+              toast.error(response.data.message);
+            }
+          });
     };
 
     useEffect(()=>{

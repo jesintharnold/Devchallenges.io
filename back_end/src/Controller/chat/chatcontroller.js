@@ -67,7 +67,7 @@ if(error){
    if(res_.length>0){
     res.status(200).json({members:res_});
    }else{
-    next(new APIError({name:"ItemNotFound",message:"No Messages found",statusCode:400}));
+    next(new APIError({name:"ItemNotFound",message:"No Members found",statusCode:400}));
   }
 }
 };

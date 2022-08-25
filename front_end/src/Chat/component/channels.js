@@ -22,7 +22,11 @@ function Channels(){
         return;
       }
       toast.error(`No Channels found`);
-     }).then(()=>setload(false)).catch((err)=>toast.error());
+     }).then(()=>setload(false)).catch(({response})=>{
+      if(response.data.name.trim().includes("ItemNotFound")){
+        toast.error(response.data.message);
+      }
+    });
     };
 
     useEffect(()=>{

@@ -4,17 +4,16 @@ const {logger}=require('./logger');
 
 
 const duplicate_error=(err)=>{
+    logger.info();
      let value =err.errmsg.split('key:').pop();
      let message=`Duplicate field value: ${value}.Please try again`;
-     logger.warn(new APIError({name:`Duplicate Error`,message:message,statusCode:400}));
-     return new APIError({name:`Duplicate Error`,message:message,statusCode:400});
+     return new APIError({name:`Duplicate Error`,message:`E11000`,statusCode:400});
 };
 
 const Image_upload_drag=(err)=>{
     return new APIError({name:`Image Upload Error`,message:err.message,statusCode:400});
 }
 
-//Error - const {error,value}=Joi.validate();
 const joi_validation_error=(err)=>{
     return new APIError({name:`ValidationError`,message:err.message,statusCode:400});
 };

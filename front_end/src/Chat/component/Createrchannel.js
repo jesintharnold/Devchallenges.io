@@ -29,7 +29,6 @@ export function Modal({setmodal,getChannels,setgetChannels}){
 
     const createChannel=async(payload,error)=>{
         await axios.post(`${process.env.REACT_APP_API_URL}/chat/channel`,payload,cancelToken.token).then(({data})=>{
-        console.log(data);
         let payload={
           channelDesc: data.channelDesc,
           channelName: data.channelName,
@@ -44,11 +43,15 @@ export function Modal({setmodal,getChannels,setgetChannels}){
             setLoad(false);
             setmodal(false);
           }).catch(({response})=>{
-            if(response.status===400&&response.data.Errcode===11000){
-            setErr({...error,Name:response.data.Err});
-            };
-            toast.error("Internal server Error");
-          });
+            if(response.status===400&&response.data.message.trim().includes("E11000")){
+
+            setErr({...error,Name:"Channel name already exists"});
+            return;
+            }else{
+                toast.error("Internal server Error");
+            }
+               
+        });
     };
 
 

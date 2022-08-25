@@ -29,7 +29,11 @@ export function Chatview({setmenu}){
       type:GET_CHANNEL_CHATS,
       payload:data
     });
-  }).then(()=>setload(false)).catch((err)=>toast.error());
+  }).then(()=>setload(false)).catch(({response})=>{
+    if(response.data.name.trim().includes("ItemNotFound")){
+      toast.error(response.data.message);
+    }
+  });
   };
 
   useEffect(()=>{
