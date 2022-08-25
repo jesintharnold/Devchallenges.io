@@ -16,7 +16,7 @@ export const Profile=()=>{
         Bio: null,
         Email: "Email@gmail.com",
         Name: "Your Name",
-        Password: null,
+        Password: null ,
         ProfileURL: "https://lh3.googleusercontent.com/a/AATXAJzvCh6my3YVdaseB9vuPM8N3dVQxxZ861T4Flkp=s96-c",
         Phone:null
     });
