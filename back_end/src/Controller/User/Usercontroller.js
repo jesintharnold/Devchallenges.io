@@ -16,7 +16,6 @@ const getuserProfile=asyncWrapper(async (req,res,next)=>{
     }else{  
     let user_val=await UserDAO.findprotectuser(value.email);
     if(user_val!==null){
-        user_val=user_val[0];
         res.status(200).json({
         redirect:false,
         value:{

@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { useUser } from "../../Authlibrary/context/user.context";
 
 export const LogoutComp=({bottom,bg=true})=>{
-    const [drop,setDrop]=useState(!bottom);
+    const [drop,setDrop]=useState(bottom);
     const {user,_,Logout}=useUser();
     return (
         <>
