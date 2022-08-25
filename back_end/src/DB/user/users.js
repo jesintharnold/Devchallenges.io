@@ -18,29 +18,11 @@ class UserDAO{
     };
 
     static async insertuser(user_payload){
-
-        try{
-            let r= await user_collection.insertOne(user_payload);
-            logger.info(r);
-            return r;
-        }
-        catch(err){
-            logger.error(`Unable to perform Insert operation - ${err}`);
-            if(err.code===11000){
-                return err.code;
-             };
-             return 500;
-        }
+        return await user_collection.insertOne(user_payload);
     };
 
     static async findprotectuser(email){
-        try{
-            return await user_collection.findOne({"email":email});
-        }
-        catch(e){
-            logger.error(`Unable to find the User - ${e}`);
-            return 500;
-        }
+     return await user_collection.findOne({"email":email});
     };
 
     static async setlogout(userID){

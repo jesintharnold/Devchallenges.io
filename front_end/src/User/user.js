@@ -5,6 +5,7 @@ import axios from '../utils/axios';
 import {LogoutComp} from '../utils/components/LogoutComp';
 import { Profileeditview } from './components/user.edit';
 import { Profileview } from './components/user.profile';
+import toast from 'react-hot-toast';
 
 export const Profile=()=>{
 
@@ -20,12 +21,17 @@ export const Profile=()=>{
         Phone:null
     });
     async function getProfileInfo(){
-        let userval_= await axios.get(`${process.env.REACT_APP_API_URL}/user/profile`,{params:{email:user.email}});
-        if(!userval_.data.redirect){
-         setData(userval_.data.value);
-        }else{
-            window.location.href="/";
-        }
+        await axios.get(`${process.env.REACT_APP_API_URL}/user/profile`,{params:{email:user.email}}).then(({data})=>{
+            if(data.redirect===false){
+                setData(data.value);
+            };
+        }).catch(({response})=>{
+            if(response.data.name.includes("ItemNotFound")){
+                  toast.error(`${response.data.message}`);
+            }else{
+                window.location.href="/";
+            }
+        });
     }
     useEffect(()=>{          
         getProfileInfo();

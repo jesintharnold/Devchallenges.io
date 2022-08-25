@@ -4,62 +4,53 @@ const { logger } = require('../../utils/logger');
 const bcrypt=require("bcrypt");
 const config=require("config");
 const { upload_ } = require('../../Middlewares/bucket');
+const asyncWrapper=require('../../utils/asyncWrapper');
+const APIError = require('../../utils/APIError');
 
-const getuserProfile=async (req,res,next)=>{
-    logger.info(`It reached this ....`);
+
+const getuserProfile=asyncWrapper(async (req,res,next)=>{
     let email=req.query.email;
-    logger.info(req.query);
     let {value,error}=getprofile.validate({email:email});
-    try{
-        if(error){
-         res.status(200).json({
-                redirect:true,
-                value:null
-            });
-        }else{  
-        let user_val=await UserDAO.findprotectuser(value.email);
-     
+    if(error){
+        next(error);
+    }else{  
+    let user_val=await UserDAO.findprotectuser(value.email);
+    if(user_val!==null){
+        user_val=user_val[0];
         res.status(200).json({
-            redirect:false,
-            value:{
-                ProfileURL:user_val.profile_url,
-                Name:user_val.name,
-                Email:user_val.email,
-                Bio:user_val.hasOwnProperty('bio')?user_val.bio:null,
-                Password:user_val.hasOwnProperty('password'),
-                Phone:user_val.hasOwnProperty('phone')?user_val.phone:null
-            }
-        });
-    }}catch(err){
-        res.status(200).json({
-            redirect:true,
-            value:null
-        });
+        redirect:false,
+        value:{
+        ProfileURL:user_val.profile_url,
+        Name:user_val.name,
+        Email:user_val.email,
+        Bio:user_val.hasOwnProperty('bio')?user_val.bio:null,
+        Password:user_val.hasOwnProperty('password'),
+        Phone:user_val.hasOwnProperty('phone')?user_val.phone:null
+        }
+    });
+    }else{
+    next(new APIError({name:"ItemNotFound",message:"No details found for this email",statusCode:400})); 
     }
-};
+}
+});
 
-// Photo upload function
 
-// Profile update function
-const getuserProfileupdate=async (req,res,next)=>{
+const getuserProfileupdate=asyncWrapper(async (req,res,next)=>{
 
     upload_(req,res,async function(err){
         if(err){
-                res.status(200).json({
-                    redirect:true,
-                    error:{value:`Error while uploading Avatar`,status:true}
-          });
+        res.status(200).json({
+        redirect:true,
+        error:{value:`Error while uploading Avatar`,status:true}
+        });
         };
     
-        
         if(!req.file){
           req.body['Image']=null;
         }else{
           req.body['Image']=req.file.location;
         }
-      
     
-
     let payload={
     email:req.body.Email,
     bio:req.body.Bio||null,
@@ -67,22 +58,12 @@ const getuserProfileupdate=async (req,res,next)=>{
     name:req.body.Name,
     password:req.body.Password==null?null:req.body.Password.toString()
     };
-    
 
-    try{ 
-    let {value,error}=updateProfile.validate(payload);
-    logger.info(error);
+    let {error,value}=updateProfile.validate(payload);
     if(error){
-        res.status(400).json({
-            redirect:true,
-            error:{
-                status:true,
-                value:`Validation error`,
-            }
-        });
+        next(error);
     }else{
         let user_val=await UserDAO.findprotectuser(payload.email);
-
         if((user_val.hasOwnProperty('password'))||(payload.password==null)){
             let val_=await UserDAO.finduser(payload.email,req.body.Image===null?{
                 bio:payload.bio,
@@ -121,14 +102,8 @@ const getuserProfileupdate=async (req,res,next)=>{
             });
         }
     }
-    }catch(err){
-        res.status(200).json({
-            redirect:true,
-            error:{value:`Internal server error`,status:true}
-        });
-    }
 });
-};
+});
 
 module.exports={
     getuserProfile,

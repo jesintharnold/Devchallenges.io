@@ -4,10 +4,9 @@ const {logger}=require('./logger');
 
 
 const duplicate_error=(err)=>{
-    logger.info();
-     let value =err.errmsg.split('key:').pop();
-     let message=`Duplicate field value: ${value}.Please try again`;
-     return new APIError({name:`Duplicate Error`,message:`E11000`,statusCode:400});
+    let value =err.errmsg.split('key:').pop();
+    let message=`Duplicate field value: ${value}.Please try again`;
+    return new APIError({name:`Duplicate Error`,message:`E11000`,statusCode:400});
 };
 
 const Image_upload_drag=(err)=>{

@@ -7,29 +7,22 @@ import axios from '../../utils/axios';
 export const profiletoast=(promise)=>{
     return toast.promise(promise,{
         loading:'Saving...',
-        success:(data)=>{
-         let {error}=data.data;
+        success:({data})=>{
+         let {error}=data;
          if(error.status){
             throw new Error(error.value); 
          }else{ 
             window.location.href="/profile"; 
-            return <b>Profile updated !</b>
+            return <b>Profile updated </b>
          }
         },
-        error:(err)=>{
-            if(err.response.status===400){
-                return <b>{err.response.data.error.value}</b>
-            }else{
-                return <b>{err.message}</b>
-            }
-            
+        error:({response})=>{
+           return <b>{response.data.message}</b>
         }
     });
     }
 
-
 export const Profileeditview=({data})=>{
-
     const [load,setLoad]=useState(false);
     const [error,setError]=useState({
       Name:'',

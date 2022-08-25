@@ -45,7 +45,7 @@ const EmailController=async (payload,res,next)=>{
         let access_token=Token.access({user:payload.Name,email:payload.email,profile:payload.Profileurl,userID:user_update.insertedId});
         res.redirect(`${config.get("clientOrgin")}/login/auth/${access_token}/${user_update.insertedId}`);
        }else{
-        await UserDAO.setOnline(value.email); // setting user online
+        await UserDAO.setOnline(value.email);
         let access_token=Token.access({user:user.Name,email:user.email,profile:user.Profileurl,userID:user._id});
         res.redirect(`${config.get("clientOrgin")}/login/auth/${access_token}/${user._id}`);
        }
