@@ -24,12 +24,12 @@ export function Chatview({setmenu}){
    await axios.post(`${process.env.REACT_APP_API_URL}/chat/getChatmessages`,{
     channelID:selectedchannel.channelID
     }).then(({data})=>{
-      console.log(`Dispatching - GET CHANNELS`);
       socketdispatch({
       type:GET_CHANNEL_CHATS,
       payload:data
     });
   }).then(()=>setload(false)).catch(({response})=>{
+    setload(false);
     if(response.data.name.trim().includes("ItemNotFound")){
       toast.error(response.data.message);
     }

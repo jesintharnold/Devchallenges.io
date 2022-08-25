@@ -32,14 +32,6 @@ class channelDAO{
              O.insertedCount=1
              return O;
           });
-
-      //  }catch(err){
-         
-      //     if(err.code===11000){
-      //        return err.code;
-      //     };
-      //     return 500;
-      //  }
    };
 
 
@@ -76,10 +68,6 @@ class channelDAO{
                userID:ObjectId(payload.userID)
             }}
          });
-
-
-         logger.info(res);
-
          if(res.modifiedCount!==1){
             return 500;
          }

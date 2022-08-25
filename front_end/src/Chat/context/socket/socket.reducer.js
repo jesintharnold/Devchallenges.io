@@ -12,11 +12,21 @@ switch(action.type){
         return {...state,modal:!state.modal};
 
     case ADD_CHAT:       
-        return {...state,chats:{...state.chats,[state.selectedchannel.channelID]:[...state.chats[state.selectedchannel.channelID],{
-            message:action.payload.message,
-            timestamp:action.payload.timestamp,
-            userID:action.payload.userID
-        }]}};
+    
+        if(state.chats[state.selectedchannel.channelID]!==undefined){
+            return {...state,chats:{...state.chats,[state.selectedchannel.channelID]:[...state.chats[state.selectedchannel.channelID],{
+                message:action.payload.message,
+                timestamp:action.payload.timestamp,
+                userID:action.payload.userID
+            }]}};
+        }else{
+            console.log("Executing here");
+            return {...state,chats:{...state.chats,[state.selectedchannel.channelID]:[{
+                message:action.payload.message,
+                timestamp:action.payload.timestamp,
+                userID:action.payload.userID
+            }]}};
+        }
 
     case SELECT_CHANNEL:
         return {...state,selectedchannel:{

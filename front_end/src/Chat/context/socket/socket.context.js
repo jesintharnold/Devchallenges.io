@@ -18,8 +18,8 @@ const SocketProvider=({children})=>{
 const Initalstate={
 selectedchannel:{
     channelName:"Welcome",
-    channelID:"6213eac541c3990a4479d153",
-    channelDesc:"just a good channel",
+    channelID:"6307ab740794105dec550735",
+    channelDesc:null,
     checked:false
 },
 channellist:[],

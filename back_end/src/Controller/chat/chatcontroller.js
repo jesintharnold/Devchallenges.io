@@ -62,7 +62,9 @@ let {channelID}=req.params;
 let {error,value}=getmessageSchema.validate({channelID:channelID});
 if(error){
   next(error);
+  return;
 }else{
+  logger.info('executing here');
    let res_=await channelDAO.getChannelMembers(value.channelID);
    if(res_.length>0){
     res.status(200).json({members:res_});
