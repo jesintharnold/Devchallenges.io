@@ -1,4 +1,3 @@
-import { data } from 'autoprefixer';
 import {useEffect, useState} from 'react';
 import toast from 'react-hot-toast';
 import validator from 'validator';
@@ -80,7 +79,6 @@ export const Additem=({setAdditem})=>{
           toast.error(res.data.message);
         }else{
           toast.success("Added successfully");
-          //Dispatch to Items
           setAdditem(prev=>!prev);
         }
       }

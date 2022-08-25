@@ -1,0 +1,29 @@
+{
+ "Apps":[
+  {
+    "name":"Image uploader",
+    "url":"/imageuploader",
+    "icon":"camera"
+  },
+  {
+    "name":"Chat",
+    "url":"/chat",
+    "icon":"chat"
+  },
+  {
+    "name":"catwiki",
+    "url":"/catwiki",
+    "icon":"pets"
+  },
+  {
+    "name":"Shoppingify",
+    "url":"/shop",
+    "icon":"shopping_cart"
+  },
+  {
+    "name":"Profile",
+    "url":"/profile",
+    "icon":"admin_panel_settings"
+  } 
+ ]   
+}

@@ -1,17 +1,16 @@
 import {useEffect, useState } from "react";
 import {Modal} from "./component/Createrchannel";
-import { Chat } from "./component/chat";
+import { Chatview } from "./component/chatview";
 import Client from './socketclient';
 import Channels from "./component/channels";
-import Logout from "./component/logout";
 import Channeloverview from './component/channeloverview';
 import {io} from 'socket.io-client';
 import Logoutchat from "./component/logout";
 
 
-export const  Chatapp=({props})=>{
-  const [drop,setDrop]=useState(false);
-  const [side,setSide]=useState(false);
+export const  Chatapp=()=>{
+  
+  const [side,setSide]=useState(true);
   const [channel,setChannel]=useState({
     channelName:"Welcome",
     channelId:"6213eac541c3990a4479d153",
@@ -68,10 +67,10 @@ export const  Chatapp=({props})=>{
      <Channels setChannel={setChannel} getChannels={getChannels} setgetChannels={setgetChannels} />
     </div>
     <Channeloverview setChannel={setChannel} channel={channel}/>
-   <Logoutchat drop={drop} setDrop={setDrop}/> 
+   <Logoutchat/> 
 </div>
 <div className="h-full relative bg-main text-white z-10  lg:flex-1">
-<Chat side={side} setSide={setSide} channel={channel} chats={chats} setChats={setChats}/>
+<Chatview side={side} setSide={setSide} channel={channel} chats={chats} setChats={setChats}/>
 </div>
 
 {modal?<Modal setModal={setModal} getChannels={getChannels} setgetChannels={setgetChannels}/>:''}

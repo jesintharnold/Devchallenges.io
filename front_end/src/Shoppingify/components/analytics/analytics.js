@@ -5,38 +5,6 @@ import { ClipLoader } from "react-spinners";
 import axios from "../../../utils/axios";
 import toast from "react-hot-toast";
 
-// const Categories_seeder=[{name:"Banana",rating:20},{name:"Rice",rating:40},{name:"Chicken 1kg",rating:5}];
-// const data_ = [
-//   {
-//     month: "January",
-//     value: 4000
-//   },
-//   {
-//     month: "February",
-//     value: 3000
-//   },
-//   {
-//     month: "March",
-//     value: 2000
-//   },
-//   {
-//     month: "April",
-//     value: 2780
-//   },
-//   {
-//     month: "May",
-//     value: 1890
-//   },
-//   {
-//     month: "June",
-//     value: 2390
-//   },
-//   {
-//     month: "July",
-//     value: 3490
-//   }
-// ];
-
 function changePayload(payload){
   var months = [{month: "January",value: 0},{month: "February",value: 0},{month: "March",value: 0},{month: "April",value: 0},{month: "May",value: 0},{month: "June",value: 0},{month: "July",value: 0},{month:"August",value:0},{month:"September",value:0},{month:"October",value:0},{month:"November",value:0},{month:"December",value:0}];
 

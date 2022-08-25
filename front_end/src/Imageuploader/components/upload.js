@@ -1,10 +1,11 @@
 import {toast} from 'react-hot-toast';
 import Image from '../../Assets/Imageupload.svg';
-import axios from 'axios';
-import config from '../../Config/dev.json';
+import axios from '../../utils/axios';
+import {useUser} from '../../Authlibrary/context/user.context';
 
 export const Uploadsection=({setUpload,setData})=>{
-
+    const {user,setauth,Logout}=useUser();
+    const {profile,userID}=user;
     async function getData(file){
         let {type,size}=file;
         const supported_types=["image/jpeg","image/jpg","image/png"];
@@ -13,8 +14,8 @@ export const Uploadsection=({setUpload,setData})=>{
             setUpload(prevState=>({...prevState,uploading:true}));
             let file_=new FormData();
             file_.append('Imageupload',file);
-            file_.append('userID',JSON.parse(localStorage.getItem('user-access')).Id)
-            axios.post(`${config.URL}/image/upload`,file_).then((data)=>{
+            file_.append('userID',userID)
+            axios.post(`${process.env.REACT_APP_API_URL}/image/upload`,file_).then((data)=>{
             if(data.status===201){
                   setData({
                  id:data.data.id,
