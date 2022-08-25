@@ -1,7 +1,6 @@
 import { Progressblock } from "./progressblock";
 import {useEffect, useState} from 'react';
 import toast from 'react-hot-toast';
-import Config from '../../Config/dev.json';
 import { Redirect, useParams } from "react-router-dom";
 import axios from '../../utils/axios';
 

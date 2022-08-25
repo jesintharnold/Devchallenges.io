@@ -9,20 +9,6 @@ import toast from 'react-hot-toast';
 import axios from '../../utils/axios';
 
 
-
-const seeder=[
-    {"url": "https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg",
-    "name": "Abyssinian"},
-    {"url": "https://cdn2.thecatapi.com/images/ozEvzdVM-.jpg",
-    "name": "Aegean"},
-    {"url": "https://cdn2.thecatapi.com/images/xnsqonbjW.jpg",
-    "name": "American Curl"},
-    {"url": "https://cdn2.thecatapi.com/images/hBXicehMA.jpg",
-    "name": "American Bobtail"}
-];
-
-
-
 export const Main=()=>{
 
     const [data,setData]=useState([]);

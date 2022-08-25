@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
-import config from '../Config/dev.json';
 import axios from '../utils/axios';
+
 export const Imageredirect=()=>{
    let {id}=useParams();
    const [data,setdata]=useState(null);
